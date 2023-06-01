@@ -1,0 +1,46 @@
+{%- if section.blocks.size > 0 -%}
+  {%- for block in section.blocks -%}
+    {%- assign _block = block.settings -%}
+    {%- assign _block_handle = _block.title | handle -%}
+
+    {%- if link_handle == _block_handle -%}
+      {%- if _block.image_1 != blank or _block.image_2 != blank or _block.image_3 != blank -%}
+        {%- assign flag = true -%}
+      {%- endif -%}
+
+      {%- capture dropdown_items -%}
+        {{ dropdown_items }}
+
+        {%- if _block.image_1 != blank or _block.image_2 != blank or _block.image_3 != blank -%}
+          <div class="nav-item js-menu-item" data-hover-target="{{ link_url }}" data-hover-target-title="{{ link_handle }}">
+            <div class="nav-item__images">
+              {%- if _block.image_1 != blank -%}
+                <div class="nav-item__image lazyload" data-bg="url({{ _block.image_1 | img_url: '1600x' }})" role="img" aria-label="{{ _block.image_1.alt }}">
+                  {%- if _block.link_1 != blank -%}
+                    <a class="menu__item-link" href="{{ _block.link_1 }}"></a>
+                  {%- endif -%}
+                </div><!-- /.nav-item__image -->
+              {%- endif -%}
+
+              {%- if _block.image_2 != blank -%}
+                <div class="nav-item__image lazyload" data-bg="url({{ _block.image_2 | img_url: '1600x' }})" role="img" aria-label="{{ _block.image_2.alt }}">
+                  {%- if _block.link_2 != blank -%}
+                    <a class="menu__item-link" href="{{ _block.link_2 }}"></a>
+                  {%- endif -%}
+                </div><!-- /.nav-item__image -->
+              {%- endif -%}
+
+              {%- if _block.image_3 != blank -%}
+                <div class="nav-item__image lazyload" data-bg="url({{ _block.image_3 | img_url: '1600x' }})" role="img" aria-label="{{ _block.image_3.alt }}">
+                  {%- if _block.link_3 != blank -%}
+                    <a class="menu__item-link" href="{{ _block.link_3 }}"></a>
+                  {%- endif -%}
+                </div><!-- /.nav-item__image -->
+              {%- endif -%}
+            </div><!-- /.nav-item__images -->
+          </div><!-- /.nav-item -->
+        {%- endif -%}
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

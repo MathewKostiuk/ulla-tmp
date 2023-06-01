@@ -1,0 +1,150 @@
+{%- assign _section = section.settings -%}
+{%- assign _blocks = section.blocks -%}
+
+{%- if _section.image != blank or _section.title != blank or _section.text != blank or _section.link_text != blank or _blocks.size > 0 -%}
+  <section class="section-fixed js-section-fixed animated">
+    <div class="section__body">
+      {%- if _section.image != blank or _section.title != blank or _section.text != blank or _section.link_text != blank -%}
+        <aside class="section__aside">
+          {%- if _section.image != blank -%}
+            <div class="section__bg"  aria-label="{{ _section.image.alt }}">
+              {% assign image_height = _section.image.width | divided_by: _section.image.aspect_ratio  %}
+              {{
+                _section.image
+                | image_url: width: 1920
+                | image_tag:
+                  loading: 'lazy',
+                  width: _section.image.width,
+                  height: image_height,
+                  sizes: '(max-width: 1023px) 100vw, 50vw',
+                  widths: '200, 400, 700, 1000, 1300, 1600, 1920'
+              }}
+            </div><!-- /.section__bg -->
+          {%- endif -%}
+
+          {%- if _section.title != blank or _section.text != blank or _section.link_text != blank -%}
+            <div class="section__content hidden-xs">
+              {%- if _section.title != blank -%}
+                <h3 class="section__title">{{ _section.title }}</h3><!-- /.section__title -->
+              {%- endif -%}
+
+              {%- if _section.text != blank -%}
+                <div class="entry-medium section__entry">
+                  <p>{{ _section.text | newline_to_br }}</p>
+                </div><!-- /.section__entry -->
+              {%- endif -%}
+
+              {%- if _section.link_text != blank -%}
+                <a href="{% if _section.link_url != blank %}{{ _section.link_url }}{% else %}#{% endif %}" class="link-default">{{ _section.link_text }}</a>
+              {%- endif -%}
+            </div><!-- /.section__content -->
+          {%- endif -%}
+        </aside><!-- /.section__aside -->
+      {%- endif -%}
+
+      {%- if _blocks.size > 0 or _section.title != blank or _section.text != blank or _section.link_text != blank -%}
+        <div class="section__inner js-section-inner">
+          {%- if _blocks.size > 0 -%}
+            <div class="section__images js-section-images">
+              {%- for block in _blocks -%}
+                {%- assign _block = block.settings -%}
+
+                {%- if _block.image != blank -%}
+                  <div class="section__image lazyload animated">
+                    {% assign image_height = _block.image.width | divided_by: _block.image.aspect_ratio  %}
+                    {{
+                      _block.image
+                      | image_url: width: 1920
+                      | image_tag:
+                        loading: 'lazy',
+                        width: _block.image.width,
+                        height: image_height,
+                        sizes: '(max-width: 780px) 50vw, 70vw',
+                        widths: '200, 400, 700, 1000, 1300, 1600, 1920'
+                    }}
+                  </div><!-- /.section__image -->
+                {%- endif -%}
+              {%- endfor -%}
+            </div><!-- /.section__images -->
+          {%- endif -%}
+
+          {%- if _section.title != blank or _section.text != blank or _section.link_text != blank -%}
+            <div class="section__content js-section-content visible-xs-block">
+              {%- if _section.title != blank -%}
+                <h3 class="section__title">{{ _section.title }}</h3><!-- /.section__title -->
+              {%- endif -%}
+
+              {%- if _section.text != blank -%}
+                <div class="entry-medium section__entry js-section-entry">
+                  <p>{{ _section.text | newline_to_br }}</p>
+                </div><!-- /.section__entry -->
+              {%- endif -%}
+
+              {%- if _section.link_text != blank -%}
+                <a href="{% if _section.link_url != blank %}{{ _section.link_url }}{% else %}#{% endif %}" class="link-default">{{ _section.link_text }}</a>
+              {%- endif -%}
+            </div><!-- /.section__content -->
+          {%- endif -%}
+        </div><!-- /.section__inner -->
+      {%- endif -%}
+    </div><!-- /.section__body -->
+  </section><!-- /.section-fixed -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Section Fixed Items",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left Column"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Home Sweet Home"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Take a look into Ulla’s sunlit home showcasing pieces from family travels, globally sourced fibers, vintage textiles, custom furniture and hand finishings. Every detail feels so personal and uniquely her and her family’s own."
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link Text",
+      "default": "Discover"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Fixed Items"
+    }
+  ]
+}
+{% endschema %}

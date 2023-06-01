@@ -1,0 +1,38 @@
+{%- assign meta_bg = page.metafields.about_section.background_image -%}
+{%- assign meta_bg_mobile = page.metafields.about_section.background_image_mobile -%}
+
+<section class="section-about js-section-about animated">
+  {%- if meta_bg != blank -%}
+    {%- capture section_bg -%}
+      {%- include 'responsive-acc-image', image_url: meta_bg, image_width: '3840' -%}
+    {%- endcapture -%}
+
+    <div class="section__bg lazyload{% if meta_bg_mobile != blank %} hidden-xs{% endif %}" data-bg="url({{ section_bg }})" role="img" aria-label="{{ meta_bg.alt }}"></div><!-- /.section__bg -->
+  {%- endif -%}
+
+  {%- if meta_bg_mobile != blank -%}
+    {%- if meta_bg != blank -%}
+      {%- capture section_bg_mobile_small -%}
+        {%- include 'responsive-acc-image', image_url: meta_bg_mobile, image_width: '1534' -%}
+      {%- endcapture -%}
+
+      <div class="section__bg lazyload visible-xs-block" data-bg="url({{ section_bg_mobile_small }})" role="img" aria-label="{{ meta_bg_mobile.alt }}"></div><!-- /.section__bg -->
+    {%- else -%}
+      {%- capture section_bg_mobile -%}
+        {%- include 'responsive-acc-image', image_url: meta_bg_mobile, image_width: '3840' -%}
+      {%- endcapture -%}
+
+      <div class="section__bg lazyload" data-bg="url({{ section_bg_mobile }})" role="img" aria-label="{{ meta_bg_mobile.alt }}"></div><!-- /.section__bg -->
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if page.content != blank -%}
+    <div class="section__inner">
+      <div class="section__content js-section-about-content">
+        <div class="section__entry entry-large">
+          {{ page.content }}
+        </div><!-- /.section__entry -->
+      </div><!-- /.section__content -->
+    </div><!-- /.section__inner -->
+  {%- endif -%}
+</section><!-- /.section-about -->

@@ -1,0 +1,92 @@
+<div class="addresses">
+  {%- paginate customer.addresses by 5 -%}
+    {%- for address in customer.addresses -%}
+      {%- assign address_first_name = address.first_name -%}
+      {%- assign address_last_name = address.last_name -%}
+
+      <div class="address {% if address.id == customer.default_address.id %}address--default{% endif %}">
+        <div class="address__view" id="view_address_{{ address.id }}">
+          <div class="address__head">
+            <div class="address__details">
+              {%- if address.id == customer.default_address.id -%}
+                <span>
+                  {{ 'customer.addresses.default' | t }}
+                </span>
+              {%- endif -%}
+              {{- address | format_address -}}
+            </div><!-- /.address__details -->
+          </div><!-- /.address__head -->
+          <div class="address__actions">
+            {{- 'customer.addresses.edit' | t | edit_customer_address_link: address.id -}}
+
+            {{- 'customer.addresses.delete' | t | delete_customer_address_link: address.id -}}
+          </div><!-- /.address__actions -->
+        </div><!-- /.address__view -->
+
+        <div class="address__body">
+          <div class="form form--address form--default" id="edit_address_{{address.id}}" style="display: none;">
+            {%- form 'customer_address', address -%}
+              {%- if form.errors -%}
+                <div class="form__error">
+                  {{- form.errors | default_errors -}}
+                </div><!-- /.form__error -->
+              {%- endif -%}
+
+              <div class="form__body">
+                {%- include 'form-address-body', index: form.id -%}
+              </div><!-- /.form__body -->
+
+              <div class="form__actions">
+                <button type="submit" class="form__btn btn btn--bordered btn--large">
+                  {{- 'customer.addresses.update' | t -}}
+                </button>
+
+                <a href="#" class="form__btn btn btn--cancel btn--bordered btn--large js-address-cancel" onclick="Shopify.CustomerAddress.toggleForm({{address.id}});return false">
+                  {{- 'customer.addresses.cancel' | t -}}
+                </a>
+
+              </div><!-- /.form__actions -->
+            {%- endform -%}
+          </div><!-- /.form -->
+        </div><!-- /.address__body -->
+
+      </div><!-- /.address -->
+    {% else %}
+      <p>
+        {{- 'customer.addresses.empty' | t -}}
+      </p>
+    {%- endfor -%}
+
+    {%- include 'pagination', label: true, prev_next : true, pager: true -%}
+  {% endpaginate %}
+</div><!-- /.addresses -->
+
+<div class="addresses__actions">
+  <a href="#form--address-new" class="btn btn--new btn--bordered btn--large">
+    {{- 'customer.addresses.add_new' | t -}}
+  </a>
+</div><!-- /.addresses__actions -->
+
+<div class="form form--address form--address-new form--default" style="display: none;">
+  {%- form 'customer_address', customer.new_address -%}
+    {%- if form.errors -%}
+      <div class="form__error">
+        {{ form.errors | default_errors }}
+      </div><!-- /.form__error -->
+    {%- endif -%}
+
+    <div class="form__body">
+      {%- include 'form-address-body', index: 'new' -%}
+    </div><!-- /.form__body -->
+
+    <div class="form__actions">
+      <button type="submit" class="form__btn btn btn--bordered btn--large">
+        {{- 'customer.addresses.add' | t -}}
+      </button>
+
+      <a href="#form--address-new" class="form__btn btn btn--cancel btn--bordered btn--large">
+        {{- 'customer.addresses.cancel' | t -}}
+      </a>
+    </div><!-- /.form__actions -->
+  {%- endform -%}
+</div><!-- /.form -->

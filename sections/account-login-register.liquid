@@ -1,0 +1,55 @@
+{%- assign _section = section.settings -%}
+{%- assign section_image = _section.image -%}
+{%- assign section_mobile = _section.mobile | default: section_image -%}
+
+<div class="section-account {% if template == 'customers/addresses' or template == 'customers/account' or template == 'customers/order' %}section-account--inner{% endif %} animated">
+  <div class="section__inner">
+    {% if section_image != blank %}
+      <div class="section__image" style="background-image: url({{- section_image | img_url: '1536x' -}})">
+        <img class="visible-xs-block visible-sm-block" src="{{- section_mobile | img_url: '1536x' -}}" alt="{{- section_mobile.alt | prepend: 'Ulla Johnson ' -}}">
+      </div><!-- /.section__image -->
+    {% endif %}
+
+    <div class="section__content {% if section_image == blank %}section__content--center{% endif %}">
+      <div class="section__body">
+        {% if template contains 'addresses' or template == 'customers/account' or template == 'customers/order' %}
+          <div class="section__account-wrapper">
+            {% include 'customer-account' %}
+          </div><!-- /.section__account-wrapper -->
+        {% else %}
+          <div class="section__form-wrapper">
+            {% include 'login-register-forms' %}
+          </div><!-- /.section__form-wrapper -->
+        {% endif %}
+      </div><!-- /.section__body -->
+
+      {%- if settings.help_menu -%}
+        <div class="section__foot">
+          {%- assign tooltip_modifier = 'tooltip--center' -%}
+          {% if template == 'customers/addresses' or template == 'customers/account' or template == 'customers/order' %}
+            {%- assign tooltip_modifier = 'tooltip--left' -%}
+          {% endif %}
+          {%- include 'tooltip-menu' class: 'tooltip', modifier: tooltip_modifier, tooltip_id: 'account' -%}
+        </div><!-- /.section__foot -->
+      {%- endif -%}
+    </div><!-- /.section__content -->
+  </div><!-- /.section__inner -->
+</div><!-- /.section-account -->
+
+{% schema %}
+{
+  "name": "Account Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image - Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile",
+      "label": "Image - Mobile"
+    }
+  ]
+}
+{% endschema %}

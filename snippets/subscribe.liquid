@@ -1,0 +1,15 @@
+{%- if settings.subscribe_text != blank or settings.subscribe_embed != blank -%}
+  <div class="subscribe {{ additional_class }}">
+    {%- if settings.subscribe_text != blank -%}
+      <div class="subscribe__head">
+        <h5 class="subscribe__title">{{ settings.subscribe_text }}</h5>
+      </div><!-- /.subscribe__head -->
+    {%- endif -%}
+
+    {%- if settings.subscribe_embed != blank -%}
+      <div class="subscribe__body">
+        {{ settings.subscribe_embed }}
+      </div><!-- /.subscribe__body -->
+    {%- endif -%}
+  </div><!-- /.subscribe -->
+{%- endif -%}

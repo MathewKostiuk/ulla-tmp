@@ -1,0 +1,59 @@
+{%- assign _blocks = section.blocks -%}
+{%- assign _settings = section.settings -%}
+
+{%- if _blocks.size > 0 -%}
+  <nav class="subnav nav animated">
+    <ul>
+      {%- if _settings.back_url != blank -%}
+        <li>
+          <a class="nav__link menu__item-link" href="{{ _settings.back_url }}">{{ 'landing.back' | t }}</a>
+        </li>
+      {%- endif -%}
+      {%- for block in _blocks -%}
+        {%- assign _block = block.settings -%}
+        {%- if _block.url != blank and _block.title != blank -%}
+          <li>
+            <a class="nav__link menu__item-link" href="{{ _block.url }}">{{ _block.title }}</a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Subnavigation",
+  "settings": [
+    {
+      "type": "url",
+      "id": "back_url",
+      "label": "Back URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subnavigation"
+    }
+  ],
+  "max_blocks": 3
+}
+{% endschema %}

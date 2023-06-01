@@ -1,0 +1,28 @@
+{% liquid
+  assign product_subtitle = product.metafields.product_info.product_subtitle
+%}
+
+<div class="product-title__container">
+  {%- if product.title contains product_title_splitter -%}
+    <h1 class="heading-small section__title">
+      {%- assign product_title_first = product.title | split: product_title_splitter | first | strip -%}
+      {%- assign product_title_last = product.title | split: product_title_splitter | last | strip -%}
+      {{ product_title_first }}
+
+      <em>{{ product_title_last }}</em>
+    </h1><!-- /.section__title -->
+  {%- else -%}
+    <h1 class="heading-small section__title js-product-title">
+      {{ product.title }}
+
+      <em></em>
+    </h1><!-- /.section__title -->
+  {%- endif -%}
+  {% if product_subtitle != blank %}
+    <h2 class="product-subtitle">{{ product_subtitle }}</h2>
+  {% endif %}
+</div>
+
+<div class="price section__price section__price--primary js-product-price">
+  {%- include 'price' with product.selected_or_first_available_variant -%}
+</div><!-- /.price -->

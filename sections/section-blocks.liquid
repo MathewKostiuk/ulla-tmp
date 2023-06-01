@@ -1,0 +1,210 @@
+{%- assign _section = section.settings -%}
+{%- assign _blocks = section.blocks -%}
+{%- assign section_block_html = '' -%}
+
+<style>
+  .template-page--{{ template.suffix }} .wrapper {
+    overflow: visible;
+  }
+</style>
+
+<div class="sticky-nav js-sticky-nav">
+  <ul>
+    {% for block in section.blocks %}
+      {% assign _block = block.settings %}
+      {% assign anchor = _block.anchor_link %}
+      <li>
+        <a href="#{{anchor}}">
+          {{ anchor }}
+        </a>
+      </li>
+    {% endfor %}
+    <li class="spybar js-spybar"></li><!-- /.spybar -->
+  </ul>
+</div><!-- /.sticky-nav -->
+
+{%- if _blocks.size > 0 -%}
+  {%- for block in _blocks -%}
+    {%- assign _block = block.settings -%}
+    {%- assign _block_bg = _block.background -%}
+    {%- assign _block_title = _block.title -%}
+    {%- assign _block_text = _block.text -%}
+    {%- assign _block_text_small = _block.text_small -%}
+    {%- assign _block_image_1 = _block.image_1 -%}
+    {%- assign _block_image_2 = _block.image_2 -%}
+    {%- assign _block_image_3 = _block.image_3 -%}
+    {%- assign _block_image_4 = _block.image_4 -%}
+    {%- assign _block_anchor = _block.anchor_link -%}
+
+    {%- if _block_bg != blank or _block_title != blank or _block_text != blank or _block_text_small != blank or _block_image_1 != blank or _block_image_2 != blank or _block_image_3 != blank or _block_image_4 != blank -%}
+      {%- capture section_block_html -%}
+        {{ section_block_html }}
+
+        <section class="section-blocks animated"{% if _block_anchor != blank %} id="{{ _block_anchor }}"{% endif %}>
+          {%- if _block_bg != blank or _block_title != blank or _block_text != blank or _block_text_small != blank -%}
+            <div class="section__container animated">
+              <div class="section__sticky">
+                <div class="section__inner">
+                  {%- if _block_bg != blank -%}
+                    <div class="section__bg lazyload" data-bg="url({{ _block_bg | img_url: '3840x' }})" role="img" aria-label="{{ _block_bg.alt }}"></div><!-- /.section__bg -->
+                  {%- endif -%}
+
+                  {%- if _block_title != blank or _block_text != blank or _block_text_small != blank -%}
+                    <div class="section__content">
+                      {%- if _block_title != blank -%}
+                        <div class="section__title">
+                          {{ _block_title }}
+                        </div><!-- /.section__title -->
+                      {%- endif -%}
+
+                      {%- if _block_text != blank -%}
+                        <div class="section__entry section__entry--primary entry-large">
+                          {{ _block_text | replace: 'href=', 'target="_blank" href=' | replace: 'target="_blank" href="tel', 'href="tel' | replace: 'target="_blank" href="mailto', 'href="mailto' }}
+                        </div><!-- /.section__entry -->
+                      {%- endif -%}
+
+                      {%- if _block_text_small != blank -%}
+                        <div class="section__entry section__entry--secondary entry-small entry-small--mobile">
+                          <p>{{ _block_text_small | newline_to_br }}</p>
+                        </div><!-- /.section__entry -->
+                      {%- endif -%}
+                    </div><!-- /.section__content -->
+                  {%- endif -%}
+                </div><!-- /.section__inner -->
+              </div><!-- /.section__sticky -->
+            </div><!-- /.section__container -->
+          {%- endif -%}
+          {%- include 'stores-image-gallery', _settings: _block -%}
+        </section><!-- /.section-blocks -->
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if section_block_html != '' -%}
+  <div class="sections-blocks sections-blocks--sticky">
+    {{ section_block_html }}
+  </div><!-- /.sections-blocks -->
+{%- endif -%}
+
+{%- if _section.bottom_title != blank -%}
+  <section class="section-actions animated">
+    <div class="container container--fluid">
+      <div class="section__body">
+        {%- if _section.bottom_title != blank -%}
+          <h5 class="section__title">{{ _section.bottom_title }}</h5><!-- /.section__title -->
+        {%- endif -%}
+
+        {%- if _section.btn_text != blank -%}
+          <a href="{% if _section.btn_link != blank %}{{ _section.btn_link }}{% else %}#{% endif %}" class="btn btn--min-large">{{ _section.btn_text }}</a>
+        {%- endif -%}
+      </div><!-- /.section__body -->
+    </div><!-- /.container -->
+  </section><!-- /.section-actions -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Stores",
+  "settings": [
+    {
+      "type": "text",
+      "id": "bottom_title",
+      "label": "Bottom Title",
+      "default": "Ulla Johnson Stockists"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "View Stockists"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store",
+      "name": "Store",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background",
+          "label": "Background"
+        },
+        {
+          "type": "text",
+          "id": "anchor_link",
+          "label": "Anchor Link"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "text_small",
+          "label": "Text Small"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "Image 6"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_7",
+          "label": "Image 7"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_8",
+          "label": "Image 8"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stores"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["page"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,35 @@
+{%- assign output = '' -%}
+{%- assign echo = echo | default: true -%}
+{%- assign __product = price | default: product -%}
+
+{%- if __product != empty -%}
+  {%- if echo == true -%}
+    {% if __product.compare_at_price > __product.price %}
+      <del class="price__amount">
+        <span class="money flow-price" flow-variant="{{__product.id}}" flow-selector="prices.compare_at.label" flow-default="{{ __product.compare_at_price | money_without_trailing_zeros }}">
+          {{ __product.compare_at_price | money_without_trailing_zeros }}
+        </span><!-- /.money -->
+      </del>
+
+      <ins class="price__amount">
+        <span class="money flow-price" flow-variant="{{__product.id}}" flow-selector="prices.item.label" flow-default="{{ __product.price | money_without_trailing_zeros }}">
+          {{ __product.price | money_without_trailing_zeros }}
+        </span><!-- /.money -->
+      </ins>
+    {%- else -%}
+      <span class="price__amount">
+        <span class="money flow-price" flow-variant="{{__product.id}}" flow-selector="prices.item.label" flow-default="{{ __product.price | money_without_trailing_zeros }}">
+          {{ __product.price | money_without_trailing_zeros }}
+        </span><!-- /.money -->
+      </span>
+    {%- endif -%}
+  {%- else -%}
+    {%- capture output -%}
+      {%- include 'price' with __product, echo: true -%}
+    {%- endcapture -%}
+
+    {%- assign output = output | strip_newlines | remove: '	' | replace: '"', "'" -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign __product = '' -%}

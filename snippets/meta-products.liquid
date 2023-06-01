@@ -1,0 +1,22 @@
+{%- if meta_product != blank -%}
+  <section class="section-recommended {{ section_modifier }} animated">
+    <header class="section__head">
+      <div class="container container--fluid-second">
+        <h6 class="heading-large section__title">{{ section_title }}</h6>
+      </div><!-- /.container -->
+    </header><!-- /.section__head -->
+
+    <div class="section__inner">
+      <div class="section__body js-section-horizontal-parent">
+        <div class="product-items-scroll js-section-horizontal">
+          {%- for idx in (1..meta_product.size) -%}
+            {%- assign product_handle = meta_product[forloop.index0] -%}
+            {%- assign product_item = all_products[product_handle] -%}
+
+            {%- include 'product-item' with product_item, modifier: 'product-item--inline js-item-horizontal' -%}
+          {%- endfor -%}
+        </div><!-- /.product-items-scroll -->
+      </div><!-- /.section__body -->
+    </div><!-- /.section__inner -->
+  </section><!-- /.section-recommended -->
+{%- endif -%}

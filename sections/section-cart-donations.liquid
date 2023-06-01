@@ -1,0 +1,96 @@
+
+{%- assign _blocks = section.blocks -%}
+
+<div class="js-donations-block">
+  {%- if _blocks.size > 0 -%}
+    {%- for block in _blocks -%}
+    {%- assign _block = block.settings -%}
+      {%- if _block.show_block -%}
+        <div class="items-more">
+          {%- if _block.title != blank -%}
+            <div class="items-more__head">
+              <h6 class="heading-medium items-more__title donation-title">{{ _block.title }}</h6><!-- /.items-more__title -->
+            </div><!-- /.items-more__head -->
+          {%- endif -%}
+          {%- if _block.donation_description != blank -%}
+            <p class="donation-description">{{ _block.donation_description }}</p>
+          {%- endif -%}
+          {%- if _block.donation_product -%}
+            {%- assign cart_ids = '' -%}
+            {%- for item in cart.items -%}
+              {%- if cart_ids != '' -%}
+                {%- assign cart_ids = cart_ids | append: ',' -%}
+              {%- endif -%}
+              {%- assign cart_ids = cart_ids | append: item.id -%}
+            {%- endfor -%}
+            <div class="items-more__body">
+              {%- assign _product = all_products[_block.donation_product] -%}
+              <ul class="list-unstyled">
+                {%- for _variant in _product.variants -%}
+                  <li>
+                    <input type="checkbox" name="donation-product"
+                      class="donation-checkbox js-donation-product"
+                      id="donation-checkbox-{{ _variant.id }}" value="{{ _variant.id }}"{% if cart_ids contains _variant.id %} checked{% endif %}>
+                    <label for="donation-checkbox-{{ _variant.id }}" class="donation-label">{{ _block.donation_text | replace: '%placeholder%', _variant.title }}</label>
+                  </li>
+              {%- endfor -%}
+              </ul>
+              {%- if _block.donation_after_text != blank -%}
+                <p>{{ _block.donation_after_text }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- assign _block = nil -%}
+    {%- endfor -%}
+  {%- endif -%}
+</div>
+{% schema %}
+  {
+    "name": "Donation section",
+    "tag": "section",
+    "blocks": [
+    {
+      "type": "donation",
+      "name": "donation",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_block",
+          "label": "Show section",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Donations"
+        },
+        {
+          "type": "product",
+          "id": "donation_product",
+          "label": "Donation product"
+        },
+        {
+          "type": "text",
+          "id": "donation_text",
+          "label": "Donation product text",
+          "default": "Click here to add a %placeholder% donation",
+          "info": "Do not remove %placeholder%"
+        },
+        {
+          "type": "textarea",
+          "id": "donation_description",
+          "label": "Donation description"
+        },
+        {
+          "type": "richtext",
+          "id": "donation_after_text",
+          "label": "Text after donation product"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

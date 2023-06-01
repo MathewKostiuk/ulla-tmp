@@ -1,0 +1,12 @@
+{%- assign dimensions = image_url | split: '?' | last | split: 'x' -%}
+{%- assign dimension_first = dimensions.first | plus: 0 -%}
+{%- assign image_width_value = image_width | plus: 0 -%}
+{%- assign path = '' -%}
+
+{%- if dimension_first > image_width_value -%}
+  {%- assign path = "//images.accentuate.io?c_options=w_" | append: image_width | append: "&shop=" | append: shop.permanent_domain | append: "&image=" | append:  image_url -%}
+{%- else -%}
+  {%- assign path = image_url -%}
+{%- endif -%}
+
+{{ path }}

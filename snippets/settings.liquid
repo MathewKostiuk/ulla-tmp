@@ -1,0 +1,102 @@
+{%- include 'body_class' -%}
+
+{%- capture theme_title -%}
+  {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} | {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}
+  {% endunless %}
+{%- endcapture -%}
+
+{%- capture theme_styles -%}
+  {{ 'bundle.css' | asset_url | stylesheet_tag }}
+  {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
+{%- endcapture -%}
+
+{%- capture theme_scripts -%}
+  {%- include 'locale' -%}
+
+  {%- if template contains 'customers' -%}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+  {%- endif -%}
+
+  {%- if template contains 'product' -%}
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+    <script>
+      var Shopify = Shopify || {};
+      Shopify.product = {{ product | json }};
+      Shopify.product.variantsFilter = [{%- for _variant in product.variants -%}
+      {
+        available: {{_variant.available}},
+        compare_at_price:{{_variant.compare_at_price|default:0}},
+        id: {{_variant.id}},
+        inventory_quantity: {{_variant.inventory_quantity}},
+        name: {{product.title|json}},
+        option1: "{{_variant.option1}}",
+        option2: "{{_variant.option2}}",
+        option3: "{{_variant.option3}}",
+        options: {{_variant.options|json}},
+        price: {{_variant.price}},
+        title: {{_variant.title|json}}
+      },
+    {%- endfor -%}];
+    </script>
+  {%- endif -%}
+
+  {% comment %}
+  This is automatically injected by the Klaviyo Shopify app in the header
+  <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id={{ settings.subscribe_api_key | strip }}"></script>
+  {% endcomment %}
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  {{ 'TweenMax.min.js' | asset_url | script_tag }}
+  {{ 'lazyload.min.js' | asset_url | script_tag }}
+  {{ 'bundle.js' | asset_url | script_tag }}
+  {{ 'custom.js' | asset_url | script_tag }}
+
+  <script type="text/javascript">!function(){var b=function(){window.__AudioEyeSiteHash = "5fc374ea8359683928b6d7a3287eaeb5"; var a=document.createElement("script");a.src="https://wsmcdn.audioeye.com/aem.js";a.type="text/javascript";a.setAttribute("async","");document.getElementsByTagName("body")[0].appendChild(a)};"complete"!==document.readyState?window.addEventListener?window.addEventListener("load",b):window.attachEvent&&window.attachEvent("onload",b):b()}();</script>
+
+  <script type="text/javascript">
+    var _learnq = _learnq || [];
+    window.klaviyoPixelAddCart = function(product) {
+      if (product.id) {
+
+        const firstImage = product.images[0];
+        var imgUrl = ''
+        if (firstImage) {
+          imgUrl = (firstImage.src) ? firstImage.src : firstImage
+        }
+
+        var productUrl = ''
+        if (product.url) {
+          productUrl = "{{ shop.secure_url }}" + product.url
+        } else {
+          productUrl = "{{ shop.secure_url }}" + "/products/" + product.handle
+        }
+
+        {% if product != blank %}
+          const categories = `{{ product.collections | map: 'title' }}`
+        {% elsif collection != blank %}
+          const categories = '{{ collection.title }}'
+        {% else %}
+          const categories = ''
+        {% endif %}
+
+        var item = {
+          Name: product.title,
+          ProductID: product.id,
+          Categories: categories,
+          ImageURL: imgUrl,
+          URL: productUrl,
+          Brand: product.vendor,
+          Price: product.price_max,
+          CompareAtPrice: product.compare_at_price_max
+        };
+
+        _learnq.push(['track', 'Added to Cart', item]);
+      }
+    }
+  </script>
+
+  <script type="text/javascript">
+    window.LazyLoad = LazyLoad || {};
+  </script>
+{%- endcapture -%}

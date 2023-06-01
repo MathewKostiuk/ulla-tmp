@@ -1,0 +1,16 @@
+<form action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" novalidate="novalidate" id="email_signup-{{index}}" class="js-form-subscribe" autocomplete="off">
+  <input type="hidden" name="g" value="{{email_list_id}}">
+  <input type="hidden" name="$fields" value="Birthday">
+  <input type="hidden" name="$list_fields" value="$consent">
+
+  <input type="email" id="k_id_email{{index}}" name="email" value="" placeholder="{%- if email_placeholder != blank -%}{{ email_placeholder }}{%- else -%}{{ 'customer.subscribe_form.newsletter_email' | t }}{%- endif -%}" autocomplete="off" />
+
+  <input type="text" id="k_id_birthday{{index}}" name="Birthday" value="" placeholder="{%- if birthday_placeholder != blank -%}{{ birthday_placeholder }}{%- else -%}{{ 'customer.subscribe_form.newsletter_birthday' | t }}{%- endif -%}" class="js-date-entry" />
+
+  <button type="submit" class="notify__btn btn btn--large btn--medium-mobile btn--bordered btn--block js-notify-btn">{%- if button_text != blank -%}{{ button_text }}{%- else -%}{{ 'customer.subscribe_form.button_text' | t }}{%- endif -%}</button>
+
+  <div class="klaviyo_messages">
+    <div class="success_message" style="display:none;"></div>
+    <div class="error_message" style="display:none;"></div>
+  </div>
+</form>

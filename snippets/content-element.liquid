@@ -1,0 +1,11 @@
+{%- if elem_title != blank or link_text != blank -%}
+  <div class="{{ class_start }}__content">
+    {%- if elem_title != blank -%}
+      <h3 class="{{ class_start }}__title">{{ elem_title | replace: '<p>', '' | replace: '</p>', '' }}</h3><!-- /.{{ class_start }}__title -->
+    {%- endif -%}
+
+    {%- if link_text != blank -%}
+      <a href="{% if link_url != blank %}{{ link_url }}{% else %}#{% endif %}" class="link-default {{ class_start }}__link">{{ link_text }}</a>
+    {%- endif -%}
+  </div><!-- /.{{ class_start }}__content -->
+{%- endif -%}

@@ -1,0 +1,55 @@
+{%- assign _blocks = section.blocks -%}
+{%- if _blocks.size > 0 -%}
+  <div class="js-flipbook-banner">
+    {%- for block in _blocks -%}
+      {%- assign _block = block.settings -%}
+
+      {%- include 'default-section' block_image: _block.image, block_image_mobile: _block.image_mobile, block_title: _block.title, block_link: _block.link, block_content: _block.content  -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+<div class="popup popup--email js-flipbook-popup">
+  <div class="popup__lookbook-content">{{page.content}}</div>
+</div>
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "class": "sections-default sections-default--sticky",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image Mobile"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "default": "Artisanal Craft & Community"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 1
+}
+{% endschema %}

@@ -1,0 +1,40 @@
+{%- assign _section = section.settings -%}
+{%- assign _collection = _section.collection_id -%}
+
+{%- if collections[_collection].products.size > 0 -%}
+  <div class="items-slider">
+    {%- if _section.title != blank -%}
+      <div class="items-slider__head">
+        <h6 class="heading-large items-slider__title">{{ _section.title }}</h6><!-- /.items-slider__title -->
+      </div><!-- /.items-slider__head -->
+    {%- endif -%}
+
+    <div class="items-slider__body">
+      <div class="product-items-default js-slider-cart">
+        {%- for _product in collections[_collection].products -%}
+          {%- include 'product-item' with _product, modifier: 'product-item--inline' -%}
+        {%- endfor -%}
+      </div><!-- /.product-items-default -->
+    </div><!-- /.items-slider__body -->
+  </div><!-- /.items-slider -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart Empty Collection",
+  "class": "items-slider-outer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "UJ Faves"
+    },
+    {
+      "type": "collection",
+      "id": "collection_id",
+      "label": "Collection"
+    }
+  ]
+}
+{% endschema %}

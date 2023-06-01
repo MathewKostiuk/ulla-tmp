@@ -1,0 +1,77 @@
+{%- include 'block-section' modifier: 'section-block--tertiary', meta_images: true, opacity_animate: false, opacity_revert: true, richtext: false, block_image: blog.metafields.blog_details.image, block_image_mobile: blog.metafields.blog_details.image_mobile, block_title: blog.title, block_text: blog.metafields.blog_details.text, block_video: blog.metafields.blog_details.video -%}
+
+{%- if blog.articles.size > 0 -%}
+  <div class="sections-article animated js-sections-overlay-parent">
+    <div class="sections__overlay js-sections-overlay"></div><!-- /.section__overlay -->
+
+    <div class="sections__body">
+      {%- paginate blog.articles by 9999 -%}
+        {%- for article in blog.articles -%}
+          {%- assign caption_html = '' -%}
+          {%- assign article_meta_texts = article.metafields.blog_article.link_text -%}
+          {%- assign article_meta_urls = article.metafields.blog_article.link_url -%}
+          {%- assign article_meta_size = 0 -%}
+          {%- assign article_meta_html = '' -%}
+
+          {%- if article_meta_texts != blank and article_meta_size == 0 -%}
+            {%- assign article_meta_size = article_meta_texts.size -%}
+          {%- elsif article_meta_urls != blank and article_meta_size == 0 -%}
+            {%- assign article_meta_size = article_meta_urls.size -%}
+          {%- endif -%}
+
+          {%- if article_meta_size > 0 -%}
+            {%- for idx in (1..article_meta_size) -%}
+              {%- assign article_meta_text = article_meta_texts[forloop.index0] -%}
+              {%- assign article_meta_url = article_meta_urls[forloop.index0] -%}
+
+              {%- if article_meta_text != blank and article_meta_url != blank -%}
+                {%- capture article_meta_html -%}
+                  {{ article_meta_html }}
+
+                  <a href="{{ article_meta_url }}" class="link-default link-default--mobile-medium">{{ article_meta_text }}</a>
+                {%- endcapture -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- capture caption_html -%}
+            <div class="section__caption">
+              <h3 class="section__title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h3><!-- /.section__title -->
+
+              <div class="section__actions">
+                {%- if article_meta_html != '' -%}
+                  {{ article_meta_html }}
+                {%- else -%}
+                  <a href="{{ article.url }}" class="link-default link-default--mobile-medium">{{ 'blogs.article.discover' | t }}</a>
+                {%- endif -%}
+              </div><!-- /.section__actions -->
+            </div><!-- /.section__caption -->
+          {%- endcapture -%}
+
+          <section class="section-article animated">
+            <div class="section__body">
+              {{ caption_html }}
+
+              {%- if article.image != blank -%}
+                <div class="section__image">
+                  {%- assign article_image = article.image | img_url: '3840x' -%}
+                  <figure class="lazyload" data-bg="url({{ article_image }})">
+                    {%- include 'lazyload-image' _image: article_image, _image_alt: article.image.alt -%}
+
+                    <a href="{{ article.url }}"></a>
+                  </figure>
+                </div><!-- /.section__image -->
+              {%- endif -%}
+
+              {{ caption_html }}
+            </div><!-- /.section__body -->
+          </section><!-- /.section-article -->
+        {%- endfor -%}
+
+        {%- include 'pagination' -%}
+      {%- endpaginate -%}
+    </div><!-- /.sections__body -->
+  </div><!-- /.sections-article -->
+{%- endif -%}

@@ -1,0 +1,356 @@
+{%- assign _section = section.settings -%}
+{%- assign _blocks = section.blocks -%}
+
+<section class="lookbook-grid" data-component="lookbook-grid">
+  {% if _section.desktop_vimeo_video != blank or _section.mobile_vimeo_video != blank %}
+    <div class="lookbook-grid__video-wrapper">
+      <div class="lookbook-grid__video-player section__video video-player">
+        {% if _section.desktop_vimeo_video != blank %}
+          <video id="video-player-desktop" class="video-js vjs-theme-ulla js-video-component hidden-xs">
+            <source
+              src="{{ _section.desktop_vimeo_video }}"
+              type="video/mp4"
+            >
+          </video>
+        {% endif %}
+        {% if _section.mobile_vimeo_video != blank %}
+          <video id="video-player-mobile" class="video-js vjs-theme-ulla js-video-component visible-xs-block">
+            <source
+              src="{{ _section.mobile_vimeo_video }}"
+              type="video/mp4"
+            >
+          </video>
+        {% endif %}
+      </div>
+      <div class="lookbook-grid__overlay" style="--overlay-opacity: {{ _section.overlay_opacity | divided_by: 100.0 }}"></div>
+      {% if _section.heading != blank %}
+        <h2 class="lookbook-grid__heading">
+          {{ _section.heading }}
+        </h2>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if _blocks.size > 0 %}
+    <div class="lookbook-grid__content-grid">
+      {% for block in _blocks %}
+        {% case block.type %}
+          {% when 'look' %}
+            {%- capture sizes -%}
+              (max-width: 778px) 50vw, 30vw
+            {%- endcapture -%}
+            <div
+              class="
+                look-item
+                {% if block.settings.video != blank %}
+                  look-item--video
+                {% endif %}
+              "
+              data-look-item
+            >
+              <div class="look-item__media {% if block.settings.image == blank %} look-item__media-no-img {% endif %}" data-look-item-media>
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 600
+                    | image_tag:
+                    loading: 'lazy',
+                    width: block.settings.image.width,
+                    class: 'look-item__image',
+                    sizes: sizes,
+                    widths: '600, 900'
+                  }}
+                {% endif %}
+
+                {% if block.settings.video != blank %}
+                  <div class="look-item__video" data-look-item-video>
+                    <video
+                      loop
+                      autoplay
+                      muted
+                      playsinline
+                      preload="none"
+                    >
+                      <source data-src="{{ block.settings.video }}" type="video/mp4">
+                    </video>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="look-item__footer">
+                <h3 class="look-item__title">
+                  {{ block.settings.title }}
+                </h3>
+                <button class="look-item__cta link-default" data-look-item-trigger>
+                  {{ block.settings.cta_copy }}
+                </button>
+              </div>
+              <div class="look-item__tray" data-look-item-tray>
+                <div class="tray__header">
+                  <h3 class="tray__title">
+                    {{ block.settings.title }}
+                  </h3>
+                  <button class="tray__close" data-look-item-tray-close>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.00007 9.70655L15.6822 16.3785L16.3888 15.6709L9.70772 8.99999L16.3888 2.32906L15.6823 1.62141L9.00007 8.29342L2.3179 1.6214L1.61133 2.32904L8.29242 8.99998L1.61135 15.6709L2.31791 16.3785L9.00007 9.70655Z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="tray__media">
+                  {% if block.settings.video != blank %}
+                    <div class="tray__video" data-tray-video-container>
+                      <video
+                        class="video-js"
+                        autoplay
+                        loop
+                        muted
+                        poster="{{ block.settings.image | img_url: '600x' }}"
+                        playsinline
+                        data-tray-video
+                      >
+                        <source data-src="{{ block.settings.video }}" type="video/mp4">
+                      </video>
+                    </div>
+                  {% else %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 600
+                      | image_tag:
+                        loading: 'lazy',
+                        width: block.settings.image.width,
+                        class: 'tray__image',
+                        sizes: sizes,
+                        widths: '600, 900'
+                    }}
+                  {% endif %}
+                </div>
+                <div class="tray__content" data-tray-content>
+                  {% assign product_handles = block.settings.products | map: 'handle' %}
+                  <div class="tray__products" data-product-slider data-product-handles="{{ product_handles | join: '|' }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% when 'content' %}
+            <div
+              class="
+                content-item
+                {% if block.settings.size == 'double' %}content-item--double{% endif %}
+              "
+            >
+              {% if block.settings.video != blank %}
+                <div class="content-item__video">
+                  <video
+                    src="{{ block.settings.video }}"
+                    autoplay
+                    loop
+                    {% if block.settings.image != blank %}
+                      poster="{{ block.settings.image | img_url: '1200x' }}"
+                    {% endif %}
+                    muted
+                    playsinline
+                  >
+                  </video>
+                </div>
+              {% else %}
+                {%- capture sizes -%}
+                  {% if block.settings.size == 'double' %}
+                    (max-width: 778px) 100vw, 66vw
+                  {% else %}
+                    (max-width: 778px) 50vw, 33vw
+                  {% endif %}
+                {%- endcapture -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1200
+                  | image_tag:
+                    loading: 'lazy',
+                    width: block.settings.image.width,
+                    class: 'content-item__image',
+                    sizes: sizes,
+                    widths: '900, 1200'
+                }}
+              {% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.pagination_menu.links.size > 0 %}
+    {% liquid
+      assign active_index = 1
+      assign last_index = section.settings.pagination_menu.links.size | minus: 1
+      for link in section.settings.pagination_menu.links
+        if link.active
+          assign active_index = forloop.index0
+        endif
+      endfor
+
+      assign previous_index = active_index | minus: 1
+      assign next_index = active_index | plus: 1
+    %}
+
+    <div class="lookbook-grid__pagination">
+      <ul>
+        {% if previous_index != -1 %}
+          <a class="lookbook-grid__pagination-button btn btn--tertiary btn--narrow" href="{{ section.settings.pagination_menu.links[previous_index].url }}">
+            {% render 'icons', id: 'previous-enabled' %}
+          </a>
+        {% else %}
+          <div class="lookbook-grid__pagination-button btn btn--tertiary btn--narrow btn--disabled">
+            {% render 'icons', id: 'previous-disabled' %}
+          </div>
+        {% endif %}
+        {% for link in section.settings.pagination_menu.links %}
+          <li>
+            {% if link.active %}
+              <span class="active">{{ forloop.index }}</span>
+            {% else %}
+              <a href="{{ link.url }}">{{ forloop.index }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+        {% if active_index != last_index %}
+          <a class="lookbook-grid__pagination-button btn btn--tertiary btn--narrow" href="{{ section.settings.pagination_menu.links[next_index].url }}">
+            {% render 'icons', id: 'next-enabled' %}
+          </a>
+        {% else %}
+          <div class="lookbook-grid__pagination-button btn btn--tertiary btn--narrow btn--disabled">
+            {% render 'icons', id: 'next-disabled' %}
+          </div>
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+  <template id="tray-product-template">
+    <div class="tray__product">
+      <a
+        data-product-url
+        class="tray__product-link"
+      >
+        <img class="tray__product-image" data-product-image>
+      </a>
+      <div class="tray__product-info">
+        <a
+          class="tray__product-title"
+          data-product-title
+        >
+        </a>
+        <div class="tray__product-price" data-product-price>
+        </div>
+      </div>
+    </div>
+  </template>
+</section>
+
+{% schema %}
+  {
+    "name": "Lookbook Grid",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Spring/Summer 2023",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "desktop_vimeo_video",
+        "label": "Desktop Vimeo video link"
+      },
+      {
+        "type": "text",
+        "id": "mobile_vimeo_video",
+        "label": "Mobile Vimeo video link"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "unit": "%",
+        "label": "Overlay opacity",
+        "default": 10
+      },
+      {
+        "type": "link_list",
+        "id": "pagination_menu",
+        "label": "Pagination menu",
+        "info": "Use this menu to link to the other trunkshow pages."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "look",
+        "name": "Look",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Look Title"
+          },
+          {
+            "type": "text",
+            "id": "cta_copy",
+            "label": "CTA Copy",
+            "default": "Shop the Look"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "video",
+            "label": "Vimeo video"
+          },
+          {
+            "type": "product_list",
+            "id": "products",
+            "label": "Products",
+            "limit": 8
+          }
+        ]
+      },
+      {
+        "type": "content",
+        "name": "Content",
+        "settings": [
+          {
+            "type": "select",
+            "id": "size",
+            "label": "Size",
+            "options": [
+              {
+                "value": "single",
+                "label": "One column"
+              },
+              {
+                "value": "double",
+                "label": "Two column"
+              }
+            ]
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "video",
+            "label": "Vimeo video",
+            "info": "If present, image will be ignored."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Lookbook Grid"
+      }
+    ]
+  }
+{% endschema %}

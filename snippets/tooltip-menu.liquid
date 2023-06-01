@@ -1,0 +1,15 @@
+{%- if settings.help_menu != blank -%}
+  <div class="{{ class }} {{ modifier }} js-tooltip" id="tooltip-help-{{ tooltip_id }}">
+    <a href="#" class="link-icon tooltip__link js-btn-toggle" tabindex="0" data-class="expanded" data-target="#tooltip-help-{{ tooltip_id }}">
+      <i class="ico-question">?</i>
+
+      <span>{{ 'general.help_btn' | t }}</span>
+    </a>
+
+    <div class="tooltip__body">
+      <nav class="nav-block">
+        {%- include 'menu', handle: settings.help_menu -%}
+      </nav><!-- /.nav-block -->
+    </div><!-- /.tooltip__body -->
+  </div><!-- /.tooltip -->
+{%- endif -%}

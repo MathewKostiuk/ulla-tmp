@@ -1,0 +1,26 @@
+{%- assign _metafield = page.metafields -%}
+
+{% comment %}Block Section{% endcomment %}
+{%- include 'block-section' modifier: 'section-block--primary', meta_images: true, opacity_animate: false, opacity_revert: false, richtext: false, block_image: _metafield.intro.image, block_image_mobile: _metafield.intro.image_mobile, block_title: _metafield.intro.title, block_text: _metafield.intro.text -%}
+
+{% comment %}Horizontal Sections{% endcomment %}
+<section class="section-horizontal animated">
+  <div class="section__inner js-section-horizontal-parent">
+    <div class="section__body js-section-horizontal" data-scroll-speed="100">
+      {% comment %}Horizontal Collection{% endcomment %}
+      {%- include 'dedicated-collection' _metafield: _metafield.collection_1 -%}
+
+      {% comment %}Horizontal Text{% endcomment %}
+      {%- include 'dedicated-item' _metafield: _metafield -%}
+
+      {% comment %}Horizontal Images{% endcomment %}
+      {%- include 'dedicated-images' _metafield: _metafield.image_item_1 -%}
+
+      {% comment %}Horizontal Collection{% endcomment %}
+      {%- include 'dedicated-collection' _metafield: _metafield.collection_2 -%}
+
+      {% comment %}Horizontal Images{% endcomment %}
+      {%- include 'dedicated-images' _metafield: _metafield.image_item_2 -%}
+    </div><!-- /.section__body -->
+  </div><!-- /.section__inner -->
+</section><!-- /.section-horizontal -->

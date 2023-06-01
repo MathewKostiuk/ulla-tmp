@@ -1,0 +1,44 @@
+<div class="popup popup--notify" id="pdp-preorder-alert-modal">
+  <span class="popup__overlay js-btn-toggle" data-target="#popup-signup-alert" data-class="expanded"></span>
+
+  <div class="popup__body">
+    <a href="#" class="btn-close btn-close--mobile-large js-btn-toggle" data-target="#popup-signup-alert" data-class="expanded"></a>
+
+    <div class="notify js-notify">
+        <div class="pdp-preorder-alert-modal-text entry-small entry-small--primary notify__head">
+          <span>{{ section.settings.preorder_alert_modal_text }}</span>
+        </div>
+
+        <div class="notify__body">
+          <input type="hidden" name="productId" class="pdp-preorder-alert-field-product-id notify__field" value="{{ product.id }}">
+          <input type="hidden" name="shipDate" class="pdp-preorder-alert-field-ship-date notify__field" value="{{ product.id }}">
+          <input type="email" class="pdp-preorder-alert-field-email notify__field" name="email" id="field-notify" value="" placeholder="Email Address" required>
+          <div class="pdp-preorder-alert-submit btn btn--bordered" id="submit-pdp-preorder-signup">Get Notified</div>
+        </div>
+
+        <div class="notify__success">
+          {{ section.settings.preorder_alert_modal_ty_text }}
+        </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pre-order Alerts",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "preorder_alert_modal_text",
+      "label": "Pre-order Modal Text",
+      "default": "Enter your email address to be notified when once product is available and no longer on pre-order."
+    },
+    {
+      "type": "textarea",
+      "id": "preorder_alert_modal_ty_text",
+      "label": "Pre-order Modal Text",
+      "default": "Thank you! You will get notified once this product is no longer on pre-order."
+    }
+  ]
+}
+{% endschema %}

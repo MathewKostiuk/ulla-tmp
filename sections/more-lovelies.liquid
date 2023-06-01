@@ -1,0 +1,20 @@
+{% comment %}Meta Products{% endcomment %}
+{%- liquid
+  assign _metafield = product.metafields
+  assign meta_section_title = section.settings.title
+  include 'meta-products' meta_product: _metafield.more_lovelies.product, section_modifier: 'section-recommended--primary', section_title: meta_section_title
+-%}
+
+{% schema %}
+{
+  "name": "More Lovelies",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Similarly Loved"
+    }
+  ]
+}
+{% endschema %}

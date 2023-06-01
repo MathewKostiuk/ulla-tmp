@@ -1,0 +1,410 @@
+{%- liquid
+  assign meta_images = collection.metafields.image_video.image
+  assign meta_videos = collection.metafields.image_video.video
+  assign meta_arr = ''
+  assign meta_products = ''
+
+  if meta_images.size > 0
+    assign meta_arr = meta_images
+  elsif meta_videos.size > 0
+    assign meta_arr = meta_videos
+  endif
+
+  assign has_hero_media = false
+
+  assign has_mobile_media = false
+  if collection.metafields.custom.mobile_image != blank
+    assign has_mobile_media = true
+    assign mobile_media = collection.metafields.custom.mobile_image
+  endif
+
+  assign header_description_word_count = collection.metafields.custom.header_description | split: ' ' | size
+  assign header_read_more = false
+  assign footer_description_word_count = collection.metafields.custom.footer_description | split: ' ' | size
+  assign footer_read_more = false
+
+  if header_description_word_count > section.settings.truncate_length
+    assign header_description_truncated = collection.metafields.custom.header_description | truncatewords: section.settings.truncate_length
+    assign header_read_more = true
+  endif
+
+  if footer_description_word_count > section.settings.truncate_length
+    assign footer_description_truncated = collection.metafields.custom.footer_description | truncatewords: section.settings.truncate_length
+    assign footer_read_more = true
+  endif
+-%}
+
+<section class="section-filter js-filter animated">
+  <div class="relative">
+    {% if product == blank and collection and collection.metafields.nosto != blank %}
+      {%- assign mod_source_collection = collections[collection.metafields.nosto.sourceHandle] -%}
+      {%- if mod_source_collection.image != blank -%}
+        {%- assign has_hero_media = true -%}
+        <img
+          class="section__image lazyload hidden-xs"
+          src="{{ collections[collection.metafields.nosto.sourceHandle].image | img_url: '1920x' }}"
+          alt="{{ collections[collection.metafields.nosto.sourceHandle].image.alt }}"
+        /><!-- /.section__image -->
+
+        {%- if has_mobile_media -%}
+          <img class="section__image lazyload visible-xs-block" src="{{ mobile_media | img_url: '768x' }}" alt="{{ mobile_media.alt }}" /><!-- /.section__image mobile-->
+        {%- else -%}
+          <img
+            class="section__image lazyload visible-xs-block"
+            src="{{ collections[collection.metafields.nosto.sourceHandle].image | img_url: '768x' }}"
+            alt="{{ collections[collection.metafields.nosto.sourceHandle].image.alt }}"
+          /><!-- /.section__image -->
+        {%- endif -%}
+      {%- endif -%}
+    {% elsif collection.image != blank %}
+      {%- assign has_hero_media = true -%}
+      {%- if has_mobile_media -%}
+        <img class="section__image lazyload visible-xs-block" src="{{ mobile_media | img_url: '768x' }}" role="img" alt="{{ mobile_media.alt }}" /><!-- /.section__image mobile-->
+      {%- else -%}
+        <img class="section__image lazyload visible-xs-block" src="{{ collection.image | img_url: '768x' }}" role="img" alt="{{ collection.image.alt }}" /><!-- /.section__image mobile-->
+      {%- endif -%}
+
+      <img class="section__image lazyload hidden-xs" src="{{- collection.image  | img_url: '1920x' -}}" alt="{{ collection.image.alt }}" /><!-- /.section__image desktop-->
+    {% endif %}
+
+    <h1 class="section__image-title absolute{% unless has_hero_media %} visually-hidden{% endunless %}">{{ collection.title }}</h1>
+  </div>
+
+  {% unless has_hero_media %}
+    <div class="section-filter__top-space"></div>
+  {% endunless %}
+
+  {%- if collection.metafields.custom.header_description != blank -%}
+    <div class="collection__copy">
+      <div class="collection__desc" data-collection-description>
+        <div class="collection__desc-content">
+          {% if header_read_more %}
+            <div data-read-more-content-truncated>
+              {{ header_description_truncated }}
+              <button class="collection__read-more" data-read-more-button data-state="closed">{{ 'collections.general.read_more' | t }}</button>
+            </div>
+            <div class="hidden" data-read-more-content-full>
+              {{ collection.metafields.custom.header_description }}
+              <button class="collection__read-more" data-read-more-button data-state="open">{{ 'collections.general.read_less' | t }}</button>
+            </div>
+          {% else %}
+            {{ collection.metafields.custom.header_description }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="section__bar animated">
+    <div class="section__bar-inner">
+      <div class="container container--fluid">
+        <div class="section__bar-body">
+          <div class="section__bar-aside">
+            {%- if collection.metafields.accentuate.products_across_mobile == "1" -%}
+            <nav class="nav-links visible-xs-block">
+              <ul>
+                <li class="current">
+                  <a href="#" class="js-btn-toggle" data-target="#bc-sf-filter-products" data-class="product-items--mobile-columns" data-remove data-class-parent="current">{{ 'collections.general.mobile_view_1' | t }}</a>
+                </li>
+                <li>
+                  <a href="#" class="js-btn-toggle" data-target="#bc-sf-filter-products" data-class="product-items--mobile-columns" data-add data-class-parent="current">{{ 'collections.general.mobile_view_2' | t }}</a>
+                </li>
+              </ul>
+            </nav><!-- /.nav -->
+            {% else %}
+            <nav class="nav-links visible-xs-block">
+              <ul>
+                <li>
+                  <a href="#" class="js-btn-toggle" data-target="#bc-sf-filter-products" data-class="product-items--mobile-columns" data-remove data-class-parent="current">{{ 'collections.general.mobile_view_1' | t }}</a>
+                </li>
+
+                <li class="current">
+                  <a href="#" class="js-btn-toggle" data-target="#bc-sf-filter-products" data-class="product-items--mobile-columns" data-add data-class-parent="current">{{ 'collections.general.mobile_view_2' | t }}</a>
+                </li>
+              </ul>
+            </nav><!-- /.nav -->
+            {% endif %}
+            {% if settings.ss_enable and collection.handle == settings.ss_collection_handle %}
+            	<div id="searchspring-header">
+            		<!-- ss-target -->
+            	</div>
+            {% else %}
+            	<h2 class="heading-xxsmall section__title js-filter-title hidden-xs">{{ collection.title }} <span></span></h2><!-- /.section__title -->
+            {% endif %}
+          </div><!-- /.section__bar-aside -->
+
+          {%- assign collection_menu = settings.collection_menu -%}
+          {%- if collection_menu != blank -%}
+            {%- assign collection_nav = '' -%}
+            {%- for _link in linklists[collection_menu].links -%}
+              {%- if collection.url == _link.url and _link.links.size > 0 -%}
+                {%- for sub_link in _link.links -%}
+                  {%- capture collection_nav -%}
+                    {{ collection_nav }}
+                    {%- assign class_current = '' -%}
+                    {%- if collection.url == sub_link.url -%}
+                      {%- assign class_current = ' class="current"' -%}
+                    {%- endif -%}
+
+                    <li{{ class_current }}>
+                      <a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                    </li>
+                  {%- endcapture -%}
+                {%- endfor -%}
+
+                {% break %}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if collection_nav != '' -%}
+              <div class="section__bar-content">
+                <nav class="nav-inline nav-inline--mobile-fixed js-nav-inline-fixed">
+                  <ul>
+                    {{ collection_nav }}
+                  </ul>
+                </nav><!-- /.nav-inline -->
+              </div><!-- /.section__bar-content -->
+            {%- endif -%}
+          {%- endif -%}
+
+          <div class="section__bar-filter">
+            {% if settings.ss_enable and collection.handle == settings.ss_collection_handle %}
+            	<div id="searchspring-sidebar">
+                	<!-- ss-target -->
+            	</div>
+            {% else %}
+              <div class="filter" id="filter">
+                <div class="filter__bar">
+                  <ul class="list-inline-items js-selected-items hidden-xs hidden-sm"></ul><!-- /.list-inline-items -->
+
+                  <a href="#" class="filter__link js-btn-toggle" data-target="#filter" data-class="filter--expanded">
+                    <i class="ico-filter">
+                      {%- include 'svg-elements' name: 'filter'  -%}
+                    </i>
+
+                    <span>{{ 'collections.general.filter_button' | t }}</span>
+                  </a>
+                </div><!-- /.filter__bar -->
+
+                <div class="filter__dropdown">
+                  <div class="filter__body">
+                    <div class="filter__body-bar visible-xs-block">
+                      <a href="#" class="filter__link js-btn-toggle" data-target="#filter" data-class="filter--expanded">
+                        <i class="ico-filter">
+                          {%- include 'svg-elements' name: 'filter'  -%}
+                        </i>
+
+                        <span>{{ 'collections.general.filter_button' | t }}</span>
+                      </a>
+
+                      <a href="#" class="btn-close btn-close--mobile-large js-btn-toggle" data-target="#filter" data-class="filter--expanded"></a>
+                    </div><!-- /.filter__body-bar -->
+
+                    <div class="filter__list">
+                      <div id="bc-sf-filter-tree"></div>
+                    </div><!-- /.filter__list -->
+
+                    <div class="sort js-sort" id="bc-sf-filter-top-sorting"></div>
+                    {%- comment -%}
+                      {%- include 'collection-sorting' -%}
+                    {%- endcomment -%}
+                  </div><!-- /.filter__body -->
+
+                  <div class="filter__actions">
+                    <a href="#" class="btn btn--min-medium btn--bordered-mobile btn--block-mobile btn--large-mobile js-btn-toggle" data-target="#filter" data-class="filter--expanded">Apply Filters</a>
+                  </div><!-- /.filter__actions -->
+                </div><!-- /.filter__dropdown -->
+              </div><!-- /.filter -->
+            {% endif %}
+          </div><!-- /.section__bar-filter -->
+        </div><!-- /.section__bar-body -->
+      </div><!-- /.container -->
+    </div><!-- /.section__bar-inner -->
+
+    <div class="section__bar-list hidden-md hidden-lg">
+      <div class="container container--fluid">
+        {% if settings.ss_enable and collection.handle == settings.ss_collection_handle %}
+        	<div id="searchspring-mobile-summary">
+              <!-- ss-target -->
+        	</div>
+        {% else %}
+        	<ul class="list-inline-items js-selected-items"></ul><!-- /.list-inline-items -->
+        {% endif %}
+      </div><!-- /.container -->
+    </div><!-- /.section__bar-list -->
+  </div><!-- /.section__bar -->
+
+  <div class="section__body animated">
+    {% if settings.ss_enable and collection.handle == settings.ss_collection_handle %}
+    	<div id="searchspring-content">
+    		<!-- ss-target -->
+    	</div>
+    {% else %}
+      {%- if collection.metafields.accentuate.products_across_mobile == "1" -%}
+        <div id="bc-sf-filter-products" class="product-items"></div>
+      {%- else-%}
+        <div id="bc-sf-filter-products" class="product-items product-items--mobile-columns"></div>
+      {%- endif -%}
+      <div id="bc-sf-filter-bottom-pagination" class="bc-sf-filter-bottom-pagination-default" ></div>
+      <div id="bc-sf-filter-load-more" class="btn-load-outer"></div>
+    {% endif %}
+  </div><!-- /.section__body -->
+
+  {%- if collection.metafields.custom.footer_description != blank -%}
+    <div class="collection__copy collection__copy--bottom">
+      <div class="collection__desc" data-collection-description>
+        <h6 class="collection__copy-title">{{ collection.title }}</h6>
+        <div class="collection__desc-content">
+          {% if footer_read_more %}
+            <div data-read-more-content-truncated>
+              {{ footer_description_truncated }}
+              <button class="collection__read-more" data-read-more-button data-state="closed">{{ 'collections.general.read_more' | t}}</button>
+            </div>
+            <div class="hidden" data-read-more-content-full>
+              {{ collection.metafields.custom.footer_description }}
+              <button class="collection__read-more" data-read-more-button data-state="open">{{ 'collections.general.read_less' | t }}</button>
+            </div>
+          {% else %}
+            {{ collection.metafields.custom.footer_description }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section><!-- /.section-filter -->
+
+<script>
+  // Declare bcSfFilterConfig variable
+  var bcSfFilterConfig = {
+    label: {
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Sorting" {% endunless %},
+      sorting_best_selling: {% assign temp = collection.sort_options[1].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Best Selling" {% endunless %},
+      sorting_featured: {% assign temp = collection.sort_options[0].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Featured" {% endunless %},
+      sorting_title_ascending: {% assign temp = collection.sort_options[2].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = collection.sort_options[3].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, Z-A" {% endunless %},
+      sorting_price_ascending: {% assign temp = collection.sort_options[4].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = collection.sort_options[5].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = collection.sort_options[6].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = collection.sort_options[7].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, New to Old" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Relevance" {% endunless %},
+
+      sale: {{ 'products.product.on_sale' | t | json }},
+      sale_price: {{ 'products.product.sale_price' | t | json }},
+      sold_out: {{ 'products.product.sold_out' | t | json }},
+      vendor: {{ 'products.product.vendor' | t |json }},
+      regular_price: {{ 'products.product.regular_price' | t | json }},
+      items_with_count_one: {{ 'collections.general.items_with_count.one' | t | json}},
+      items_with_count_other: {{ 'collections.general.items_with_count.other' | t | json }},
+      current_page: {{ 'general.pagination.current_page' | t | json }},
+    },
+    custom: {
+      products_per_page: {% if settings.collection_limit %} {{ settings.collection_limit | json }} {% else %} 24 {% endif %},
+      products_per_row: 3,
+      product_grid_class: 2,
+      max_height: 250,
+      vendor_enable: false,
+      layout: "grid"
+    }
+  };
+
+  Shopify.variantColorHandle = '{{ 'products.variants.variant_color' | t | handle }}'
+  Shopify.variantSizeHandle = '{{ 'products.variants.variant_size' | t | handle }}'
+  Shopify.collectionNumberItems = '{{ 'collections.general.number_items' | t }}'
+  Shopify.collectionLeftNumber = '{{ settings.collection_left_number }}'
+  Shopify.onlyFewLeft = '{{ 'collections.general.only_few_left' | t }}'
+  Shopify.outOfStock = '{{ settings.collection_out_of_stock }}'
+  Shopify.badge = '{{ 'collections.general.badge' | t }}'
+  Shopify.preorderPrefix = '{{ 'products.product.preorder_prefix' | t }}'
+  Shopify.preorderText = '{{ 'collections.general.pre_order_text' | t }}'
+  Shopify.productTitleSpliiter = '{{ 'products.product.product_title_splitter' | t }}'
+
+  var metaProducts = [
+    {%- if meta_arr != '' -%}
+      {%- for idx in (1..meta_arr.size) -%}
+        {%- assign meta_image = meta_images[forloop.index0] -%}
+        {%- assign meta_video = meta_videos[forloop.index0] -%}
+        {%- assign meta_type = collection.metafields.image_video.type[forloop.index0] | default: 0 -%}
+        {%- assign meta_pos = collection.metafields.image_video.position[forloop.index0] | default: 0 -%}
+        {%- assign meta_pos_mobile = collection.metafields.image_video.position_mobile[forloop.index0] | default: 0 -%}
+        {%- assign meta_url = collection.metafields.image_video.url[forloop.index0] -%}
+        {%- assign meta_image_src = '' -%}
+
+        {%- if meta_video != blank -%}
+          {%- assign meta_video = meta_video | replace: '"', "'" -%}
+        {%- endif -%}
+
+        {%- if meta_image != blank -%}
+          {%- capture meta_image_src -%}
+            {%- include 'responsive-acc-image', image_url: meta_image, image_width: '1280' -%}
+          {%- endcapture -%}
+
+          {%- assign meta_image_src = meta_image_src | replace: '"', "'" | strip -%}
+        {%- endif -%}
+
+        {%- if meta_video != blank or meta_image != blank -%}
+          {
+            video: "{%- if meta_video != blank -%}{{ meta_video }}{%- endif -%}",
+            image: "{%- if meta_image_src != blank -%}{{ meta_image_src }}{%- endif -%}",
+            position: {{- meta_pos -}},
+            position_mobile: {{- meta_pos_mobile -}},
+            type: {{- meta_type -}},
+            url: "{{- meta_url -}}"
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  ]
+
+  var filterGroups = [
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- assign _block = block.settings -%}
+
+        {%- if _block.title != blank and _block.filters != blank -%}
+          {%- assign _block_filters_arr = _block.filters | split: ',' -%}
+          {
+            title: "{{ _block.title }}",
+            filters: {{ _block_filters_arr | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  ]
+</script>
+
+{% schema %}
+{
+  "name": "Filter",
+  "settings": [
+    {
+      "type": "number",
+      "id": "truncate_length",
+      "label": "Truncate Length",
+      "default": 20,
+      "info": "This determines how many words are shown before a 'Read More' button is added."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter",
+      "name": "Filter",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Filter Group"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "filters",
+          "label": "Filters"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,101 @@
+{%- if block_image != blank or block_image_mobile != blank or block_video != blank or block_title != blank or block_text != blank -%}
+  <section class="section-block {{ modifier }}{% if opacity_animate %} js-section-block{% endif %} animated">
+    {%- if block_image != blank -%}
+      {%- assign section_bg = block_image | img_url: '3840x' -%}
+
+      {%- if meta_images -%}
+        {%- capture section_bg -%}
+          {%- include 'responsive-acc-image', image_url: block_image, image_width: '3840' -%}
+        {%- endcapture -%}
+      {%- endif -%}
+
+      <div class="section__bg lazyload{% if block_image_mobile != blank %} hidden-xs{% endif %}" data-bg="url({{ section_bg }})" role="img" aria-label="{{ block_image.alt }}"></div><!-- /.section__bg -->
+    {%- endif -%}
+
+    {%- if block_image_mobile != blank -%}
+      {%- if block_image != blank -%}
+        {%- assign section_bg_mobile_small = block_image_mobile | img_url: '1534x' -%}
+
+        {%- if meta_images -%}
+          {%- capture section_bg_mobile_small -%}
+            {%- include 'responsive-acc-image', image_url: block_image_mobile, image_width: '1534' -%}
+          {%- endcapture -%}
+        {%- endif -%}
+
+        <div class="section__bg lazyload visible-xs-block" data-bg="url({{ section_bg_mobile_small }})" role="img" aria-label="{{ block_image_mobile.alt }}"></div><!-- /.section__bg -->
+      {%- else -%}
+        {%- assign section_bg_mobile = block_image_mobile | img_url: '3840x' -%}
+
+        {%- if meta_images -%}
+          {%- capture section_bg_mobile -%}
+            {%- include 'responsive-acc-image', image_url: block_image_mobile, image_width: '3840' -%}
+          {%- endcapture -%}
+        {%- endif -%}
+
+        <div class="section__bg lazyload" data-bg="url({{ section_bg_mobile }})" role="img" aria-label="{{ block_image_mobile.alt }}"></div><!-- /.section__bg -->
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if block_video_mp4 != blank and block_video_mp4 contains 'vimeo.com/external/' -%}
+      <div class="video-player section__video">
+        <video id="video-player"
+          class="video-js vjs-theme-ulla js-video-component"
+          muted
+          playsinline
+        >
+          <source
+            src="{{ block_video_mp4 }}"
+            {% if block_video_mp4_mobile != blank %}
+              data-mobile-src="{{ block_video_mp4_mobile }}"
+            {% endif %}
+            type="video/mp4"
+          >
+        </video>
+      </div>
+    {%- elsif block_video != blank and block_video contains 'vimeo.com/' -%}
+      {%- assign block_video_id = block_video | split: 'vimeo.com/' | last | split: '/' | first -%}
+
+      {%- if block_video_mobile != blank -%}
+        {%- assign block_video_id_mobile = block_video_mobile | split: 'vimeo.com/' | last | split: '/' | first -%}
+      {%- endif -%}
+
+      <div class="video-player section__video">
+        <div class="plyr__video-embed js-video-player" id="player">
+          <iframe
+            src="https://player.vimeo.com/video/{{ block_video_id }}?loop=true&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media&amp;autoplay=true&amp;clickToPlay=false&amp;muted=true"
+
+            {% if block_video_id_mobile != blank %}
+              data-mobile-src="https://player.vimeo.com/video/{{ block_video_id_mobile }}?loop=true&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media&amp;autoplay=true&amp;clickToPlay=false&amp;muted=true"
+            {% endif %}
+
+            allowfullscreen
+            allowtransparency
+            allow="autoplay"
+          ></iframe>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if block_title != blank or block_text != blank -%}
+      <div class="section__inner{% if opacity_animate %} js-section-block-content{% endif %}"{% if opacity_revert %} data-opacity-revert{% endif %}>
+        <div class="section__content">
+          {%- if block_title != blank -%}
+            <h1 class="section__title">{{ block_title | newline_to_br }}</h1><!-- /.section__title -->
+          {%- endif -%}
+
+          {%- if block_text != blank -%}
+            <div class="entry-large entry-large--tablet section__entry">
+              {%- if richtext -%}
+                {{ block_text }}
+              {%- else -%}
+                <p>{{ block_text | newline_to_br }}</p>
+              {%- endif -%}
+            </div><!-- /.section__entry -->
+          {%- endif -%}
+        </div><!-- /.section__content -->
+      </div><!-- /.section__inner -->
+    {%- endif -%}
+  </section><!-- /.section-block -->
+{%- endif -%}
+
+{%- assign block_video_id_mobile = nil -%}

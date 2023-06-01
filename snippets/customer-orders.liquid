@@ -1,0 +1,19 @@
+{% if order %}
+  {% assign _order = order %}
+{% endif %}
+
+{%- paginate customer.orders by 20 -%}
+  {%- if customer.orders.size != 0 -%}
+    {%- for order in customer.orders -%}
+      {% include 'order' %}
+    {%- endfor -%}
+
+    {%- include 'pagination' -%}
+  {%- else -%}
+    <div class="no-orders">
+      <p>
+        {{- 'customer.orders.none' | t -}}
+      </p>
+    </div><!-- /.no-oders -->
+  {%- endif -%}
+{%- endpaginate -%}

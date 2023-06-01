@@ -1,0 +1,49 @@
+{%- assign _settings = section.settings -%}
+{%- assign _id = _settings.id -%}
+{%- assign _image_1 = _settings.image_1 -%}
+{%- assign _image_2 = _settings.image_2 -%}
+
+{%- if _image_1 != blank and _image_2 != blank -%}
+  {%- if _id != blank -%}<div id="{{ _id }}"></div>{%- endif -%}
+  <div class="half-images">
+    <img
+      class="half-images__image"
+      src="{{ _image_1 | img_url: '960x' }}"
+      alt="{{ _image_1.alt }}"
+    >
+    <img
+      class="half-images__image"
+      src="{{ _image_2 | img_url: '960x' }}"
+      alt="{{ _image_2.alt }}"
+    >
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "50/50 Images",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "Section ID",
+      "info": "The ID is used to allow navigation to this section from the top subnavigation. This ID should be set as URL in the subnavigation followed by '#'. If the ID is 'section-id', the value that needs to be set in the subnavigation should be '#section-id'"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "50/50 Images"
+    }
+  ]
+}
+{% endschema %}

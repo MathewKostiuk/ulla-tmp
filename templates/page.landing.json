@@ -1,0 +1,213 @@
+{
+  "sections": {
+    "640ec4d5-2e63-4e01-89a3-847d343658a2": {
+      "type": "section-landing-subnav",
+      "blocks": {
+        "0f8ddf0d-b741-4a22-a534-a932ea75b518": {
+          "type": "button",
+          "settings": {
+            "title": "Events",
+            "url": "#events"
+          }
+        },
+        "425a7b70-ad64-4df3-91de-32cd223f2e7d": {
+          "type": "button",
+          "settings": {
+            "title": "Email Signup",
+            "url": "#mail"
+          }
+        },
+        "84478e10-9961-491a-8f85-05470db03a7f": {
+          "type": "button",
+          "settings": {
+            "title": "Event",
+            "url": "#event"
+          }
+        }
+      },
+      "block_order": [
+        "0f8ddf0d-b741-4a22-a534-a932ea75b518",
+        "425a7b70-ad64-4df3-91de-32cd223f2e7d",
+        "84478e10-9961-491a-8f85-05470db03a7f"
+      ],
+      "settings": {
+        "back_url": "\/"
+      }
+    },
+    "3edecec7-5ac0-48fa-ac5e-dcb21f1cf665": {
+      "type": "section-landing-top-hero",
+      "blocks": {
+        "8d2288ff-32e8-4923-ba25-9d719fc3148c": {
+          "type": "text",
+          "settings": {
+            "text": "<p>8823 Beverly Blvd<br\/>Los Angeles, CA 90048<br\/><\/p>"
+          }
+        },
+        "5b241c40-8a32-4c36-a524-0ed00f655a07": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"tel:2129650144\" title=\"tel:2129650144\">212.965.0144<\/a><\/p>"
+          }
+        },
+        "dfb8373c-1b51-4b21-86cb-775f4e1f4aad": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"mailto:lastore@ullajohnson.com\" title=\"mailto:lastore@ullajohnson.com\">lastore@ullajohnson.com<\/a><\/p>"
+          }
+        },
+        "1014871c-c32b-462e-a50c-eeeeff2a8ddf": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Monday-Saturday 11am-7pm PSTSunday 12pm-6pm PST<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "8d2288ff-32e8-4923-ba25-9d719fc3148c",
+        "5b241c40-8a32-4c36-a524-0ed00f655a07",
+        "dfb8373c-1b51-4b21-86cb-775f4e1f4aad",
+        "1014871c-c32b-462e-a50c-eeeeff2a8ddf"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/1275_ULJ_UllaJohnson_060_1.jpg",
+        "title": "Ulla Johnson LA",
+        "cta_label": "la instagram",
+        "cta_url": "#inst",
+        "overlay_opacity": 0,
+        "text_color": "white",
+        "text_placement": "left"
+      }
+    },
+    "c8efd53a-a4ee-465b-ab48-e47b6387a586": {
+      "type": "section-landing-text",
+      "settings": {
+        "id": "",
+        "title": "Our Inspiration",
+        "text": "<p>Ulla Johnson collaborated with Rafael de Cárdenas—known for his work that balances modernity with sensuality— to create a tranquil environment that will host industry retail appointments. Underscoring the importance of physical surroundings, the feminine and effortless ambience of the space reflects both Johnson’s personal aesthetic and the brand’s spirit.<\/p>",
+        "cta_label": "Discover more",
+        "cta_url": "#discover",
+        "color": "rgba(0,0,0,0)"
+      }
+    },
+    "f8d731f7-e1b1-40a6-a23d-418c555555d1": {
+      "type": "section-landing-50-50-images",
+      "settings": {
+        "id": "",
+        "image_1": "shopify:\/\/shop_images\/Bitmap.jpg",
+        "image_2": "shopify:\/\/shop_images\/Bitmap_1.jpg"
+      }
+    },
+    "1c41d1ab-a214-4148-8828-9633f3c3a442": {
+      "type": "section-landing-video",
+      "settings": {
+        "id": "",
+        "image": "shopify:\/\/shop_images\/Runway_trim_1.jpg",
+        "image_mobile": "shopify:\/\/shop_images\/Runway_trim_1.png",
+        "video": "",
+        "video_mobile": "",
+        "vimeo_video": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/769997209\/rendition\/1080p\/file.mp4?loc=external&signature=58e9566dcaa26f97f35f4ac848cf7aca725b8358a042c60ac5101613bc3ee9d3",
+        "vimeo_video_mobile": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/776386793\/rendition\/720p\/file.mp4?loc=external&signature=39f541f5d7dbcc4b44800077dfb9f031f87314eb7808671c73f76b1c4fcc17de",
+        "text": "<p>Tour the Store<\/p>",
+        "controls_overlay": true
+      }
+    },
+    "ea8e9ea6-4323-4d93-9f70-9af565dbffe1": {
+      "type": "section-landing-gallery",
+      "blocks": {
+        "367cece4-95d1-40a0-8386-38ac2756b5ce": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ulla_johnson_showroom_0061_1.jpg"
+          }
+        },
+        "a2f30760-8c4e-4b8f-85b4-824153b7c5fc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ulla_johnson_showroom_0061_2.jpg"
+          }
+        },
+        "9f41a397-28ae-4701-a3e1-7b43a4c53601": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ulla_johnson_showroom_0061_1.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "367cece4-95d1-40a0-8386-38ac2756b5ce",
+        "a2f30760-8c4e-4b8f-85b4-824153b7c5fc",
+        "9f41a397-28ae-4701-a3e1-7b43a4c53601"
+      ],
+      "settings": {
+        "id": "",
+        "title": "Gallery"
+      }
+    },
+    "60e8b723-8f8a-4d6e-a0c0-17d4aa2b8752": {
+      "type": "section-landing-events",
+      "blocks": {
+        "39a1f367-8208-474f-8dbd-759cf64656f9": {
+          "type": "event",
+          "settings": {
+            "image_desktop": "shopify:\/\/shop_images\/ullajohnson_ps22_homepage_splitscreen_knits_1920x_1.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/ullajohnson_ps22_homepage_splitscreen_knits_1920x_7f32c1ae-a815-4005-9179-88b21bbe96d4.jpg",
+            "title": "Celebrate Earth Day",
+            "subheadline": "Saturday, April 22",
+            "body": "In honor of Earth Day, we're teaming up with our friends at Retold Recycling for a thoughtful approach to tackling the closet clean-out. Bring us your previously loved clothing and as a thank you for doing your part for the planet, you'll receive 20% off your purchase",
+            "cta_label": "rsvp now",
+            "cta_url": "#rv"
+          }
+        },
+        "f24157f4-b50a-497f-9265-2714a290671c": {
+          "type": "event",
+          "settings": {
+            "image_desktop": "shopify:\/\/shop_images\/ullajohnson_ps22_homepage_splitscreen_knits_1920x_1.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/ullajohnson_ps22_homepage_splitscreen_knits_1920x_7f32c1ae-a815-4005-9179-88b21bbe96d4.jpg",
+            "title": "Celebrate Earth Day",
+            "subheadline": "Saturday, April 22",
+            "body": "In honor of Earth Day, we're teaming up with our friends at Retold Recycling for a thoughtful approach to tackling the closet clean-out. Bring us your previously loved clothing and as a thank you for doing your part for the planet, you'll receive 20% off your purchase",
+            "cta_label": "rsvp now",
+            "cta_url": "#rv"
+          }
+        }
+      },
+      "block_order": [
+        "39a1f367-8208-474f-8dbd-759cf64656f9",
+        "f24157f4-b50a-497f-9265-2714a290671c"
+      ],
+      "settings": {
+        "id": "",
+        "title": "Events"
+      }
+    },
+    "0fe3ec3b-b978-4722-bf81-c406217a70e6": {
+      "type": "section-landing-email-signup",
+      "settings": {
+        "id": "",
+        "image": "shopify:\/\/shop_images\/SHOT_0141_HEDDA_BRA_TOP_OLD_ROSE_02_960x_4f45d3a2-9acd-417e-a15c-af5f6c95a761.jpg",
+        "form_placement": "left",
+        "background_color": "#f3e3db",
+        "title": "Join the List",
+        "text": "Sign up for to hear about exclusive offers, updates and in-store events."
+      }
+    },
+    "fb4884ae-7f02-4619-9f87-33121d0d8961": {
+      "type": "section-landing-back-all-stores",
+      "settings": {
+        "cta_label": "Back to All Stores",
+        "cta_url": "#back"
+      }
+    }
+  },
+  "order": [
+    "640ec4d5-2e63-4e01-89a3-847d343658a2",
+    "3edecec7-5ac0-48fa-ac5e-dcb21f1cf665",
+    "c8efd53a-a4ee-465b-ab48-e47b6387a586",
+    "f8d731f7-e1b1-40a6-a23d-418c555555d1",
+    "1c41d1ab-a214-4148-8828-9633f3c3a442",
+    "ea8e9ea6-4323-4d93-9f70-9af565dbffe1",
+    "60e8b723-8f8a-4d6e-a0c0-17d4aa2b8752",
+    "0fe3ec3b-b978-4722-bf81-c406217a70e6",
+    "fb4884ae-7f02-4619-9f87-33121d0d8961" 
+  ]
+}

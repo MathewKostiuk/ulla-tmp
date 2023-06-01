@@ -1,0 +1,139 @@
+{%- assign _section = section.settings -%}
+{%- assign _blocks = section.blocks -%}
+{%- assign items_width = _section.item_width | default: 50 -%}
+{%- assign flag = false -%}
+
+{%- if _section.title != blank or _section.link_text != blank -%}
+  {%- assign flag = true -%}
+{%- endif -%}
+
+{%- if _blocks.size > 0 -%}
+  <section class="section-scroll section-scroll--{{ section.id }} animated">
+    <div class="section__body js-section-horizontal-parent">
+      <div class="tiles-secondary js-section-horizontal" data-scroll-speed="50">
+        {%- for block in _blocks -%}
+          {%- assign _block = block.settings -%}
+
+          {%- if _block.image != blank or _block.video != blank or _block.title != blank or _block.link_text != blank -%}
+            <div class="tile tile--secondary js-item-horizontal">
+              {%- if _block.image != blank -%}
+                <a class="tile__bg lazyload"
+                  href="{{_block.link_url}}"
+                >
+                  {% assign image_height = _block.image.width | divided_by: _block.image.aspect_ratio  %}
+                  {{
+                    _block.image
+                    | image_url: width: 1920
+                    | image_tag:
+                      loading: 'lazy',
+                      height: image_height,
+                      sizes: '(max-width: 780px) 50vw, 70vw',
+                      widths: '200, 400, 700, 1000, 1300, 1600, 1920'
+                  }}
+                </a><!-- /.tile__bg -->
+              {%- elsif _block.video != blank or _block.vimeo_video != blank -%}
+                <div class="tile__video">
+                  {%- include 'video-iframe' video_object: _block.video, video_text: _block.vimeo_video -%}
+                </div><!-- /.tile__video -->
+              {%- endif -%}
+
+              {%- unless flag -%}
+                {%- include 'content-element' elem_title: _block.title, link_text: _block.link_text, link_url: _block.link_url, class_start: 'tile' -%}
+              {%- endunless -%}
+            </div><!-- /.tile -->
+          {%- endif -%}
+        {%- endfor -%}
+      </div><!-- /.tiles -->
+    </div><!-- /.section__body -->
+
+    <style type="text/css" media="screen">
+      .section-scroll--{{ section.id }} .tile {
+        flex: 0 0 {{ items_width }}%;
+      }
+    </style>
+
+    {%- if flag -%}
+      <div class="section__line">
+        <div class="section__line-inner">
+          {%- include 'content-element' elem_title: _section.title, link_text: _section.link_text, link_url: _section.link_url, class_start: 'section' -%}
+        </div><!-- /.section__line-inner -->
+      </div><!-- /.section__line -->
+    {%- endif -%}
+  </section><!-- /.section-scroll -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Section Scroll",
+  "settings": [
+    {
+      "type": "range",
+      "id": "item_width",
+      "min": 10,
+      "max": 100,
+      "step": 10,
+      "label": "Items Width Percent",
+      "default": 50
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video_url",
+          "id": "video",
+          "label": "Youtube Video",
+          "accept": ["youtube"]
+        },
+        {
+          "type": "text",
+          "id": "vimeo_video",
+          "label": "Vimeo Video"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Scroll"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+  <html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+    <head>
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TWXH83H');</script>
+      <!-- End Google Tag Manager -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+      <meta name="referrer" content="origin">
+
+      <title>{{ page_title }}</title>
+
+      {{ content_for_header }}
+
+      {{ checkout_stylesheets }}
+      {{ 'checkout.scss.css' | asset_url | stylesheet_tag }}
+      {{ checkout_scripts }}
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+      {%- include 'nosto-script', id: '22177972320' -%}
+
+      {%- if page_title contains "Thank you" -%}
+        <!--MNTN Conversion Pixel-->
+        <!-- Install ONLY on conversion page/event-->
+        <script type="text/javascript">
+          (function(){var x=null,p,q,m,
+          o="33022",
+          l="ORDER ID",
+          i="TOTAL ORDER AMOUNT",
+          c="",
+          k="",
+          g="",
+          j="",
+          u="",
+          shadditional="";
+          try{p=top.document.referer!==""?encodeURIComponent(top.document.referrer.substring(0,512)):""}catch(n){p=document.referrer!==null?document.referrer.toString().substring(0,512):""}try{q=window&&window.top&&document.location&&window.top.location===document.location?document.location:window&&window.top&&window.top.location&&""!==window.top.location?window.top.location:document.location}catch(b){q=document.location}try{m=parent.location.href!==""?encodeURIComponent(parent.location.href.toString().substring(0,512)):""}catch(z){try{m=q!==null?encodeURIComponent(q.toString().substring(0,512)):""}catch(h){m=""}}var A,y=document.createElement("script"),w=null,v=document.getElementsByTagName("script"),t=Number(v.length)-1,r=document.getElementsByTagName("script")[t];if(typeof A==="undefined"){A=Math.floor(Math.random()*100000000000000000)}w="dx.mountain.com/spx?conv=1&shaid="+o+"&tdr="+p+"&plh="+m+"&cb="+A+"&shoid="+l+"&shoamt="+i+"&shocur="+c+"&shopid="+k+"&shoq="+g+"&shoup="+j+"&shpil="+u+shadditional;y.type="text/javascript";y.src=("https:"===document.location.protocol?"https://":"http://")+w;r.parentNode.insertBefore(y,r)}());
+          </script>
+      {%- endif -%}
+
+
+    {% include "globale-checkout-css" %}
+  </head>
+
+    {%- if page_title contains "Thank you" -%}
+      {% assign template_class = 'thank-you' %}
+    {%- endif -%}
+
+    <body class="{{- template_class -}}">
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWXH83H"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+      {{ skip_to_content_link }}
+
+      <div class="banner" data-header data-note="{{ checkout.note }}">
+        <div class="wrap">
+          {{ content_for_logo }}
+        </div>
+      </div>
+
+      {{ order_summary_toggle | replace: '.00', '' }}
+
+      <div class="content" data-content>
+        <div class="header">
+          {{ content_for_logo }}
+          {{ breadcrumb }}
+        </div><!-- /.header -->
+
+        <div class="wrap">
+          <div class="main" role="main">
+            <div class="main__header">
+              {{ alternative_payment_methods }}
+            </div>
+            <div class="main__content">
+              {{ content_for_layout }}
+
+              {%- assign page_title_handle = page_title | handle -%}
+              {%- if page_title_handle contains 'thank-you' -%}
+                {% include 'nosto-element' with 'thankyou-nosto-1' %}
+              {%- endif -%}
+            </div>
+            <div class="main__footer">
+              {{ content_for_footer }}
+            </div>
+          </div>
+          <div class="sidebar" role="complementary">
+            <div class="sidebar__header">
+              {{ content_for_logo }}
+            </div>
+            <div class="sidebar__content">
+              {{ content_for_order_summary | replace: '_small.', '_180x.' | replace: '.00', '' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{ tracking_code }}
+
+      {%- assign tooltip = '' -%}
+      {%- capture tooltip -%}
+        {%- include "tooltip-menu" class: "tooltip-primary", modifier: "tooltip-primary--center", tooltip_id: "checkout" -%}
+      {%- endcapture -%}
+      {%- assign tooltip = tooltip | strip_newlines | replace: "'", '"' -%}
+
+      <script type="text/javascript">
+        /* Check & Remove Emoji icons */
+          $(document).ready(adjustInputValue)
+          $('.section--shipping-address input').keyup(adjustInputValue)
+          $('.section--shipping-address input').change(adjustInputValue)
+          let tmpValue = ''
+          function adjustInputValue() {
+            $('.section--shipping-address input').each(function(index,template) {
+              tmpValue = $(template).val()
+
+              if (tmpValue != '') {
+                /* Remove Emoji */
+                $(template).val(tmpValue.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, ''))
+              }
+            })
+          }
+      </script>
+      <script type="text/javascript">
+        var $doc = $(document);
+        var returnsTooltip = '<div class="tooltip-returns">{{- "general.checkout.returns_tooltip" | t -}}</div><!-- /.tooltip-returns -->';
+
+        var helpCTA = '{{ tooltip }}'
+
+        $doc.on('page:load', function() {
+          $('a[href*="refund-policy.html"]').after(returnsTooltip);
+
+          $('.order-summary__sections, .step__footer').append(helpCTA);
+
+          if ($('.content-box__row input[type="radio"]').length) {
+            $('.content-box__row input[type="radio"]:checked').closest('.content-box__row').addClass('js-checked');
+
+            $('.content-box__row input[type="radio"]').on('change', function(){
+              if ($(this).is(":checked")) {
+                $('.content-box__row').removeClass('js-checked');
+
+                $(this).closest('.content-box__row').addClass('js-checked');
+              }
+            })
+          }
+
+          $('.order-summary-toggle.order-summary-toggle--show')
+            .removeClass('order-summary-toggle--show')
+            .addClass('order-summary-toggle--hide')
+            .attr('aria-expanded', true)
+
+          $('.order-summary.order-summary--is-collapsed').removeClass('order-summary--is-collapsed').addClass('order-summary--is-expanded')
+        });
+
+        $doc.on('click', '.js-btn-toggle', function (e) {
+          e.preventDefault()
+
+          var $this = $(this)
+          var $target = $($this.data('target'))
+          var className = $this.data('class')
+
+          if ($this.closest('.js-tooltip').length) {
+            $this.closest('.js-tooltip').toggleClass(className);
+          } else {
+            $target.toggleClass(className);
+          }
+        })
+
+        $doc.on('click touchstart', function (e) {
+          var $target = $(e.target)
+
+          if ( !$target.hasClass('js-tooltip') && !$target.closest('.js-tooltip').length ) {
+            $('.js-tooltip').removeClass('expanded')
+          }
+        })
+
+        {% comment %} Clutch PIN integration {% endcomment %}
+        function showClutchInputs($originReduction, $giftCardNum, $giftCardPin) {
+          $originReduction.hide()
+          $giftCardNum.show()
+          $giftCardPin.show()
+          $giftCardNum.focus()
+        }
+
+        function initClutch() {
+          var $originReduction = $('#checkout_reduction_code')
+          var $giftCardNum = $('<input type="text" class="field__input js-clutch-num" name="clutch_giftcard" size="16" maxlength="16" style="display:none;margin-right:10px" placeholder="{{ 'gift_cards.num' | t }}">')
+          var $giftCardPin = $('<input type="text" class="field__input js-clutch-pin" name="clutch_pin" size="4" maxlength="4" style="display:none" placeholder="{{ 'gift_cards.pin' | t }}">')
+          $originReduction.parent().prepend($giftCardNum, $giftCardPin);
+
+          if ($originReduction.val().indexOf('6003') == 4) {
+            $giftCardNum.val($originReduction.val().slice(4))
+            $giftCardPin.val($originReduction.val().slice(0, 4))
+            showClutchInputs($originReduction, $giftCardNum, $giftCardPin)
+          }
+
+          $originReduction.on('input', function(e) {
+            if ($originReduction.val().indexOf('6003') == 0) {
+              $giftCardNum.val($originReduction.val())
+              showClutchInputs($originReduction, $giftCardNum, $giftCardPin)
+            }
+          })
+
+          $giftCardPin.on('input', function(e) {
+            $originReduction.val($giftCardPin.val() + $giftCardNum.val())
+          })
+
+          $giftCardNum.on('input', function(e) {
+            if ($giftCardNum.val().indexOf('6003') != 0) {
+              $giftCardPin.hide()
+              $giftCardNum.hide()
+              $originReduction.show()
+              $originReduction.val($giftCardPin.val() + $giftCardNum.val())
+              $originReduction.focus()
+            }
+          })
+        }
+
+        $doc.on('page:load page:change', function () {
+          if ($('.js-clutch-num').length === 0) {
+            initClutch()
+          }
+        })
+      </script>
+
+      <!-- Live Chat -->
+      {%- include 'chat' -%}
+
+      {% include 'nosto-tagging' %}
+
+    {% include "globale-checkout-js" %}
+  </body>
+  </html>

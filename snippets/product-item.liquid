@@ -1,0 +1,73 @@
+{%- assign _product = product-item -%}
+{%- assign _product_item_color = 'products.variants.variant_color' | t | handle -%}
+{%- assign _variant_color_name = '' -%}
+{%- assign product_title_splitter = 'products.product.product_title_splitter' | t -%}
+
+{%- if color_variant != false -%}
+  {%- for _option in _product.options_with_values -%}
+    {%- assign _option_handle = _option.name | handle -%}
+
+    {%- if _option_handle == _product_item_color and _option.values.size > 0 -%}
+      {%- assign _variant_color_name = _option.values[0] -%}
+
+      {% break %}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if _product != empty -%}
+  {%- assign counter = counter | plus: 1 -%}
+
+  <div class="product-item {{ modifier }}{% unless product.available %} product-item--sold-out{% endunless %}">
+    <div class="product-item__inner">
+      <div class="product-item__images">
+        {%- if _product.featured_image != blank -%}
+          <a href="{{ _product.url | within: collection }}" class="product-item__link">
+            {%- if _product_image -%}
+              <div class="product-item__image">
+                {%- if _product_image -%}
+                  {{ _product.featured_image | img_url: '960x' | img_tag }}
+                {%- endif -%}
+              </div><!-- /.product-item__image -->
+            {%- else -%}
+              <div class="product-item__image lazyload" data-bg="url({{ _product.featured_image | img_url: '960x' }})" role="img" aria-label="{{ _product.featured_image.alt }}"></div><!-- /.product-item__image -->
+
+              {%- if _product.images[1] != blank -%}
+                <div class="product-item__image lazyload" data-bg="url({{ _product.images[1] | img_url: '960x' }})" role="img" aria-label="{{ _product.featured_image.alt }}"></div><!-- /.product-item__image -->
+              {%- endif -%}
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+      </div><!-- /.product-item__images -->
+
+      <div class="product-item__content">
+        <div class="product-item__bar">
+          <h5 class="heading-small product-item__title">
+            <a href="{{ _product.url | within: collection }}">
+              {%- if _product.title contains product_title_splitter -%}
+                  {%- assign product_title_first = _product.title | split: product_title_splitter | first | strip -%}
+                  {%- assign product_title_last = _product.title | split: product_title_splitter | last | strip -%}
+                  {{ product_title_first }}
+
+                  <em>{{ product_title_last }}</em>
+              {%- else -%}
+                <h1 class="heading-small section__title js-product-title">
+                  <span>{{ _product.title }} </span>
+
+                  {%- if _variant_color_name != '' -%}
+                    <em>{{ _variant_color_name }}</em>
+                  {%- endif -%}
+                </h1><!-- /.section__title -->
+              {%- endif -%}
+            </a>
+          </h5>
+
+          <div class="price price--small price--grey product-item__price">
+            {%- include 'price' with _product.selected_or_first_available_variant -%}
+          </div><!-- /.price -->
+        </div><!-- /.product-item__bar -->
+      </div><!-- /.product-item__content -->
+    </div><!-- /.product-item__inner -->
+  </div><!-- /.product-item -->
+{%- endif -%}
+{%- assign _product = '' -%}

@@ -1,0 +1,75 @@
+{%- if asset_image -%}
+  <img src="data:," class="lazyload" data-src="{{ _image | asset_url }}" alt="{{ shop.name | escape | prepend: 'Ulla Johnson ' }}" />
+{%- elsif original_size_image -%}
+  {%- assign original_width_image = _image.width | divided_by: 2 | round -%}
+  {%- assign original_height_image = _image.height | divided_by: 2 | round -%}
+  <img src="data:," class="lazyload" data-src="{{ _image | img_url: 'master' }}" alt="{{ _image_alt | escape | prepend: 'Ulla Johnson ' }}" width="{{ original_width_image }}" height="{{ original_height_image }}" />
+{%- elsif metafield_image -%}
+  <img src="data:," class="lazyload {{ additional_classes }}" data-src="{{ _image }}" alt="{{ _image_alt | escape | prepend: 'Ulla Johnson ' }}" />
+{%- elsif original_width or original_height -%}
+  {%- assign mobile_width = 767 -%}
+  {%- if  _image.alt != blank -%}
+    {%- assign image_alt = _image.alt | escape -%}
+  {%- else -%}
+    {%- assign image_alt = shop.name | escape -%}
+  {%- endif -%}
+  {%- if original_width -%}
+    {%- assign image_width = original_width | plus: 0 -%}
+    {%- assign original_size = image_width | times: 2 | append: 'x' -%}
+    {%- assign image_src = _image | img_url: original_size -%}
+    {%- if image_width > mobile_width -%}
+      {%- assign size_small = image_width -%}
+    {%- else -%}
+      {%- assign size_small = image_width | divided_by: 2 | round -%}
+    {%- endif -%}
+    {%- assign size_small_src = size_small | append: 'x' -%}
+    {%- assign size_medium = image_width | times: 2 -%}
+    {%- assign size_medium_src = size_medium | append: 'x' -%}
+    {%- assign size_large = image_width | times: 2 | round -%}
+    {%- assign size_large_src = size_large | append: 'x' -%}
+
+    {%- assign size_ext_small = 300 -%}
+    {%- assign size_med_small = 500 -%}
+    {%- assign size_lat_small = 700 -%}
+    {%- assign size_ext_small_src = size_ext_small | append: 'x' -%}
+    {%- assign size_med_small_src = size_med_small | append: 'x' -%}
+    {%- assign size_lat_small_src = size_lat_small | append: 'x' -%}
+  {%- endif -%}
+  {%- if original_height -%}
+    {%- assign image_height = original_height | plus: 0 -%}
+    {%- assign original_size = image_height | times: 2 | prepend: 'x' -%}
+    {%- assign image_src = _image | img_url: original_size -%}
+    {%- if image_height > mobile_width -%}
+      {%- assign size_small = image_height -%}
+    {%- else -%}
+      {%- assign size_small = image_height | divided_by: 2 | round -%}
+    {%- endif -%}
+    {%- assign size_small_src = size_small | prepend: 'x' -%}
+    {%- assign size_medium = image_height | times: 2 -%}
+    {%- assign size_medium_src = size_medium | prepend: 'x' -%}
+    {%- assign size_large = image_height | times: 2 | round -%}
+    {%- assign size_large_src = size_large | prepend: 'x' -%}
+
+    {%- assign size_ext_small = 300 -%}
+    {%- assign size_med_small = 500 -%}
+    {%- assign size_lat_small = 700 -%}
+    {%- assign size_ext_small_src = size_ext_small | append: 'x' -%}
+    {%- assign size_med_small_src = size_med_small | append: 'x' -%}
+    {%- assign size_lat_small_src = size_lat_small | append: 'x' -%}
+  {%- endif -%}
+
+  <img src="data:," class="lazyload {{ additional_classes }}"
+    data-src="{{ image_src }}"
+    data-srcset="
+    {{ _image | img_url: size_ext_small_src }} {{-size_ext_small-}}w,
+    {{ _image | img_url: size_med_small_src }} {{-size_med_small-}}w,
+    {{ _image | img_url: size_lat_small_src }} {{-size_lat_small-}}w,
+    {{ _image | img_url: size_small_src }} {{-size_small-}}w,
+    {{ _image | img_url: size_medium_src }} {{-size_medium-}}w,
+    {{ _image | img_url: size_large_src }} {{-size_large-}}w"
+    data-aspectratio="{{ _image.aspect_ratio }}"
+    data-sizes="auto"
+    alt="{{ image_alt | prepend: 'Ulla Johnson ' }}" />
+{%- else -%}
+  <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" class="lazyload" data-src="{{ _image }}" alt="{{ _image_alt | prepend: 'Ulla Johnson ' }}"/>
+{%- endif -%}

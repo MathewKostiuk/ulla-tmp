@@ -1,0 +1,136 @@
+{%- assign _blocks = section.blocks -%}
+{%- assign _settings = section.settings -%}
+{%- assign _id = _settings.id -%}
+{%- assign _title = _settings.title -%}
+
+{%- if _title != blank or _blocks.size > 0 -%}
+  {%- if _id != blank -%}<div id="{{ _id }}"></div>{%- endif -%}
+  <div class="events"">
+    {%- if _title != blank -%}
+      <div class="container container--fluid-second">
+        <h2 class="events__section-title">{{ _title }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="events__container">
+      {%- for block in _blocks -%}
+
+        {%- assign _settings = block.settings -%}
+        {%- assign _image_desktop = _settings.image_desktop -%}
+        {%- assign _image_mobile = _settings.image_mobile -%}
+        {%- assign _title = _settings.title -%}
+        {%- assign _subheadline = _settings.subheadline -%}
+        {%- assign _body = _settings.body -%}
+        {%- assign _cta_label = _settings.cta_label -%}
+        {%- assign _cta_url = _settings.cta_url -%}
+
+        {%- if _title != blank or _body != blank -%}
+          <div class="events__images-container">
+
+            <img
+              class="events__image{% if _image_mobile != blank %} events__image--desktop{% endif %}"
+              src="{{ _image_desktop | img_url: '1920x' }}"
+              alt="{{ _image_desktop.alt }}"
+            >
+              {%- if _image_mobile != blank -%}
+              <img
+                class="events__image events__image--mobile"
+                src="{{ _image_mobile | img_url: '768x' }}"
+                alt="{{ _image_mobile.alt }}"
+              >
+              {%- endif -%}
+          </div>      
+
+          <div class="events__text-container">
+
+            {%- if _title != blank -%}
+              <h3 class="events__text-title">{{ _title }}</h3>
+            {%- endif -%}
+
+            {%- if _subheadline != blank -%}
+              <p class="events__subtitle">{{ _subheadline }}</p>
+            {%- endif -%}
+
+            {%- if _body != blank -%}
+              <p class="events__copy">{{ _body }}</p>
+            {%- endif -%}
+
+            {%- if _cta_label != blank and _cta_url != blank -%}
+              <a class="events__cta" href="{{ _cta_url }}">{{ _cta_label }}</a>
+            {%- endif -%}
+
+          </div>      
+        {%- endif -%}
+
+      {%- endfor -%}
+    </div>
+  </div> 
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Events",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "ID",
+      "info": "The ID is used to allow navigation to this section from the top subnavigation. This ID should be set as URL in the subnavigation followed by '#'. If the ID is 'section-id', the value that needs to be set in the subnavigation should be '#section-id'"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "event",
+      "name": "Event",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Image Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image Mobile"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Headline"
+        },
+        {
+          "type": "textarea",
+          "id": "subheadline",
+          "label": "Subheadline"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body copy"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA Label"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "CTA URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Events"
+    }
+  ],
+  "max_blocks": 2
+}
+{% endschema %}

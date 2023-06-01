@@ -1,0 +1,52 @@
+<div class="account">
+  <div class="account__head">
+    <h1 class="account__title">
+      {{- 'customer.account.title_html' | t: name: customer.first_name -}}
+    </h1><!-- /.account__title -->
+  </div><!-- /.account__head -->
+
+  <div class="account__body">
+    <div class="tabs tabs--account js-tabs-toggle visible-xs-block">
+      <nav class="tabs__nav">
+        <ul>
+          <li>
+            <a href="#orders" data-url="/account" class="{% if template == 'customers/account' or template == 'customers/order' %}is-active{% endif %}">
+              {{- 'customer.orders.title' | t -}}
+            </a>
+          </li>
+
+          <li>
+            <a href="#addresses" data-url="/account/addresses" class="{% if template == 'customers/addresses' %}is-active{% endif %}">
+              {{- 'customer.addresses.title' | t -}}
+            </a>
+          </li>
+        </ul>
+      </nav><!-- /.account__nav -->
+    </div><!-- /.js-tabs -->
+    <div class="accordion js-accordion js-accordion-toggle">
+      <div class="account__accordion accordion__section {% if template == 'customers/account' or template == 'customers/order' %}is-expanded{% endif %}">
+        <div class="account__accordion-head accordion__head hidden-xs" data-url="/account">
+          <h2 class="account__accordion-title">
+            {{- 'customer.orders.title' | t -}}
+          </h2><!-- /.account__accordion-title -->
+        </div><!-- /.account__accordion-head -->
+
+        <div id="orders" class="account__accordion-body accordion__body js-tab" {% unless template == 'customers/account' or template == 'customers/order' %}style="display: none;"{% endunless %}>
+          {% include 'customer-orders' %}
+        </div><!-- /.account__accordion-body -->
+      </div><!-- /.account__accordion -->
+
+      <div class="account__accordion accordion__section {% if template == 'customers/addresses' %}is-expanded{% endif %}">
+        <div class="account__accordion-head accordion__head hidden-xs" data-url="/account/addresses">
+          <h2 class="account__accordion-title">
+            {{- 'customer.addresses.title' | t -}}
+          </h2><!-- /.account__accordion-title -->
+        </div><!-- /.account__accordion-head -->
+
+        <div id="addresses" class="account__accordion-body accordion__body js-tab" {% unless template == 'customers/addresses' %}style="display: none;"{% endunless %}>
+          {% include 'customer-addresses' %}
+        </div><!-- /.account__accordion-body -->
+      </div><!-- /.account__accordion -->
+    </div><!-- /.accordion js-accordion -->
+  </div><!-- /.account__body -->
+</div><!-- /.account -->

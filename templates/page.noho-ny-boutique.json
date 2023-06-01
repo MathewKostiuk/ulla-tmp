@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "stores": {
+      "type": "section-blocks",
+      "blocks": {
+        "43712ae6-f47d-4533-8b31-27a8cdc75a63": {
+          "type": "store",
+          "disabled": true,
+          "settings": {
+            "background": "shopify:\/\/shop_images\/B_55df9ed9-5b67-41de-a30f-8ed0527b3603.jpg",
+            "anchor_link": "West Hollywood",
+            "title": "",
+            "text": "",
+            "text_small": ""
+          }
+        },
+        "1580900161663": {
+          "type": "store",
+          "settings": {
+            "background": "shopify:\/\/shop_images\/Bleecker_Overlay_1.jpg",
+            "anchor_link": "",
+            "title": "<p>Ulla Johnson <em>NYC<\/em><\/p>",
+            "text": "<p><a href=\"https:\/\/goo.gl\/maps\/1CErpaJaerzRphJ5A\" title=\"https:\/\/goo.gl\/maps\/1CErpaJaerzRphJ5A\">15 Bleecker Street <br\/>New York, NY 10012<\/a><br\/><a href=\"tel:2129650144\" title=\"tel:2129650144\">212.965.0144<\/a><\/p><p><\/p><p>Monday-Saturday 11am-7pm EST<br\/>Sunday 12pm-6pm EST<br\/><\/p><p><a href=\"https:\/\/www.instagram.com\/ullajohnsonbleecker\/\" title=\"https:\/\/www.instagram.com\/ullajohnsonbleecker\/\">Bleecker Instagram<\/a><\/p>",
+            "text_small": "",
+            "image_1": "shopify:\/\/shop_images\/Store_BLK_1.jpg",
+            "image_2": "shopify:\/\/shop_images\/Store_BLK_2.jpg",
+            "image_3": "shopify:\/\/shop_images\/Store_BLK_3.jpg",
+            "image_4": "shopify:\/\/shop_images\/Store_BLK_4.jpg"
+          }
+        },
+        "1580900231888": {
+          "type": "store",
+          "disabled": true,
+          "settings": {
+            "background": "shopify:\/\/shop_images\/Amagansett_Overlay_3.jpg",
+            "anchor_link": "amagansett",
+            "title": "<p>Ulla Johnson <em>NY<\/em><\/p>",
+            "text": "<p><a href=\"https:\/\/goo.gl\/maps\/o6HFJ3f8HcXHicps8\" title=\"https:\/\/goo.gl\/maps\/o6HFJ3f8HcXHicps8\">4 Amagansett Square <br\/>Amagansett, NY 11930<\/a><br\/><a href=\"tel:6312597123\" title=\"tel:6312597123\">631.259.7123<\/a><\/p><p><\/p><p>Sunday-Thursday 10am-5pm EST<br\/>Friday-Saturday 10am-6pm EST<\/p><p><\/p><p><a href=\"https:\/\/www.instagram.com\/ullajohnsonamagansett\/\" title=\"https:\/\/www.instagram.com\/ullajohnsonamagansett\/\">Amagansett Instagram<\/a><\/p>",
+            "text_small": "",
+            "image_1": "shopify:\/\/shop_images\/Store_AMG_4.jpg",
+            "image_2": "shopify:\/\/shop_images\/Store_AMG_2.jpg",
+            "image_3": "shopify:\/\/shop_images\/Store_AMG_1.jpg",
+            "image_4": "shopify:\/\/shop_images\/Store_AMG_3.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "43712ae6-f47d-4533-8b31-27a8cdc75a63",
+        "1580900161663",
+        "1580900231888"
+      ],
+      "settings": {
+        "bottom_title": "Ulla Johnson Stockists",
+        "btn_text": "View Stockists",
+        "btn_link": "shopify:\/\/pages\/store-locator"
+      }
+    }
+  },
+  "order": [
+    "stores"
+  ]
+}

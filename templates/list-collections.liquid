@@ -1,0 +1,16 @@
+{%- assign exclude = 'frontpage' | split: ',' -%}
+
+<div class="sections-default sections-default--sticky">
+  {%- paginate collections by 10 -%}
+    {%- for collection in collections -%}
+      {% if collection.metafields.nosto == blank %}
+        {%- if exclude contains collection.handle -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign collection_image = collection.image | default: collection.products.first.featured_image -%}
+
+        {%- include 'default-section' block_image: collection_image, block_title: collection.title, block_link: collection.url -%}
+      {% endif %}
+    {%- endfor -%}
+  {%- endpaginate -%}
+</div>

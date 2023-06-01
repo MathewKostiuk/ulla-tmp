@@ -1,0 +1,162 @@
+{%- if collection.metafields.sales_popup.show_sales_popup == 'true' -%}
+  {%- assign _section = section.settings -%}
+  <style>
+    .gated-popup--title {
+      font-size: {{ _section.font_size_title_mobile}}px;
+    }
+    @media only screen and (min-width: 1024px){
+      .gated-popup--title {
+        font-size: {{ _section.font_size_title}}px
+      }
+    }
+  </style>
+  <div class="gated-popup" id="collection-gated">
+    <div class="gated-popup--wrapper">
+      <div class="gated-popup--overlap"></div>
+      <div class="gated-popup--cover">
+        <div class="gated-popup--inner">
+          {%- if _section.title != blank -%}
+            <div class="gated-popup--title">
+              {{ _section.title | newline_to_br }}
+            </div>
+          {%- endif -%}
+          {%- if _section.detail != blank -%}
+            <div class="gated-popup--detail" style="font-size: {{ _section.font_size_description }}px">
+              {{ _section.detail }}
+            </div>
+          {%- endif -%}
+          <div class="gated-popup--form">
+            {%- include 'subscribe' additional_class: 'subscribe--primary js-subscribe' -%}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function getCookie(key) {
+        if (!navigator.cookieEnabled) {
+          return null
+        }
+        var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)')
+        return keyValue ? keyValue[2] : null
+      }
+
+      function setCookie(key, value, expiry=1) {
+        if (!navigator.cookieEnabled) {
+          return
+        }
+        var expires = new Date()
+        expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000))
+        document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()
+      }
+
+      function hasKlaviyoLoaded() {
+        if (isKlaviyoLoaded) {
+          return true
+        } else if (typeof klaviyoModulesObject !== 'undefined') {
+          isKlaviyoLoaded = true
+          return true
+        }
+        return false
+      }
+
+      function initKlaviyoPopup() {
+        gatedTpl.className += " active";
+        body.className += " collection-gated-opened"
+        window.addEventListener("klaviyoForms", function(e) {
+          if (e.detail.type == "submit") {
+            setTimeout(function() {
+              gatedTpl.classList.remove("active")
+              body.classList.remove("collection-gated-opened")
+              setCookie('closed-sale', 'true', 14)
+            }, 1000)
+          }
+        });
+      }
+
+      var gatedTpl = document.getElementById('collection-gated')
+      var body = document.getElementsByTagName("BODY")[0]
+      let klaviyoCheckedTimes = 0
+      let isKlaviyoLoaded = false
+      let klaviyoInterval = null
+
+      document.addEventListener('DOMContentLoaded', function () {
+        if (getCookie(`closed-sale`) == 'true') {
+          gatedTpl.parentNode.removeChild(gatedTpl)
+          return
+        }
+
+        klaviyoInterval = setInterval(function () {
+          if (klaviyoCheckedTimes > 10) {
+            clearInterval(klaviyoInterval)
+          } else if (!isKlaviyoLoaded) {
+            isKlaviyoLoaded = hasKlaviyoLoaded()
+            klaviyoCheckedTimes++
+            if (isKlaviyoLoaded) {
+              clearInterval(klaviyoInterval)
+              initKlaviyoPopup()
+            }
+          }
+        }, 300);
+      })
+    </script>
+  </div>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Gated Popup",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "range",
+      "id": "font_size_title",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "font_size_title_mobile",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size mobile",
+      "default": 40
+    },
+    {
+      "type": "textarea",
+      "id": "detail",
+      "label": "Description"
+    },
+    {
+      "type": "range",
+      "id": "font_size_description",
+      "min": 15,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Description font size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "font_size_description_mob",
+      "min": 15,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Description font size mobile",
+      "default": 20
+    }
+  ]
+}
+{% endschema %}

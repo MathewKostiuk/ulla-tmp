@@ -1,0 +1,378 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ulla Johnson",
+    "theme_author": "Tomorrow",
+    "theme_version": "2.0.0",
+    "theme_documentation_url": "https://help.shopify.com/manual/using-themes",
+    "theme_support_email": "theme-support@shopify.com"
+  },
+  {
+    "name": "General",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Technical",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Storefront API"
+      },
+      {
+        "type": "text",
+        "id": "technical_storefront_token",
+        "label": "Token"
+      },
+      {
+        "type": "text",
+        "id": "technical_storefront_api_version",
+        "label": "Version"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_global_e",
+        "label": "Enable Global-E",
+        "info": "By default, Global-E will be enabled. If you want to disable it, please uncheck this box.",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Product page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Pre-order Signup Alerts"
+      },
+      {
+        "type": "checkbox",
+        "id": "preorder_alert_enabled",
+        "label": "Enable",
+        "default": true
+      },
+      {
+        "type": "richtext",
+        "id": "preorder_alert_text",
+        "label": "Pre-order Text",
+        "default": "<p>Or <strong>get notified</strong> when the item <br>is back in stock</p>",
+        "info": "Bolded text will automatically hyperlink to trigger the modal"
+      },
+      {
+        "type": "header",
+        "content": "Shipping & Returns"
+      },
+      {
+        "type": "richtext",
+        "id": "shipping_and_returns_text",
+        "label": "Shipping & Returns Text"
+      },
+      {
+        "type": "header",
+        "content": "Gift Card Instructions"
+      },
+      {
+        "type": "richtext",
+        "id": "how_to_use_text",
+        "label": "How to Use Text"
+      },
+      {
+        "type": "header",
+        "content": "Gift Card Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "gift_card_image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Low Stock"
+      },
+      {
+        "type": "range",
+        "id": "low_stock_number",
+        "min": 1,
+        "max": 50,
+        "step": 1,
+        "label": "Low Stock Number",
+        "default": 10
+      }
+    ]
+  },
+  {
+    "name": "Collection page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Collection Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "collection_menu",
+        "label": "Menu"
+      },
+      {
+        "type": "header",
+        "content": "Item Left Number"
+      },
+      {
+        "type": "range",
+        "id": "collection_left_number",
+        "min": 1,
+        "max": 50,
+        "step": 1,
+        "label": "Item Left Number",
+        "default": 10
+      },
+      {
+        "type": "header",
+        "content": "Products Per Page"
+      },
+      {
+        "type": "range",
+        "id": "collection_limit",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "label": "Products Per Page",
+        "default": 12
+      },
+      {
+        "type": "header",
+        "content": "Out Of Stock"
+      },
+      {
+        "type": "text",
+        "id": "collection_out_of_stock",
+        "label": "Out Of Stock Text",
+        "default": "Out of stock"
+      }
+    ]
+  },
+  {
+    "name": "Collections Gallery Page",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "collections_gallery_nav",
+        "label": "Menu"
+      }
+    ]
+  },
+  {
+    "name": "Cart page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Message"
+      },
+      {
+        "type": "richtext",
+        "id": "cart_page_message_primary",
+        "label": "Message 1"
+      },
+      {
+        "type": "richtext",
+        "id": "cart_page_message",
+        "label": "Message 2"
+      }
+    ]
+  },
+  {
+    "name": "Help Menu",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "help_menu",
+        "label": "Menu"
+      }
+    ]
+  },
+  {
+    "name": "Subscribe",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "subscribe_text",
+        "label": "Subscribe Text",
+        "default": "Sign up to Ulla Johnson emails to receive the latest news, updates and collection launches."
+      },
+      {
+        "type": "textarea",
+        "id": "subscribe_embed",
+        "label": "Subscribe Embed Form"
+      },
+      {
+        "type": "text",
+        "id": "subscribe_api_key",
+        "label": "Subscribe API Key"
+      }
+    ]
+  },
+  {
+    "name": "Cookies Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cookies_bar_enabled",
+        "label": "Enable"
+      },
+      {
+        "type": "richtext",
+        "id": "cookies_bar_text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "text",
+        "id": "search_btn_text",
+        "label": "Button - Text"
+      },
+      {
+        "type": "url",
+        "id": "search_btn_url",
+        "label": "Button - URL"
+      },
+      {
+        "type": "collection",
+        "id": "search_collection",
+        "label": "Collection from which to show up to 3 products"
+      }
+    ]
+  },
+  {
+    "name": "Page Templates",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "page_template_image",
+        "label": "Image"
+      }
+    ]
+  },
+  {
+    "name": "Share",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Share Image",
+        "info": "Shown when sharing a link on social media. [Learn more](https://help.shopify.com/manual/using-themes/troubleshooting/showing-social-media-thumbnail-images/) about image thumbnails."
+      }
+    ]
+  },
+  {
+    "name": "Site Map",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "site_map_1",
+        "label": "Menu 1"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_2",
+        "label": "Menu 2"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_3",
+        "label": "Menu 3"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_4",
+        "label": "Menu 4"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_5",
+        "label": "Menu 5"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_6",
+        "label": "Menu 6"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_7",
+        "label": "Menu 7"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_8",
+        "label": "Menu 8"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_9",
+        "label": "Menu 9"
+      },
+      {
+        "type": "link_list",
+        "id": "site_map_10",
+        "label": "Menu 10"
+      }
+    ]
+  },
+  {
+    "name": "Searchspring",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "ss_enable",
+        "label": "Enable Searchspring",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "ss_search_only",
+        "label": "Search only",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "ss_site_id",
+        "label": "Site ID",
+        "default": "g7562x"
+      },
+      {
+        "type": "text",
+        "id": "ss_collection_handle",
+        "label": "Search collection handle",
+        "default": "shop"
+      }
+    ]
+  },
+  {
+    "name": "Accessibility",
+    "settings": [
+      {
+        "type": "text",
+        "id": "accessibility_statement",
+        "label": "Statement text",
+        "default": "Accessibility statement"
+      },
+      {
+        "type": "page",
+        "id": "accessibility_statement_page",
+        "label": "Accessibility statement page"
+      }
+    ]
+  }
+]

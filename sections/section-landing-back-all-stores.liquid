@@ -1,0 +1,32 @@
+{%- assign _settings = section.settings -%}
+{%- assign _cta_label = _settings.cta_label -%}
+{%- assign _cta_url = _settings.cta_url -%}
+
+{%- if _cta_label != blank and _cta_url != blank -%}
+  <div class="back-button__container">
+    <a class="back-button__cta btn btn--bordered btn--large" href="{{ _cta_url }}">{{ _cta_label }}</a>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Back Button",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Back Button"
+    }
+  ]
+}
+{% endschema %}

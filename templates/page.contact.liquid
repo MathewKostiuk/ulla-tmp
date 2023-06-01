@@ -1,0 +1,19 @@
+<section class="section-template section-template--contacts animated">
+  <div class="section__inner animated">
+    {%- if settings.page_template_image != blank -%}
+      <div class="section__bg lazyload" data-bg="url({{ settings.page_template_image | img_url: '3840x' }})" role="img" aria-label="{{ settings.page_template_image.alt }}"></div><!-- /.section__bg -->
+    {%- endif -%}
+
+    <h1 class="heading-medium section__title">{{ page.title }}</h1><!-- /.section__title -->
+  </div><!-- /.section__inner -->
+
+  {%- if page.content != blank -%}
+    <div class="section__body animated">
+      <div class="container container--fluid-second">
+        <div class="entry-block entry-block--secondary section__content">
+          {{ page.content }}
+        </div><!-- /.section__content -->
+      </div><!-- /.container -->
+    </div><!-- /.section__body -->
+  {%- endif -%}
+</section><!-- /.section-template -->

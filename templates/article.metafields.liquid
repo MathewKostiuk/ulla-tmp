@@ -1,0 +1,20 @@
+{% layout none %}
+{%- assign _article_meta_products = article.metafields.collection_article.product -%}
+
+{%- if _article_meta_products != blank -%}
+  {%- for idx in (1.._article_meta_products.size) -%}
+    {%- assign _article_meta_product_handle = _article_meta_products[forloop.index0] -%}
+
+    {%- if _article_meta_product_handle != blank -%}
+      {%- assign _article_meta_product = all_products[_article_meta_product_handle] -%}
+      {%- assign _article_meta_counter = _article_meta_counter | plus: 1 -%}
+      {%- assign product_item_modifier = 'product-item--primary' -%}
+
+      {%- if _article_meta_counter == 1 -%}
+        {%- assign product_item_modifier = 'product-item--primary js-product-target-scroll' -%}
+      {%- endif -%}
+
+      {%- include 'product-item' with _article_meta_product, modifier: product_item_modifier, color_variant: false -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

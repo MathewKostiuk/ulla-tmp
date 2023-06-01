@@ -1,0 +1,30 @@
+{%- assign text_items = _metafield.text_image.text -%}
+{%- assign text_items_size = text_items.size -%}
+{%- if text_items_size > 0 -%}
+  {%- for idx in (1..text_items_size) -%}
+    {%- assign text_item_text = text_items[forloop.index0] -%}
+    {%- assign text_item_pos = _metafield.text_image.text_position[forloop.index0] -%}
+    {%- assign text_item_color = _metafield.text_image.text_color[forloop.index0] -%}
+    {%- assign text_item_image = _metafield.text_image.image[forloop.index0] -%}
+
+    {%- if text_item_text != blank -%}
+      <div class="featured-item{% if text_item_pos == 'Top' %} featured-item--top{% elsif text_item_pos == 'Bottom' %} featured-item--bottom{% endif %} section__item js-item-horizontal">
+        <div class="featured-item__inner">
+          {%- if text_item_image != blank -%}
+            {%- capture text_item_bg -%}
+              {%- include 'responsive-acc-image', image_url: text_item_image, image_width: '1100' -%}
+            {%- endcapture -%}
+
+            <div class="featured-item__image lazyload" data-bg="url({{ text_item_bg }})" role="img" aria-label="{{ text_item_image.alt }}"></div><!-- /.featured-item__image -->
+          {%- endif -%}
+
+          <div class="featured-item__content">
+            <div class="featured-item__entry"{% if text_item_color != blank %} style="color: {{ text_item_color }};"{% endif %}>
+              {{ text_item_text }}
+            </div><!-- /.featured-item__entry -->
+          </div><!-- /.featured-item__content -->
+        </div><!-- /.featured-item__inner -->
+      </div><!-- /.featured-item -->
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

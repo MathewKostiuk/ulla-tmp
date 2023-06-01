@@ -1,0 +1,117 @@
+{%- if search.performed -%}
+  {% paginate search.results by 9999 %}
+    {% assign products_loop = '' %}
+    {% assign products_count = 0 %}
+    {% assign used_types = '' %}
+
+    {%- for _item in search.results -%}
+      {%- if _item.object_type == 'product' -%}
+        {% if _item.type %}
+          {% unless used_types contains _item.type %}
+            {% assign used_types = used_types | append: _item.type | append: ',' %}
+          {% endunless %}
+        {% endif %}
+
+        {% capture products_loop %}
+          {{ products_loop }}
+
+          <li data-type="{{- _item.type | handle -}}">
+            {% include 'product-item' with _item %}
+          </li>
+
+          {% assign products_count = products_count | plus: 1 %}
+        {% endcapture %}
+      {% endif %}
+    {%- endfor -%}
+
+    {% assign used_types_arr = used_types | split: ',' %}
+
+    <script type="text/javascript">
+      var typesArr = [{%- for type in used_types_arr -%}"{{- type | handle -}}"{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}];
+    </script>
+
+    {% capture tabs_nav %}
+      {% for type in used_types_arr %}
+        <li>
+          <a href="#{{- type | handle -}}">
+            {{ type }} <span>(0)</span>
+          </a>
+        </li>
+      {% endfor %}
+    {% endcapture %}
+
+    {% capture tabs_body %}
+      {% for type in used_types_arr %}
+        <li>
+          <div id="{{- type | handle -}}" class="js-tab" style="display: none;">
+            <ul class="list-results">
+
+            </ul>
+          </div>
+        </li>
+      {% endfor %}
+    {% endcapture %}
+  {% endpaginate %}
+{%- endif -%}
+
+<div class="section-search animated">
+  <div class="section__head {% if search.results == empty and search.performed %}section__head--no-results{% endif %}">
+    <span>
+      {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }}
+    </span>
+
+    {%- if search.results != empty and search.performed -%}
+      <div class="js-tabs-toggle tabs">
+        <nav class="section__nav tabs__nav">
+          <ul>
+            <li>
+              <a class="is-active" href="#all">{{ 'general.search.all' | t }} ({{ products_count }})</a>
+            </li>
+
+            {{ tabs_nav }}
+          </ul>
+        </nav><!-- /.section__nav -->
+      </div><!-- /.js-tabs-toggle tabs -->
+
+      <span></span>
+    {%- elsif search.results == empty and search.performed -%}
+      <div class="section__inner">
+        <p>
+          {{- 'general.search.no_results_html' | t: terms: search.terms -}}
+        </p>
+
+        {% if settings.search_btn_text != blank and settings.search_btn_url != blank %}
+          <a href="{{- settings.search_btn_url -}}" class="btn btn--bordered btn--large">{{- settings.search_btn_text -}}</a><!-- /.btn btn--bordered -->
+        {% endif %}
+      </div><!-- /.header__inner -->
+    {%- endif -%}
+  </div><!-- /.section__head -->
+
+  <div class="section__body">
+  {%- if search.results != empty and search.performed -%}
+    <ul class="list-tabs">
+      <li>
+        <div id="all" class="js-tab">
+          <ul class="list-results">
+            {{ products_loop }}
+          </ul>
+        </div><!-- /.js-tab -->
+      </li>
+
+      {{ tabs_body }}
+    </ul><!-- /.list-tabs -->
+  {%- elsif search.results == empty and search.performed -%}
+    {% if settings.search_collection != blank %}
+      <ul class="list-results">
+        {% for item in collections[settings.search_collection].products limit: 3 %}
+          <li>
+            {% include 'product-item' with item %}
+          </li>
+        {% endfor %}
+      </ul><!-- /.list-results -->
+    {% endif %}
+  {%- endif -%}
+  </div><!-- /.section__body -->
+</div><!-- /.section-search -->
+
+{% include 'nosto-element' with 'searchpage-nosto-2' %}

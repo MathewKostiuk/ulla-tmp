@@ -1,0 +1,62 @@
+<script
+  src="https://cdn.kustomerapp.com/chat-web/widget.js"
+  data-kustomer-api-key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjk1OGNhNzE0YjNkMDA5NWQxNDdlZSIsInVzZXIiOiI2MTI5NThjNjdiOGIzOTAwMTk1OTg0NzIiLCJvcmciOiI1ZDEzODkyMzYzYWNhMTAwMTMwOTUzNDciLCJvcmdOYW1lIjoidWxsYS1qb2huc29uIiwidXNlclR5cGUiOiJtYWNoaW5lIiwicG9kIjoicHJvZDEiLCJyb2xlcyI6WyJvcmcudHJhY2tpbmciXSwiYXVkIjoidXJuOmNvbnN1bWVyIiwiaXNzIjoidXJuOmFwaSIsInN1YiI6IjYxMjk1OGM2N2I4YjM5MDAxOTU5ODQ3MiJ9.XgIpiu9larn9tq-gbJBrNfnf08gs3KWQVhU4ZXrAuAM"
+></script>
+<script>
+  // Start the chat client
+  Kustomer.start({ hideChatIcon: true }, function () {
+    var availableChat = Kustomer.isChatAvailable().availability
+    var $chatParent = document.querySelectorAll('.js-chat-parent')
+
+    if (availableChat === 'online' && $chatParent.length) {
+      $chatParent.forEach(function(item) {
+        item.classList.add('menu__item--chat');
+      });
+    }
+
+    {% if customer %}
+      Kustomer.isLoggedIn({ email: '{{ customer.email }}' }, (res, error) => {
+        if (!error && !res) {
+          const config = {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            }
+          };
+
+          const params = JSON.stringify({ email: '{{ customer.email }}' });
+          config.body = params;
+
+          fetch(`https://wlziuefgefuadcf6hjja3yr2sy0zjggc.lambda-url.us-east-1.on.aws`, config)
+            .then((response) => response.json())
+            .then((json) => {
+              if (json.message == 'Success') {
+                Kustomer.login({ jwtToken: json.token });
+              }
+            });
+        }
+      })
+    {% endif %}
+  });
+
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('js-chat-link')) {
+      event.preventDefault();
+
+      Kustomer.open();
+    }
+  });
+</script>
+
+<style type="text/css" media="screen">
+  body .kustomer-app-header-title:before,
+  body .kustomer-app-header-company-name:before {
+    content: '{{ "general.live_chat.title" | t }}';
+  }
+
+  body .kustomer-app-header-title:after,
+  body .kustomer-app-header-company-name:after {
+    content: '{{ "general.live_chat.subtitle" | t }}';
+  }
+</style>

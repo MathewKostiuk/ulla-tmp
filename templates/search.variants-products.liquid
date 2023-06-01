@@ -1,0 +1,35 @@
+{% layout none %}
+
+{%- if search.performed -%}
+  {%- if search.results != empty and search.terms != "" -%}
+    {%- assign variant_color = 'products.variants.variant_color' | t -%}
+    {%- assign variant_color_handle = variant_color | handle -%}
+
+    <ul>
+      {%- for _item in search.results -%}
+        {%- if _item.object_type == 'product.tags' or _item.object_type == 'product' -%}
+          {%- for option in _item.options_with_values -%}
+            {%- assign option_name = option.name -%}
+            {%- assign option_handle = option_name | handle -%}
+
+            {%- if variant_color_handle == option_handle -%}
+              {%- for variant_title in option.values -%}
+                <li>
+                  {% include 'search-style-color' %}
+                  <a href="{{ _item.url }}" data-value-title="{{ variant_title }}" data-value="{{ variant_title | handle }}" data-option="{{ option.position }}" data-index="{{ forloop.index0 }}" data-option-name="{{ option_name }}" data-option-name-handle="{{ option_handle }}" data-low-stock="{{ low_stock_number }}" class="dropdown__link dropdown__link--redirect">
+                    {%- if option_handle == variant_color_handle -%}
+                      <small class="color-{{ variant_title | handle }}"></small>
+                    {%- endif -%}
+
+                    <span>{{ variant_title }}</span>
+                  </a>
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+{%- endif -%}
+

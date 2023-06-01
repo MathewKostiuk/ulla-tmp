@@ -1,0 +1,110 @@
+{%- assign _settings = section.settings -%}
+{%- assign _id = _settings.id -%}
+{%- assign _image = _settings.image -%}
+{%- assign _form_placement = _settings.form_placement -%}
+{%- assign _background_color = _settings.background_color -%}
+{%- assign _title = _settings.title -%}
+{%- assign _text = _settings.text -%}
+
+{% style %}
+  {%- if _background_color != blank -%}
+    #{{ section.id }} {
+      background-color: {{ _background_color }};
+    }
+  {%- endif -%}
+  {%- if _form_placement == "left" -%}
+    @media screen and (min-width: 768px) {
+      #{{ section.id }} {
+        flex-direction: row-reverse;
+      }
+    }
+  {%- endif -%}
+{% endstyle %}
+
+{%- if _image != blank -%}
+  {%- if _id != blank -%}<div id="{{ _id }}"></div>{%- endif -%}
+  <div class="email-signup" id="{{ section.id }}">
+    <img
+      class="email-signup__image"
+      src="{{ _image | img_url: '960x' }}"
+      alt="{{ _image.alt }}"
+    >
+    <div class="email-signup__form-container">
+      <div class="email-signup__form">
+        {%- if _title != blank -%}
+          <h2 class="email-signup__title">
+            {{ _title }}
+          </h2>
+        {%- endif -%}
+        {%- if _text != blank -%}
+          <p class="email-signup__body">
+            {{ _text }}
+          </p>
+        {%- endif -%}
+        {%- if settings.subscribe_embed != blank -%}
+          <div class="email-signup__body">
+            {{ settings.subscribe_embed }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Email Signup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "Section ID",
+      "info": "The ID is used to allow navigation to this section from the top subnavigation. This ID should be set as URL in the subnavigation followed by '#'. If the ID is 'section-id', the value that needs to be set in the subnavigation should be '#section-id'"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "select",
+      "id": "form_placement",
+      "label": "Form Placement",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Body Copy"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Email Signup"
+    }
+  ]
+}
+{% endschema %}

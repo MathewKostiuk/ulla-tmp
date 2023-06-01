@@ -1,0 +1,190 @@
+{% comment %}Block Section{% endcomment %}
+{%- include 'block-section',
+  modifier: 'section-block--secondary',
+  meta_images: true,
+  opacity_animate: true,
+  opacity_revert: false,
+  richtext: true,
+  block_image: page.metafields.collections.image,
+  block_image_mobile: page.metafields.collections.image_mobile,
+  block_title: page.title,
+  block_text: page.content,
+  block_video: page.metafields.collections.video,
+  block_video_mobile: page.metafields.collections.video_mobile,
+  block_video_mp4: page.metafields.collections.video_mp4
+  block_video_mp4_mobile: page.metafields.collections.video_mp4_mobile
+-%}
+
+{% comment %}Articles{% endcomment %}
+{%- assign tag_size_medium = 'blogs.article_collections.tag_size_medium' | t -%}
+{%- assign tag_size_large = 'blogs.article_collections.tag_size_large' | t -%}
+{%- assign gallery_nav = settings.collections_gallery_nav -%}
+{%- assign gallery_tag = 'blogs.article_collections.tag_gallery' | t -%}
+{%- assign gallery_items = '' -%}
+{%- assign popup_slider = '' -%}
+{%- assign popup_slider_caption = '' -%}
+{%- assign popup_scroll = '' -%}
+{%- if gallery_nav != blank -%}
+  {%- for link in linklists[gallery_nav].links -%}
+    {%- if page.url == link.url and link.links.size > 0 -%}
+      {%- assign slider_counter = 0 -%}
+      {%- assign scroll_counter = 0 -%}
+
+      {%- for item in link.links -%}
+        {%- assign item_url = item.url | remove: '/blogs/' -%}
+        {%- assign _article = articles[item_url] -%}
+        {%- assign _article_modifier = '' -%}
+        {%- assign _article_gallery_modifier = '' -%}
+        {%- assign _article_gallery_flag = false -%}
+        {%- assign _article_meta_products = _article.metafields.collection_article.product -%}
+
+        {%- if _article.tags contains gallery_tag -%}
+          {%- assign _article_gallery_modifier = 'gallery-item--alt' -%}
+          {%- assign _article_gallery_flag = true -%}
+          {%- assign slider_counter = slider_counter | plus: 1 -%}
+
+          {%- capture popup_slider -%}
+            {{ popup_slider }}
+
+            <div class="slider__slide">
+              <div class="slider__slide-image">
+                {%- assign _article_image = _article.image | img_url: '3840x' -%}
+                <figure class="lazyload" data-bg="url({{ _article_image }})">
+                  {%- include 'lazyload-image' _image: _article_image, _image_alt: article.image.alt -%}
+                </figure>
+                <div class="slider__slide-content">
+                  {{ _article.content }}
+                </div><!-- /.slider__slide-content -->
+              </div><!-- /.slider__slide-image -->
+            </div><!-- /.slider__slide -->
+          {%- endcapture -%}
+
+          {%- capture popup_slider_caption -%}
+            {{ popup_slider_caption }}
+
+            <div class="slider__slide">
+              <div class="slider__slide-content">
+                <span>{{ _article.title }}</span>
+              </div><!-- /.slider__slide-content -->
+            </div><!-- /.slider__slide -->
+          {%- endcapture -%}
+        {%- else -%}
+          {%- assign scroll_counter = scroll_counter | plus: 1 -%}
+
+          {%- capture popup_scroll -%}
+            {{ popup_scroll }}
+
+            <div class="tile-item js-tile-item js-item-horizontal" id="tile-item-{{ scroll_counter }}" data-class-remove="{% if _article_meta_products.size < 3 %}scrolled{% else %}expanded{% endif %}">
+              <div class="tile-item__inner">
+                {%- if _article.image != blank -%}
+                  {%- assign tile_image = _article.image | img_url: '1920x' -%}
+
+                  <div class="tile-item__bg lazyload js-tile-item__bg" data-bg="url({{ tile_image }})" role="img" aria-label="{{ _block.image.alt }}"></div><!-- /.tile-item__bg -->
+                {%- endif -%}
+
+                <div class="tile-item__content">
+                  <span class="tile-item__title hidden-md hidden-lg">{{ page.title }}</span>
+
+                  <div class="tile-item__bar">
+                    <small>{{ scroll_counter }}</small>
+
+                    {%- if _article_meta_products != blank -%}
+                      <a href="#" class="link-default link-default--reversed link-default--large js-btn-toggle" data-class="{% if _article_meta_products.size < 3 %}scrolled{% else %}expanded{% endif %}" data-target="#tile-item-{{ scroll_counter }}" data-target-scroll-class="js-product-target-scroll" data-target-scroll-pixels="43" data-slider-classes="expanded, scrolled" data-target-ajax-page="{{ _article.url }}?view=metafields" data-target-ajax-container="js-tile-products">{{ 'blogs.article_collections.link_shop_look' | t }}</a>
+                    {%- endif -%}
+                  </div><!-- /.tile-item__bar -->
+                </div><!-- /.tile-item__content -->
+              </div><!-- /.tile-item__inner -->
+
+              {%- if _article_meta_products != blank -%}
+                <div class="tile-item__products">
+                  <div class="product-items-primary js-tile-products"></div><!-- /.product-items-primary -->
+                </div><!-- /.tile-item__products -->
+              {%- endif -%}
+            </div><!-- /.tile-item -->
+          {%- endcapture -%}
+        {%- endif -%}
+
+        {%- if _article.tags contains tag_size_medium -%}
+          {%- assign _article_modifier = 'gallery-item--medium' -%}
+        {%- elsif _article.tags contains tag_size_large -%}
+          {%- assign _article_modifier = 'gallery-item--large' -%}
+        {%- endif -%}
+
+        {%- capture gallery_items -%}
+          {{ gallery_items }}
+
+          <div class="gallery-item {{ _article_modifier }} {{ _article_gallery_modifier }} animated">
+            <div class="gallery-item__inner">
+              {%- if _article_gallery_flag -%}
+                <a href="#" class="gallery-item__link js-btn-toggle" data-class="expanded" data-target="#popup-gallery" data-slide-index="{{ slider_counter }}"></a>
+              {%- else -%}
+                <a href="#tile-item-{{ scroll_counter }}" class="gallery-item__link js-btn-toggle js-btn-toggle-scroll" data-class="wrapper--popup" data-target="#wrapper" data-item-index="{{ scroll_counter }}"></a>
+              {%- endif -%}
+
+              <div class="gallery-item__image lazyload" data-bg="url({{ _article.image | img_url: '1920x' }})" aria-label="{{ article.image.alt }}">
+              </div><!-- /.gallery-item__image -->
+
+              <div class="gallery-item__bar">
+                <span>
+                  <small>{{ 'blogs.article_collections.gallery_caption' | t }}</small>
+
+                  <i class="ico-gallery">
+                    {%- include 'svg-elements' name: 'gallery' -%}
+                  </i>
+                </span>
+              </div><!-- /.gallery-item__bar -->
+            </div><!-- /.gallery-item__inner -->
+          </div><!-- /.gallery-item -->
+        {%- endcapture -%}
+      {%- endfor -%}
+
+      {% break %}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if gallery_items != '' -%}
+    <section class="section-gallery animated">
+      <div class="gallery-items">
+        {{ gallery_items }}
+      </div><!-- /.gallery-items -->
+    </section><!-- /.section-gallery -->
+  {%- endif -%}
+
+  {%- if popup_slider != '' and popup_slider_caption != '' -%}
+    <div class="popup-large popup-large--over popup-large--gallery" id="popup-gallery">
+      <div class="popup__body">
+        <a href="#" class="btn-close btn-close--large btn-close--mobile-large js-btn-toggle" data-target="#popup-gallery" data-class="expanded"></a>
+
+        <div class="slider-gallery slider-flex js-slider-gallery">
+          <div class="slider__clip">
+            <div class="slider__slides">
+              {{ popup_slider }}
+            </div><!-- /.slider__slides -->
+          </div><!-- /.slider__clip -->
+        </div><!-- /.slider-gallery -->
+
+        <div class="slider-gallery-caption js-slider-gallery-caption" style="display: none;">
+          <div class="slider__clip">
+            <div class="slider__slides">
+              {{ popup_slider_caption }}
+            </div><!-- /.slider__slides -->
+          </div><!-- /.slider__clip -->
+        </div><!-- /.slider -->
+      </div><!-- /.popup__body -->
+    </div><!-- /.popup-default -->
+  {%- endif -%}
+
+  {%- if popup_scroll != '' -%}
+    <div class="popup-large popup-large--over popup-large--scroll" id="popup-scroll">
+      <div class="popup__body">
+        <a href="#" class="btn-close btn-close--large btn-close--mobile-large js-btn-toggle js-btn-toggle-close" data-target="#wrapper" data-class="wrapper--popup"></a>
+
+        <div class="popup__content js-section-horizontal-parent">
+          <div class="tile-items js-section-horizontal js-slider-tiles" data-scroll-speed="50">
+            {{ popup_scroll }}
+          </div><!-- /.tile-items -->
+        </div><!-- /.popup__content -->
+      </div><!-- /.popup__body -->
+    </div><!-- /.popup-default -->
+  {%- endif -%}
+{%- endif -%}

@@ -1,0 +1,21 @@
+{%- if _product_video != blank -%}
+  {%- if _product_video contains 'vimeo.com/' -%}
+    {%- assign _product_video_id = _product_video | split: 'vimeo.com/' | last | split: '/' | first -%}
+    <div class="video-player product__video">
+      <div class="plyr__video-embed js-video-player" id="player">
+        <iframe src="https://player.vimeo.com/video/{{ _product_video_id }}?loop=true&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media&amp;autoplay=true&amp;clickToPlay=false&amp;muted=true" allowfullscreen allowtransparency allow="autoplay"></iframe>
+      </div>
+    </div><!-- /.section__video -->
+  {%- elsif _product_video contains 'youtube.com/' -%}
+    {%- if _product_video contains 'embed/' -%}
+      {% assign _product_video_id = _product_video | split: 'embed/' | last | split: '?' | first %}
+    {%- else -%}
+      {% assign _product_video_id = _product_video | split: '=' | last | split: '&' | first %}
+    {%- endif -%}
+    <div class="video-player product__video">
+      <div class="plyr__video-embed js-video-player" id="player">
+        <iframe src="//www.youtube.com/embed/{{ _product_video_id }}?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist={{ _product_video_id }}&mute=1&controls=0&showinfo=0" allowfullscreen allowtransparency allow="autoplay"></iframe>
+      </div>
+    </div><!-- /.section__video -->
+  {%- endif -%}
+{%- endif -%}

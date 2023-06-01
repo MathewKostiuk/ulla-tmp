@@ -1,0 +1,90 @@
+{%- assign aside_counter = aside_counter | plus: 1 -%}
+<div class="section__aside js-section-cart-aside {{ modifier }} cart-localized">
+  <div class="section__aside-rows">
+    {%- if cart.item_count > 0 -%}
+      <div class="section__aside-row">
+        <ul class="list-details">
+          <li>
+            <span>{{- 'cart.general.subtotal' | t -}}</span>
+
+            <strong>
+              <span data-flow-localize="cart-subtotal">{{- cart.total_price | money_without_trailing_zeros -}}</span>
+            </strong>
+          </li>
+          <li class="flow-cart-property">
+            <span>{{- 'cart.general.tax' | t -}}</span>
+
+            <strong>
+              <span data-flow-localize="cart-tax"></span>
+            </strong>
+          </li>
+          <li class="flow-cart-property">
+            <span>{{- 'cart.general.duty' | t -}}</span>
+
+            <strong>
+              <span data-flow-localize="cart-duty"></span>
+            </strong>
+          </li>
+          <li class="flow-cart-property">
+            <span>{{- 'cart.general.shipping' | t -}}</span>
+
+            <strong>
+              <span data-flow-localize="cart-shipping"></span>
+            </strong>
+          </li>
+        </ul><!-- /.list-details -->
+      </div><!-- /.section__aside-row -->
+      <div class="section__aside-row section__aside-row--total">
+        <ul class="list-details">
+          <li class="alt">
+            <span>{{- 'cart.general.total' | t -}}</span>
+
+            <strong>
+              <span data-flow-localize="cart-total">{{- cart.total_price | money_without_trailing_zeros -}}</span>
+            </strong>
+          </li>
+        </ul><!-- /.list-details -->
+      </div><!-- /.section__aside-row -->
+
+      <div class="section__aside-row section__aside-row--actions">
+        {% if product_preorder %}
+          <input type="hidden" name="note" value="Preorder" class="js-cart-preorder-note">
+        {% else %}
+          <input type="hidden" name="note" value="" class="js-cart-preorder-note js-cart-preorder-empty" />
+        {% endif %}
+
+        <div class="section__aside-actions">
+          <button type="button" name="checkout" class="form__btn btn btn btn--min-medium btn--bordered-tablet btn--block-tablet btn--large-tablet btn--checkout">
+            {{- 'cart.general.checkout' | t -}}
+          </button>
+        </div><!-- /.section__aside-actions -->
+      </div><!-- /.section__aside-row -->
+    {%- endif -%}
+
+    <div class="section__aside-row section__aside-row--entry">
+      <div class="section__aside-entry">
+        {%- if settings.cart_page_message_primary != blank -%}
+          {{ settings.cart_page_message_primary }}
+        {%- endif -%}
+
+        {%- if settings.cart_page_message != blank -%}
+          {{ settings.cart_page_message }}
+        {%- endif -%}
+
+        {%- if product_final_sale -%}
+          <p>
+            <span>{{ 'cart.general.final_sale_message' | t }}</span>
+          </p>
+        {%- endif -%}
+      </div><!-- /.section__aside-entry -->
+    </div><!-- /.section__aside-row -->
+  </div><!-- /.section__aside-rows -->
+
+  {%- if settings.help_menu != blank and tooltip -%}
+    <div class="section__aside-foot">
+      <div class="section__aside-bar">
+        {%- include 'tooltip-menu' class: 'tooltip', modifier: 'tooltip--center', tooltip_id: aside_counter -%}
+      </div><!-- /.section__aside-bar -->
+    </div><!-- /.section__aside-foot -->
+  {%- endif -%}
+</div><!-- /.section__aside -->

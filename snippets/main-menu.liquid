@@ -1,0 +1,77 @@
+<ul>
+  {% for link in linklists[handle].links %}
+    {%- assign flag = false -%}
+    {%- assign link_handle = link.title | handle -%}
+    {%- assign class_dropdown = '' -%}
+    {%- assign dropdown_items = '' -%}
+    {%- assign sublinks_empty = '' -%}
+
+    {%- if link.links.size > 0 -%}
+      {%- assign class_dropdown = 'nav__has-dropdown' -%}
+    {%- else -%}
+      {%- assign class_dropdown = '' -%}
+    {%- endif -%}
+
+    <li class="{{ class_dropdown }}{% if link.active %} current{% endif %}">
+      <a href="{{ link.url }}" title="{{ link.title }}" class="nav__link menu__item-link">
+        <span>
+          {{ link.title }}
+        </span>
+      </a>
+
+      {%- if link.links.size > 0 -%}
+        <div class="nav__dropdown">
+          <div class="container container--fluid">
+            <div class="nav__dropdown-body">
+              <div class="nav__dropdown-content">
+                <ul>
+                  {% for sub_link in link.links %}
+                    <li>
+                      <a class="menu__item-link" href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+
+                      {%- if sub_link.links.size > 0 -%}
+                        <ul>
+                          {%- for sub_sub_link in sub_link.links -%}
+                            {%- assign sub_sub_link_handle = sub_sub_link.title | handle -%}
+
+                            <li{% if sub_sub_link.title contains '##' %} class="alt"{% endif %}>
+                              <a class="menu__item-link" href="{{ sub_sub_link.url }}" title="{{ sub_sub_link.title | replace: '##', '' }}" data-hover-url="{{ sub_sub_link_handle }}">{{ sub_sub_link.title | replace: '##', '' }}</a>
+                            </li>
+
+                            {%- include 'menu-blocks' link_handle: sub_sub_link_handle, link_url: sub_sub_link.url -%}
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div><!-- /.nav__dropdown-content -->
+
+              {%- if _section.default_dropdown_image != blank or flag -%}
+                <div class="nav__dropdown-aside hidden-xs">
+                  <div class="nav-items">
+                    {%- if _section.default_dropdown_image != blank -%}
+                      <div class="nav-item nav-item--default js-menu-item expanded">
+                        <div class="nav-item__images">
+                          <div class="nav-item__image lazyload" data-bg="url({{ _section.default_dropdown_image | img_url: '1600x' }})" role="img" aria-label="{{ _section.default_dropdown_image.alt }}">
+                            {%- if _section.default_dropdown_image_link != blank -%}
+                              <a href="{{ _section.default_dropdown_image_link }}"></a>
+                            {%- endif -%}
+                          </div><!-- /.nav-item__image -->
+                        </div><!-- /.nav-item__images -->
+                      </div><!-- /.nav-item -->
+                    {%- endif -%}
+
+                    {%- if flag -%}
+                      {{ dropdown_items }}
+                    {%- endif -%}
+                  </div><!-- /.nav-items -->
+                </div><!-- /.nav__dropdown-aside -->
+              {%- endif -%}
+            </div><!-- /.nav__dropdown-body -->
+          </div><!-- /.container -->
+        </div><!-- /.nav__dropdown -->
+      {%- endif -%}
+    </li>
+  {% endfor %}
+</ul>

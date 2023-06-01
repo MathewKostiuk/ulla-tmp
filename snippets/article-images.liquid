@@ -1,0 +1,29 @@
+{%- assign meta_images = article.metafields.article_images.image -%}
+{%- assign meta_images_size = meta_images.size -%}
+{%- assign article_images = '' -%}
+
+{%- if meta_images_size > 0 -%}
+  {%- for idx in (1..meta_images_size) -%}
+    {%- assign meta_image = meta_images[forloop.index0] -%}
+
+    {%- if meta_image != blank -%}
+      {%- capture article_images -%}
+        {{ article_images }}
+
+        {%- capture article_image_src -%}
+          {%- include 'responsive-acc-image', image_url: meta_image, image_width: '1920' -%}
+        {%- endcapture -%}
+
+        <div class="article__image js-item-horizontal lazyload" data-bg="url({{ article_image_src }})" role="img" aria-label="{{ block_image_mobile.alt }}"></div><!-- /.article_image -->
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if article_images != '' -%}
+  <div class="article__images-container animated js-section-horizontal-parent">
+    <div class="article__images js-section-horizontal" data-scroll-speed="50">
+      {{ article_images }}
+    </div><!-- /.article__images -->
+  </div><!-- /.article__images-container -->
+{%- endif -%}

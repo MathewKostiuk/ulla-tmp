@@ -1,0 +1,29 @@
+{%- assign search_idx = search_idx | default: 0 | plus: 1 -%}
+
+<div class="search" id="search">
+  <span class="search__overlay js-btn-toggle js-btn-toggle-mobile-box" data-target="#search" data-class="expanded" data-noscroll></span>
+
+  <div class="search__inner">
+    <span class="search__icon">
+      {%- include 'svg-elements' name: 'search' -%}
+    </span><!-- /.search__icon -->
+	{%- if settings.ss_enable -%}
+    <form action="/collections/shop" method="get" class="search__form">
+      <label for="q" class="hidden">{{ 'general.search.label' | t }}</label>
+
+      <input type="search" name="q" id="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="search__field">
+
+      <input type="submit" value="{{ 'general.search.submit' | t }}" class="search__btn">
+    </form>
+    {%- else -%}
+    <form action="/search" method="get" class="search__form">
+      <label for="q" class="hidden">{{ 'general.search.label' | t }}</label>
+
+      <input type="search" name="q" id="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="search__field">
+
+      <input type="submit" value="{{ 'general.search.submit' | t }}" class="search__btn">
+    </form>
+	{%- endif -%}
+    <a href="#" class="btn-close btn-close--mobile-large js-btn-toggle js-btn-toggle-mobile-box" data-target="#search" data-class="expanded" data-noscroll></a>
+  </div><!-- /.form__inner -->
+</div><!-- /.form__search -->

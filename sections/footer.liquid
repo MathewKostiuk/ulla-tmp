@@ -1,0 +1,153 @@
+{%- assign _section = section.settings -%}
+
+{%- if settings.cookies_bar_text != blank and settings.cookies_bar_enabled == true -%}
+  <div class="bar bar--cookies js-bar-cookies" id="bar-cookies" data-bar-delay-seconds="0">
+    <div class="container container--fluid">
+      <div class="bar__body">
+        <a href="#" class="btn-close js-btn-cookies js-btn-toggle" data-target="#bar-cookies" data-class="expanded"></a>
+
+        <div class="entry-small bar__entry">
+          {{ settings.cookies_bar_text }}
+        </div><!-- /.bar__content -->
+      </div><!-- /.bar__body -->
+    </div><!-- /.container -->
+  </div><!-- /.bar -->
+{%- endif -%}
+
+{%- assign subscribe_content = false -%}
+{%- if _section.subscribe_title != blank or settings.subscribe_text != blank or settings.subscribe_embed != blank -%}
+  {%- assign subscribe_content = true-%}
+{%- endif -%}
+
+{%- if subscribe_content and _section.subscribe_enable -%}
+  <div class="bar bar--subscribe js-bar-cookies" id="bar-subscribe"{% if settings.cookies_subscribe_expires != blank %} data-bar-expires="{{ settings.cookies_subscribe_expires | plus: 0 }}"{% else %} data-bar-expires="1"{% endif %} data-bar-delay-seconds="10">
+    <div class="container container--fluid">
+      <div class="bar__body">
+        <a href="#" class="btn-close js-btn-cookies js-btn-toggle" data-target="#bar-subscribe" data-class="expanded"></a>
+
+        <div class="bar__content">
+          {%- include 'subscribe' additional_class: 'subscribe--secondary js-subscribe' -%}
+        </div><!-- /.bar__content -->
+      </div><!-- /.bar__body -->
+    </div><!-- /.container -->
+  </div><!-- /.bar -->
+{%- endif -%}
+
+<footer class="footer animated">
+  <div class="container container--fluid">
+    <div class="footer__inner">
+      {%- if subscribe_content and _section.subscribe_enable -%}
+        <div class="footer__aside">
+          <div class="footer__subscribe">
+            {%- if _section.subscribe_title != blank -%}
+              <h6>{{ _section.subscribe_title }}</h6>
+            {%- endif -%}
+
+            {%- include 'subscribe' additional_class: 'subscribe--primary js-subscribe' -%}
+          </div><!-- /.footer__subscribe -->
+        </div><!-- /.footer__aside -->
+      {%- endif -%}
+
+      <div class="footer__content">
+        {% comment %}Footer Menu{% endcomment %}
+        {%- assign footer_menu = _section.footer_menu | default: 'footer' -%}
+        {%- if _section.footer_menu_mobile != blank -%}
+          <nav class="footer__nav js-footer-nav hidden-xs">
+            {%- include 'menu', handle: footer_menu -%}
+          </nav><!-- /.footer__nav -->
+
+          <nav class="footer__nav js-footer-nav visible-xs-block">
+            {%- include 'menu', handle: _section.footer_menu_mobile -%}
+          </nav><!-- /.footer__nav -->
+        {%- else -%}
+          <nav class="footer__nav js-footer-nav">
+            {%- include 'menu', handle: footer_menu -%}
+          </nav><!-- /.footer__nav -->
+        {%- endif -%}
+      </div><!-- /.footer__content -->
+    </div><!-- /.footer__inner -->
+
+    <div class="footer__bar">
+      {% comment %}Copyright{% endcomment %}
+      {%- if _section.copyright != blank -%}
+        <div class="copyright footer__copyright">
+          {%- assign current_year = 'now' | date: '%Y' -%}
+          {{ _section.copyright | replace: '[year]', current_year }}
+        </div><!-- /.copyright -->
+      {%- endif -%}
+
+      {%- if _section.footer_menu_inline != blank -%}
+        <nav class="footer__nav-inline{% if _section.footer_menu_inline_mobile != blank %} hidden-xs{% endif %}">
+          {%- include 'menu', handle: _section.footer_menu_inline -%}
+        </nav><!-- /.footer__nav-inline -->
+      {%- endif -%}
+
+      {%- if _section.footer_menu_inline_mobile != blank -%}
+        <nav class="footer__nav-inline{% if _section.footer_menu_inline != blank %} visible-xs-block{% endif %}">
+          {%- include 'menu', handle: _section.footer_menu_inline_mobile -%}
+        </nav><!-- /.footer__nav-inline -->
+      {%- endif -%}
+    </div><!-- /.footer__bar -->
+  </div><!-- /.container -->
+</footer><!-- /.footer -->
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "footer-outer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Subscribe"
+    },
+    {
+      "type": "checkbox",
+      "id": "subscribe_enable",
+      "label": "Enable"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_title",
+      "label": "Subscribe Title"
+    },
+    {
+      "type": "header",
+      "content": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_mobile",
+      "label": "Footer Menu Mobile"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "richtext",
+      "id": "copyright",
+      "label": "Copyright Text",
+      "info": "Use [year] to set the current year."
+    },
+    {
+      "type": "header",
+      "content": "Menu Inline"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_inline",
+      "label": "Footer Menu Inline"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_inline_mobile",
+      "label": "Footer Menu Inline Mobile"
+    }
+  ]
+}
+{% endschema %}

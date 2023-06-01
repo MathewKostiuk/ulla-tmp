@@ -1,0 +1,79 @@
+{%- assign _section_id = section.id -%}
+{%- assign _settings = section.settings -%}
+{%- assign _id = _settings.id -%}
+{%- assign _title = _settings.title -%}
+{%- assign _text = _settings.text -%}
+{%- assign _cta_label = _settings.cta_label -%}
+{%- assign _cta_url = _settings.cta_url -%}
+{%- assign _color = _settings.color -%}
+
+{%- if _title != blank or _text != blank -%}
+  {%- if _id != blank -%}<div id="{{ _id }}"></div>{%- endif -%}
+  <div class="text-center" id="{{ _section_id }}">
+    {%- if _color != blank -%}
+      {%- style -%}
+        #{{ _section_id }} {
+          background-color: {{ _color }};
+        }
+      {%- endstyle -%}
+    {%- endif -%}
+
+    <div class="text-center__container">
+      <div class="text-center__text">
+        {%- if _title != blank -%}
+          <h2 class="text-center__text-title">{{ _title }}</h2>
+        {%- endif -%}
+        {%- if _text != blank -%}
+          {{ _text }}
+        {%- endif -%}
+        {%- if _cta_label != blank and _cta_url != blank -%}
+          <a class="text-center__cta" href="{{ _cta_url }}">{{ _cta_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Text Center",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "ID",
+      "info": "The ID is used to allow navigation to this section from the top subnavigation. This ID should be set as URL in the subnavigation followed by '#'. If the ID is 'section-id', the value that needs to be set in the subnavigation should be '#section-id'"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bottom CTA Label"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Bottom CTA URL"
+    },
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Background Color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text Center"
+    }
+  ]
+}
+{% endschema %}

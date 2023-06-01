@@ -1,0 +1,200 @@
+{%- assign _section = section.settings -%}
+{%- assign _id = _section.id -%}
+<section
+  class="landing-video"
+  id="{{ section.id }}"
+>
+  {%- if _id != blank -%}<div id="{{ _id }}"></div>{%- endif -%}
+  {%- if _section.image != blank
+    or _section.image_mobile != blank
+    or _section.video != blank
+    or _section.text != blank
+    or _section.link_text != blank
+  -%}
+    {%- if _section.controls_overlay -%}
+      {% style %}
+        #{{ section.id }} .vjs-control-bar::before {
+            content: "";
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+            position: absolute;
+            width: 100%;
+            height: 170px;
+            bottom: 0;
+            left: 0;
+          }
+      {% endstyle %}
+    {%- endif -%}
+
+    <div
+      class="intro js-sticky-elem-parent animated"
+      js-countdown="hero-banner"
+    >
+      {% if _section.image != blank %}
+        {% liquid
+          assign class_list = 'intro__bg responsive__image'
+          if _section.image_mobile != blank
+            assign class_list = class_list | append: ' hidden-xs'
+            assign image_height = _section.image.width | divided_by: _section.image.aspect_ratio
+          endif
+        %}
+        {{
+          _section.image
+          | image_url: width: 3840
+          | image_tag:
+            loading: 'lazy',
+            width: _section.image.width,
+            height: image_height,
+            class: class_list,
+            sizes: '100vh',
+            widths: '300, 600, 900, 1200, 1500, 1800, 2100'
+        }}
+      {% endif %}
+
+      {%- if _section.image_mobile != blank -%}
+        {% assign class_list = 'intro__bg intro__bg--mobile visible-xs-block' %}
+        {% assign image_height = _section.image_mobile.width | divided_by: _section.image_mobile.aspect_ratio %}
+        {%- if _section.image != blank -%}
+          {{
+            _section.image_mobile
+            | image_url: width: 1534
+            | image_tag:
+              loading: 'lazy',
+              width: _section.image_mobile.width,
+              height: image_height,
+              class: class_list,
+              sizes: '100vh'
+          }}
+        {%- else -%}
+          {{
+            _section.image_mobile
+            | image_url: width: 3840
+            | image_tag:
+              loading: 'lazy',
+              width: _section.image_mobile.width,
+              height: image_height,
+              class: class_list,
+              sizes: '100vh'
+          }}
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if _section.video != blank or _section.vimeo_video != blank -%}
+        {% capture image_url %}{{_section.image_mobile | img_url: 'master'}}{% endcapture %}
+        {% capture modified_image_url %}https://{{ image_url | slice: 2, image_url.size }}{% endcapture %}
+        <div class="intro__video">
+          <div
+            class="intro__video-inner hidden-xs"
+            data-url="{% if _section.video_link != blank %}{{ _section.video_link }}{% else %}#{% endif %}"
+          >
+            {%- include 'video-iframe',
+              video_object: _section.video,
+              video_text: _section.vimeo_video,
+              image_url: modified_image_url
+            -%}
+          </div>
+          <!-- /.intro__video-inner -->
+          <div
+            class="intro__video-inner visible-xs-block"
+            data-url="{% if _section.video_link != blank %}{{ _section.video_link }}{% else %}#{% endif %}"
+          >
+            {%- include 'video-iframe',
+              video_object: _section.video_mobile,
+              video_text: _section.vimeo_video_mobile,
+              image_url: modified_image_url
+            -%}
+          </div>
+          <!-- /.intro__video-inner -->
+        </div>
+        <!-- /.intro__video -->
+      {%- endif -%}
+
+      {%- if _section.text != blank or _section.link_text != blank -%}
+        <div class="intro__inner">
+          <div class="container container--fluid">
+            <div class="intro__content js-sticky-elem">
+
+              {%- if _section.text != blank -%}
+                <h2 class="intro__title">
+                  <span>
+                    {{ _section.text | replace: '<p>', '' | replace: '</p>', '' }}
+                  </span>
+                </h2>
+                <!-- /.intro__title -->
+              {%- endif -%}
+
+            </div>
+            <!-- /.intro__content -->
+          </div>
+          <!-- /.container -->
+        </div>
+        <!-- /.intro__inner -->
+      {%- endif -%}
+
+      <div class="intro__line intro__line--bottom js-sticky-line"></div>
+      <!-- /.intro__line -->
+    </div>
+    <!-- /.intro -->
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Video Landing",
+  "class": "intro-outer js-intro-outer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "Section ID",
+      "info": "The ID is used to allow navigation to this section from the top subnavigation. This ID should be set as URL in the subnavigation followed by '#'. If the ID is 'section-id', the value that needs to be set in the subnavigation should be '#section-id'"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image Mobile"
+    },
+    {
+      "type": "video_url",
+      "id": "video",
+      "label": "Desktop Youtube Video",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "video_url",
+      "id": "video_mobile",
+      "label": "Mobile Youtube Video",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "vimeo_video",
+      "label": "Desktop Vimeo Video"
+    },
+    {
+      "type": "text",
+      "id": "vimeo_video_mobile",
+      "label": "Mobile Vimeo Video"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "controls_overlay",
+      "label": "Controls Overlay"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Landing"
+    }
+  ]
+}
+{% endschema %}

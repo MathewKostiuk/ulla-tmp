@@ -1,0 +1,337 @@
+{
+  "sections": {
+    "grid": {
+      "type": "section-lookbook-grid",
+      "blocks": {
+        "92f18a20-4e63-41cd-923e-e5c3fc30958c": {
+          "type": "look",
+          "settings": {
+            "title": "Look 21",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_21_Filippo.jpg",
+            "video": "",
+            "products": [
+              "varisha-dress-opalite-f23",
+              "isadora-embellished-sling-back-flat-solar-f23",
+              "adria-small-pleated-wave-bag-dune-colorblock-f23",
+              "horn-cuff-brown-horn-f23",
+              "ruth-legging-fawn-f23"
+            ]
+          }
+        },
+        "99e53a6f-99e8-4602-a666-97599ccbf463": {
+          "type": "look",
+          "settings": {
+            "title": "Look 22",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_22_Filippo.jpg",
+            "video": "",
+            "products": [
+              "kamara-blouse-chestnut-f23",
+              "samira-skirt-chestnut-f23",
+              "salma-ribbon-high-heel-sierra-f23",
+              "alvie-d-slide-belt-sierra-f23",
+              "mini-spiral-shell-earring-shell-f23"
+            ]
+          }
+        },
+        "d4d187b5-06a7-4060-9e76-7b34a48de93d": {
+          "type": "look",
+          "settings": {
+            "title": "Look 23",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_23_Filippo.jpg",
+            "video": "",
+            "products": [
+              "the-sylvan-jean-stone-dye-wash-f23",
+              "the-cosette-jacket-stone-dye-wash-f23",
+              "arlette-knee-high-boot-mahogany-f23"
+            ]
+          }
+        },
+        "1d3c26cc-f61c-4ea7-a5dc-bda79c32f13c": {
+          "type": "look",
+          "settings": {
+            "title": "Look 24",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_24_Filippo.jpg",
+            "video": "",
+            "products": [
+              "taliah-bralette-redwood-f23",
+              "maxine-skirt-copper-f23",
+              "arlo-ribbon-ballet-flat-redwood-f23",
+              "beaded-chandelier-earring-yellow-jasper-f23",
+              "alvie-d-slide-belt-sierra-f23"
+            ]
+          }
+        },
+        "e8317da0-739f-4318-ae15-c46eace7fb98": {
+          "type": "look",
+          "settings": {
+            "title": "Look 25",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_25_Filippo.jpg",
+            "video": "",
+            "products": [
+              "ames-jacket-tigers-eye-f23",
+              "agatha-skirt-tigers-eye-f23",
+              "arlette-knee-high-boot-sierra-f23"
+            ]
+          }
+        },
+        "b41e599b-6afa-4073-9108-d1726e0b7090": {
+          "type": "look",
+          "settings": {
+            "title": "Look 26",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_26_Filippo.jpg",
+            "video": "",
+            "products": [
+              "apollo-jacket-noir-f23",
+              "cyrus-pant-noir-f23",
+              "shira-fringe-sling-back-noir-f23"
+            ]
+          }
+        },
+        "755b7dd9-c3e7-4d21-bf7e-8f80122116d5": {
+          "type": "look",
+          "settings": {
+            "title": "Look 27",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_27_Filippo_b8a7698f-187d-43c9-9d81-e9eb15927c8b.jpg",
+            "video": "",
+            "products": [
+              "fernanda-dress-maple-f23",
+              "salma-ribbon-high-heel-sierra-f23",
+              "lotus-flower-large-shoulder-bag-sunsprite-f23"
+            ]
+          }
+        },
+        "ed168bb5-75ab-43e4-a493-2d7cfab9ffca": {
+          "type": "look",
+          "settings": {
+            "title": "Look 28",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_28_Filippo.jpg",
+            "video": "",
+            "products": [
+              "leyla-blouse-dune-f23",
+              "savita-skirt-dune-f23",
+              "salma-ribbon-high-heel-sierra-f23",
+              "beaded-chandelier-earring-yellow-jasper-f23"
+            ]
+          }
+        },
+        "f2ff8cab-b521-4943-b589-5a053c1e1057": {
+          "type": "content",
+          "settings": {
+            "size": "double",
+            "image": "shopify:\/\/shop_images\/Taylor_Jewell_UJ_AW23_0758_Crop_web_1.jpg",
+            "video": ""
+          }
+        },
+        "e02c805a-97a8-482b-a7cf-b3a81d0f5d00": {
+          "type": "look",
+          "settings": {
+            "title": "Look 29",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_29_Filippo.jpg",
+            "video": "",
+            "products": [
+              "juliana-coat-yarrow-f23",
+              "ruth-legging-fawn-f23",
+              "alma-everyday-tote-mica-f23",
+              "shira-fringe-sling-back-sunsprite-colorblock-f23"
+            ]
+          }
+        },
+        "e81d821c-eb42-443f-b683-64a98e95f7c5": {
+          "type": "look",
+          "settings": {
+            "title": "Look 30",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_30_Filippo.jpg",
+            "video": "",
+            "products": [
+              "nina-top-maple-f23",
+              "rami-skirt-sunsprite-f23",
+              "adria-large-pleated-wave-bag-sunsprite-colorblock-f23",
+              "arlo-ribbon-ballet-flat-noir-f23"
+            ]
+          }
+        },
+        "b983c082-ef5f-4df2-876f-a5ad1c73d6ac": {
+          "type": "look",
+          "settings": {
+            "title": "Look 32",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_32_Filippo_3468c67a-ec16-4179-972f-d88970aafdbf.jpg",
+            "video": "",
+            "products": [
+              "dorothea-jacket-yarrow-f23",
+              "cleo-top-fawn-f23",
+              "remy-soft-convertible-clutch-mica-colorblock-f23",
+              "antonia-sling-back-sunsprite-f23"
+            ]
+          }
+        },
+        "cb92ec67-faee-4a3c-8a63-49ea4ff191c1": {
+          "type": "look",
+          "settings": {
+            "title": "Look 33",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_33_Filippo.jpg",
+            "video": "",
+            "products": [
+              "caprice-dress-zinnia-f23",
+              "aurelia-turtleneck-maple-f23",
+              "salma-ribbon-high-heel-sierra-f23"
+            ]
+          }
+        },
+        "815b76a4-8aaa-46de-ae01-844b58c5add9": {
+          "type": "content",
+          "settings": {
+            "size": "double",
+            "image": "shopify:\/\/shop_images\/Taylor_Jewell_UJ_AW23_1082_web_1.jpg",
+            "video": ""
+          }
+        },
+        "5fad8387-52b2-4249-8869-fcba15b29320": {
+          "type": "look",
+          "settings": {
+            "title": "Look 34",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_34_Filippo.jpg",
+            "video": "",
+            "products": [
+              "wesley-coat-mahogany-f23",
+              "adria-large-pleated-wave-bag-agave-colorblock-f23",
+              "lucille-arm-warmers-mulberry-f23",
+              "shira-fringe-sling-back-mahogany-f23"
+            ]
+          }
+        },
+        "81e56d1b-9f96-4609-b3f1-1df68188c05d": {
+          "type": "look",
+          "settings": {
+            "title": "Look 35",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_35_Filippo.jpg",
+            "video": "",
+            "products": [
+              "dephne-dress-obsidian-f23",
+              "lilliana-blouse-nimbus-f23",
+              "aurelia-turtleneck-obsidian-f23",
+              "salma-ribbon-high-heel-noir-f23"
+            ]
+          }
+        },
+        "aaa9ed4a-9786-421a-87e4-8ce264390ed0": {
+          "type": "look",
+          "settings": {
+            "title": "Look 36",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_36_Filippo.jpg",
+            "video": "",
+            "products": [
+              "ellery-jacket-agave-f23",
+              "polina-pant-agave-f23-1",
+              "adria-small-pleated-wave-bag-agave-f23",
+              "inez-fringe-high-heel-silver-f23"
+            ]
+          }
+        },
+        "c21eb2ad-96d7-4198-81c5-193ce502cbf0": {
+          "type": "look",
+          "settings": {
+            "title": "Look 37",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_37_Filippo.jpg",
+            "video": "",
+            "products": [
+              "flora-top-bellflower-f23",
+              "zena-pant-bellflower-f23",
+              "adria-small-pleated-wave-bag-agave-colorblock-f23",
+              "shira-fringe-sling-back-gold-f23"
+            ]
+          }
+        },
+        "656c42d9-c83a-497b-98f8-465ed21750bb": {
+          "type": "look",
+          "settings": {
+            "title": "Look 38",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_38_Filippo.jpg",
+            "video": "",
+            "products": [
+              "winnifred-top-noir-f23",
+              "the-lou-jean-noir-wash-f23",
+              "inez-fringe-high-heel-noir-f23"
+            ]
+          }
+        },
+        "945a6a00-e883-4df1-813e-42c7341a78b6": {
+          "type": "look",
+          "settings": {
+            "title": "Look 39",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_39_Filippo.jpg",
+            "video": "",
+            "products": [
+              "wesley-coat-agave-f23",
+              "fernanda-dress-nuit-f23",
+              "salma-ribbon-high-heel-noir-f23"
+            ]
+          }
+        },
+        "16d9c9c4-57c5-437d-a6fc-704071f35679": {
+          "type": "look",
+          "settings": {
+            "title": "Look 40",
+            "cta_copy": "Shop the Look",
+            "image": "shopify:\/\/shop_images\/UJ_AW23_40_Filippo.jpg",
+            "video": "",
+            "products": [
+              "marianna-coat-ocelot-f23",
+              "hudson-skirt-mahogany-f23",
+              "esme-large-crossbody-mahogany-colorblock-f23",
+              "celina-embellished-high-heel-solar-f23"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "92f18a20-4e63-41cd-923e-e5c3fc30958c",
+        "99e53a6f-99e8-4602-a666-97599ccbf463",
+        "d4d187b5-06a7-4060-9e76-7b34a48de93d",
+        "1d3c26cc-f61c-4ea7-a5dc-bda79c32f13c",
+        "e8317da0-739f-4318-ae15-c46eace7fb98",
+        "b41e599b-6afa-4073-9108-d1726e0b7090",
+        "755b7dd9-c3e7-4d21-bf7e-8f80122116d5",
+        "ed168bb5-75ab-43e4-a493-2d7cfab9ffca",
+        "f2ff8cab-b521-4943-b589-5a053c1e1057",
+        "e02c805a-97a8-482b-a7cf-b3a81d0f5d00",
+        "e81d821c-eb42-443f-b683-64a98e95f7c5",
+        "b983c082-ef5f-4df2-876f-a5ad1c73d6ac",
+        "cb92ec67-faee-4a3c-8a63-49ea4ff191c1",
+        "815b76a4-8aaa-46de-ae01-844b58c5add9",
+        "5fad8387-52b2-4249-8869-fcba15b29320",
+        "81e56d1b-9f96-4609-b3f1-1df68188c05d",
+        "aaa9ed4a-9786-421a-87e4-8ce264390ed0",
+        "c21eb2ad-96d7-4198-81c5-193ce502cbf0",
+        "656c42d9-c83a-497b-98f8-465ed21750bb",
+        "945a6a00-e883-4df1-813e-42c7341a78b6",
+        "16d9c9c4-57c5-437d-a6fc-704071f35679"
+      ],
+      "settings": {
+        "heading": "Spring\/Summer 2023",
+        "vimeo_video": "https:\/\/vimeo.com\/750086849",
+        "overlay_opacity": 10
+      }
+    }
+  },
+  "order": [
+    "grid"
+  ]
+}

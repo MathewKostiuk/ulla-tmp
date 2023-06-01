@@ -1,0 +1,30 @@
+{%- if block_image != blank or block_image_mobile != blank or block_title != blank -%}
+  <section class="section-default section-default--primary animated">
+    <div class="section__container">
+      <div class="section__inner">
+        {%- if block_image != blank -%}
+          <div class="section__bg lazyload{% if block_image_mobile != blank %} hidden-xs{% endif %}" data-bg="url({{ block_image | img_url: '3840x' }})" role="img" aria-label="{{ block_image.alt }}"></div><!-- /.section__bg -->
+        {%- endif -%}
+
+        {%- if block_image_mobile != blank -%}
+          {%- if block_image != blank -%}
+            <div class="section__bg lazyload visible-xs-block" data-bg="url({{ block_image_mobile | img_url: '1534x' }})" role="img" aria-label="{{ block_image_mobile.alt }}"></div><!-- /.section__bg -->
+          {%- else -%}
+            <div class="section__bg lazyload" data-bg="url({{ block_image_mobile | img_url: '3840' }})" role="img" aria-label="{{ block_image_mobile.alt }}"></div><!-- /.section__bg -->
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if block_title != blank or block_content != blank -%}
+          <div class="section__content">
+            <h1 class="section__title">{{ block_title | newline_to_br }}</h1><!-- /.section__title -->
+            {{block_content}}
+          </div><!-- /.section__content -->
+        {%- endif -%}
+
+        {%- if block_link != blank -%}
+          <a href="{{ block_link }}" class="section__link"></a>
+        {%- endif -%}
+      </div><!-- /.section__inner -->
+    </div><!-- /.section__container -->
+  </section><!-- /.section-default -->
+{%- endif -%}

@@ -1,0 +1,25 @@
+{%- if shop_look_product_first != blank or shop_look_product_second != blank -%}
+  <div class="{{ parent_class }} {{ parent_modifier }}">
+    <div class="{{ parent_class }}-inner js-section-item">
+      <div class="{{ parent_class }}-content">
+        <h6 class="heading-large {{ parent_class }}-title">{{ 'products.product.shop_look' | t }}</h6>
+        <div class="product-items-inline{% if shop_look_product_second == blank %} product-items--single{% endif %}">
+          {%- if shop_look_product_first != blank -%}
+            {%- assign _meta_product_first = all_products[shop_look_product_first] -%}
+            {%- include 'product-item' with _meta_product_first, modifier: 'product-item--inline' -%}
+          {%- endif -%}
+          {%- if shop_look_product_second != blank -%}
+            {%- assign _meta_product_second = all_products[shop_look_product_second] -%}
+            {%- include 'product-item' with _meta_product_second, modifier: 'product-item--inline' -%}
+          {%- endif -%}
+          {%- if shop_look_product_third != blank -%}
+            {% for shop_look_product in shop_look_product_third %}
+              {%- assign _meta_product_third = all_products[shop_look_product] -%}
+              {%- include 'product-item' with _meta_product_third, modifier: 'product-item--inline' -%}
+            {% endfor %}
+          {%- endif -%}
+        </div><!-- /.product-items-inline -->
+      </div><!-- /.{{ parent_class }}-content -->
+    </div><!-- /.{{ parent_class }}-inner -->
+  </div><!-- /.{{ parent_class }} -->
+{%- endif -%}

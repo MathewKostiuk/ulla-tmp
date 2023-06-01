@@ -1,0 +1,102 @@
+{%- assign _section = section.settings -%}
+{%- if _section.popup_enabled == true -%}
+<div class="popup popup--email js-popup-email" id="popup-email">
+  <span class="popup__overlay js-btn-toggle-email-popup" data-noscroll data-target="#popup-email" data-class="expanded"></span>
+  <div class="popup__inner">
+    <div class="popup__body">
+
+      <div class="popup__head">
+        {{ _section.popup_title }}
+      </div>
+
+      <a href="#" class="btn-close btn-close--mobile-large js-btn-toggle-email-popup" data-noscroll data-target="#popup-email" data-class="expanded"></a>
+
+      <div class="popup-email--content-wrapper">
+        <div class="popup-email--content">
+          {{ _section.popup_detail }}
+        </div><!-- /.notify__head -->
+
+        <div class="popup-email--form-wrapper">
+          {%- include 'subscribe-email-list',
+            email_list_id: _section.email_list_id,
+            email_placeholder: _section.email_placeholder,
+            birthday_placeholder: _section.birthday_placeholder,
+            button_text: _section.button_text,
+            index: section.id
+          -%}
+        </div>
+      </div>
+
+      {%- if _section.success_message != blank -%}
+        <div class="popup-email--success-message hidden" style="display: none">
+          {{ _section.success_message | newline_to_br }}
+        </div>
+      {%- endif -%}
+    </div><!-- /.popup__body -->
+  </div>
+</div><!-- /.popup -->
+{%- endif -%}
+<script type="text/javascript">
+  window.EMAIL_POPUP_DELAY = {{ _section.delay_time | default: 180 }}
+</script>
+
+{% schema %}
+{
+  "name": "Email Popup",
+  "settings": [
+    {
+      "type" : "checkbox",
+      "id": "popup_enabled",
+      "label": "Enable"
+    },
+    {
+      "type": "text",
+      "id": "delay_time",
+      "label": "Delay Time",
+      "info": "Input seconds (s)",
+      "default": "180"
+    },
+    {
+      "type": "text",
+      "id": "popup_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "popup_detail",
+      "label": "Popup Detail"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "email_list_id",
+      "label": "List ID",
+      "info": "Please, use Klaviyo and add list ID"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder"
+    },
+    {
+      "type": "text",
+      "id": "birthday_placeholder",
+      "label": "Birthday Placeholder"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success Message"
+    }
+  ]
+}
+{% endschema %}

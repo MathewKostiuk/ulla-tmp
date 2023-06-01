@@ -1,0 +1,468 @@
+{%- assign _section = section.settings -%}
+{% assign stripped_promo_bar_text = _section.promo_bar_text | strip_html %}
+{%- assign isFlowCheckout = false -%}
+{%- if request.path contains 'apps/flow/checkouts' -%}
+  {%- assign isFlowCheckout = true -%}
+{%- endif -%}
+<header class="header{% if template.name == 'collection' and collection.image == blank %} header--dark{% elsif template.name == 'cart' or template contains 'customer' or request.path contains 'challenge' or template contains 'search' or isFlowCheckout %} header--dark{% elsif template == 'page.dedicated' %} header--dark-transparent{% endif %} js-header animated" id="header">
+  <div id="header-banner" class="header__banner hidden js-header-banner">
+    <div class="header__banner-inner">
+      <div id="FreeShippingBannerContainer"></div>
+<!--       <p class="header__banner-message js-header-banner-message"></p> -->
+      <a
+        href="#"
+        class="btn-close js-btn-toggle"
+        data-target="#header-banner"
+        data-class="hidden"></a>
+    </div>
+  </div>
+  {%- if _section.promo_bar_text != blank and stripped_promo_bar_text != blank -%}
+    <div class="header__bar js-header-bar" data-bar-height="20">
+      <div class="container container--fluid">
+        <div class="entry-small header__bar-entry">
+          {{ _section.promo_bar_text | newline_to_br }}
+        </div>
+        <!-- /.header__bar-entry -->
+      </div>
+      <!-- /.container -->
+    </div>
+    <!-- /.header__bar -->
+  {%- endif -%}
+  {%- if _section.global_message != blank -%}
+    <div class="global-message js-global-message" id="global-message">
+      <div class="global-message--inner">
+        {{ _section.global_message | replace: " href=", " target='_blank' href=" }}
+        <a href="#" class="global-message--close"></a>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function getCookie(key) {
+      var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+        return keyValue ? keyValue[2] : null;
+      }
+
+      if (getCookie('REMOVED_PROMO_BAR') == 'true') {
+        var globalMessage = document.getElementById('global-message');
+        globalMessage.parentNode.removeChild(globalMessage);
+      } else {
+        var wrapper = document.getElementById("wrapper");
+        wrapper.className += " included-global-message";
+      }
+    </script>
+  {%- endif -%}
+  <div class="header__container js-header__container">
+    <div class="container container--fluid">
+      <div class="header__actions">
+        <a
+          href="#"
+          class="btn-burger js-btn-toggle js-btn-toggle-burger"
+          data-noscroll
+          data-target="#header"
+          data-class="header--expanded">
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+        </a>
+
+        {% comment %}Logo{% endcomment %}
+        <a
+          href="/"
+          class="logo-svg header__logo"
+          title="{{ shop.name }}">
+          <small>{{ shop.name }}</small>
+          {%- include 'svg-elements' name: 'logo' -%}
+        </a>
+        <a
+          href="#"
+          class="btn-search js-btn-toggle hidden-md hidden-lg"
+          data-target="#search"
+          data-class="expanded"
+          data-noscroll
+          data-focus=".search__field">
+          <i class="ico-search nav-utilities__icon">
+            {%- include 'svg-elements' name: 'search' -%}
+          </i>
+        </a>
+        <a href="/cart" class="btn-cart{% unless template.name == 'cart' %} js-btn-cart{% endunless %}">
+          <i class="ico-bag ico-bag--large btn-cart__icon">
+            {%- include 'svg-elements' name: 'bag' -%}
+          </i>
+
+          <strong>
+            {% if cart.item_count > 0 %}
+              <small>
+                <em>:
+                </em>
+                {{ cart.item_count }}</small>
+            {% else %}
+              <small class="disabled">
+                <em>:
+                </em>
+                {{ cart.item_count }}</small>
+            {% endif %}
+          </strong>
+        </a>
+      </div>
+      <!-- /.header__actions -->
+
+      <div class="header__inner">
+        <div class="header__aside">
+          <div class="header__aside-bar">
+            <a
+              href="#"
+              class="btn-burger active js-btn-toggle js-btn-toggle-nav"
+              data-noscroll
+              data-target="#header"
+              data-class="header--expanded">
+              <span></span>
+
+              <span></span>
+
+              <span></span>
+            </a>
+
+            <a
+              href="#"
+              class="btn-search js-btn-toggle"
+              data-target="#search"
+              data-class="expanded"
+              data-noscroll
+              data-focus=".search__field">
+              <i class="ico-search nav-utilities__icon">
+                {%- include 'svg-elements' name: 'search' -%}
+              </i>
+            </a>
+          </div>
+          <!-- /.header__aside-bar -->
+
+          {% comment %}Main Menu{% endcomment %}
+          <div class="header__nav js-nav js-nav-hover">
+            {%- assign main_menu = _section.main_menu | default: 'main-menu' -%}
+              {%- if _section.main_menu_mobile != blank -%}
+              <nav class="nav hidden-xs hidden-sm">
+                {%- include 'main-menu', handle: main_menu -%}
+              </nav>
+              <!-- /.nav -->
+
+              <nav class="nav hidden-md hidden-lg">
+                {%- include 'menu', handle: _section.main_menu_mobile, mobile_link: true -%}
+              </nav>
+              <!-- /.nav -->
+            {%- else -%}
+              <nav class="nav hidden-xs hidden-sm">
+                {%- include 'main-menu', handle: main_menu -%}
+              </nav>
+              <!-- /.nav -->
+
+              <nav class="nav hidden-md hidden-lg">
+                {%- include 'menu', handle: main_menu, mobile_link: true -%}
+              </nav>
+              <!-- /.nav -->
+            {%- endif -%}
+          </div>
+          <!-- /.header__nav -->
+        </div>
+        <!-- /.header__aside -->
+
+        <div class="header__content">
+          <nav class="nav-utilities">
+            <ul>
+              <li class="nav-utilities__search hidden-xs hidden-sm">
+                <a
+                  href="#"
+                  class="nav-utilities__link js-btn-toggle"
+                  data-target="#search"
+                  data-class="expanded"
+                  data-noscroll
+                  data-focus=".search__field">
+                  <i class="ico-search nav-utilities__icon">
+                    {%- include 'svg-elements' name: 'search' -%}
+                  </i>
+                </a>
+              </li>
+
+              {% unless settings.enable_global_e %}
+                <li class="nav-utilities__currency hidden-xs hidden-sm">
+                  <div id="flow-country-picker"></div>
+                </li>
+
+                <li class="nav-utilities__countries js-nav hidden-md hidden-lg">
+                  <ul>
+                    <li class="menu__item menu__item--has-dropdown">
+                      <a href="/" class="menu__item-link mobile-country-picker-open">
+                        <span>US / $</span>
+                      </a>
+                      <ul class="menu__dropdown mobile-country-picker-wrapper">
+                        <li class="menu__item menu__item--mobile">
+                          <a href="#" class="menu__item-link">
+                            <span>Currency</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              {% else %}
+                {%- form 'localization', class: 'localization-form' -%}
+                  <li class="nav-utilities__currency">
+                    <div id="country-picker">
+                      <div class="flex items-center">
+                        <h2 class="localization-form__heading link-default" id="{{ section.id }}-LanguageLabel">{{ localization.country.iso_code }} / {{ localization.country.currency.symbol }}</h2>
+                        <ul role="list" class="countries-list">
+                          {%- for country in localization.available_countries -%}
+                            <li tabindex="-1">
+                              <a class="countries-list__item{% if country.iso_code == localization.country.iso_code %} active{% endif %} js-select-language" href="#" {% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                                <span class="localization-form__currency">{{ country.name }}</span>
+                                <span class="localization-form__currency">{{ country.currency.symbol }}</span>
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                        <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="nav-utilities__countries js-nav hidden-md hidden-lg">
+                    <ul class="mobile-country-selector">
+                      <li class="menu__item menu__item--has-dropdown">
+                        <a href="/" class="mobile-country-selector__heading menu__item-link mobile-country-picker-open">
+                          <span class="mobile-country-selector__heading-text">{{ localization.country.iso_code }} / {{ localization.country.currency.symbol }}</span>
+                        </a>
+                        <ul class="menu__dropdown mobile-country-picker-wrapper">
+                          <li class="menu__item menu__item--mobile">
+                            <a href="#" class="menu__item-link">
+                              <span>Currency</span>
+                            </a>
+                          </li>
+                          {%- for country in localization.available_countries -%}
+                            <li tabindex="-1">
+                              <a class="countries-list__item js-select-language" href="#" {% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                                <span class="localization-form__currency">{{ country.name }}</span>
+                                <span class="localization-form__currency--symbol">{{ country.currency.symbol }}</span>
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                {%- endform -%}
+              {% endunless %}
+
+              {%- assign dropdown_assistance_menu = _section.right_menu_dropdown -%}
+              {%- if dropdown_assistance_menu != blank -%}
+                <li class="nav-utilities__assistance js-nav">
+                  {%- include 'menu', handle: dropdown_assistance_menu, mobile_link: true -%}
+                </li>
+              {%- endif -%}
+
+              {%- if shop.customer_accounts_enabled -%}
+                {%- if customer -%}
+                  <li class="nav-utilities__account js-nav">
+                    <a href="/account" class="nav-utilities__link">
+                      {{- 'layout.customer.account' | t -}}
+                    </a>
+
+                    <ul class="nav-utilities__account-popup">
+                      <li class="menu__item--mobile hidden-md hidden-lg">
+                        <a href="/account">
+                          <span>
+                            {{- 'layout.customer.account' | t -}}
+                          </span>
+                        </a>
+                      </li>
+
+                      <li class="hidden-md hidden-lg">
+                        <a href="/account">
+                          <span>
+                            {{- 'layout.customer.account' | t -}}
+                          </span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/account/logout">
+                          <span>
+                            {{- 'layout.customer.log_out' | t -}}
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- /.nav-utilities__account-popup -->
+                  </li>
+                {%- else -%}
+                  <li class="nav-utilities__account">
+                    <a href="/account/login" class="nav-utilities__link">{{- 'layout.customer.log_in' | t -}}</a>
+                  </li>
+
+                  {%- comment -%}
+                  {%- if shop.customer_accounts_optional -%}
+                  <li class="nav-utilities__account">
+                  <a href="/account/register" class="nav-utilities__link">{{- 'layout.customer.create_account' | t -}}</a>
+                  </li>
+                  {%- endif -%}
+                  {%- endcomment -%}
+                {%- endif -%}
+              {%- endif -%}
+
+              <li class="nav-utilities__cart hidden-xs hidden-sm">
+                <a href="/cart" class="nav-utilities__link{% unless template.name == 'cart' %} js-btn-cart{% endunless %}">
+                  <i class="ico-bag nav-utilities__icon">
+                    {%- include 'svg-elements' name: 'bag' -%}
+                  </i>
+
+                  <span>{{ 'layout.top_nav.cart' | t }}</span>
+
+                  <strong>
+                    {% if cart.item_count > 0 %}
+                      <small>
+                        <em>:
+                        </em>
+                        {{ cart.item_count }}</small>
+                    {% else %}
+                      <small class="disabled">
+                        <em>:
+                        </em>
+                        {{ cart.item_count }}</small>
+                    {% endif %}
+                  </strong>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.nav-utilities -->
+        </div>
+        <!-- /.header__content -->
+      </div>
+      <!-- /.header__inner -->
+
+      <div
+        class="header__mobile-bg hidden-md hidden-lg js-btn-toggle js-btn-toggle-nav"
+        data-noscroll
+        data-target="#header"
+        data-remove="header--expanded"></div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.header__container -->
+</header>
+<!-- /.header -->
+
+
+{% include 'form-search' %}
+
+<div class="widget-cart widget-cart--default js-widget-cart" id="widget-cart">
+  <div class="widget__container"></div>
+  <!-- /.widget__container -->
+</div>
+<!-- /.widget-cart -->
+
+<div class="widget-cart widget-cart--added js-widget-added" id="widget-added">
+  <form
+    action="/cart"
+    method="post"
+    novalidate
+    class="form-cart-small">
+    <div class="widget__container" data-flow-cart-container></div>
+    <!-- /.widget__container -->
+  </form>
+</div>
+<!-- /.widget-cart -->
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Global Banner Message"
+      },
+      {
+        "type": "richtext",
+        "id": "global_message",
+        "label": "Banner Message"
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Menu"
+      }, {
+        "type": "link_list",
+        "id": "main_menu_mobile",
+        "label": "Menu Mobile"
+      }, {
+        "type": "header",
+        "content": "Dropdown Image"
+      }, {
+        "type": "image_picker",
+        "id": "default_dropdown_image",
+        "label": "Default Dropdown Image"
+      }, {
+        "type": "url",
+        "id": "default_dropdown_image_link",
+        "label": "Default Dropdown Image Link"
+      }, {
+        "type": "header",
+        "content": "Promo Bar"
+      }, {
+        "type": "richtext",
+        "id": "promo_bar_text",
+        "label": "Text"
+      }, {
+        "type": "header",
+        "content": "Right Part"
+      }, {
+        "type": "link_list",
+        "id": "right_menu_dropdown",
+        "label": "Link Dropdown Menu"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "dropdown",
+        "name": "Dropdown",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title/Handle"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image 1"
+          },
+          {
+            "type": "url",
+            "id": "link_1",
+            "label": "Link 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image 2"
+          }, {
+            "type": "url",
+            "id": "link_2",
+            "label": "Link 2"
+          }, {
+            "type": "image_picker",
+            "id": "image_3",
+            "label": "Image 3"
+          }, {
+            "type": "url",
+            "id": "link_3",
+            "label": "Link 3"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,105 @@
+{%- liquid
+  assign row_titles = article.metafields.article_default.title
+  assign row_texts = article.metafields.article_default.text
+  assign row_images_1 = article.metafields.article_default.image_1
+  assign row_urls_1 = article.metafields.article_default.image_1_url
+  assign row_images_2 = article.metafields.article_default.image_2
+  assign row_urls_2 = article.metafields.article_default.image_2_url
+  assign row_size = 0
+  assign row_content = ''
+
+  if row_titles != blank and row_size == 0
+    assign row_size = row_titles.size
+  elsif row_texts != blank and row_size == 0
+    assign row_size = row_texts.size
+  elsif row_images_1 != blank and row_size == 0
+    assign row_size = row_images_1.size
+  elsif row_images_2 != blank and row_size == 0
+    assign row_size = row_images_2.size
+  endif
+-%}
+
+{%- if row_size > 0 -%}
+  {%- for idx in (1..row_size) -%}
+    {%- liquid
+      assign row_title = row_titles[forloop.index0]
+      assign row_text = row_texts[forloop.index0]
+      assign row_image_1 = row_images_1[forloop.index0]
+      assign row_url_1 = row_urls_1[forloop.index0]
+      assign row_image_2 = row_images_2[forloop.index0]
+      assign row_url_2 = row_urls_2[forloop.index0]
+    -%}
+
+    {%- if row_title != blank or row_text != blank or row_image_1 != blank or row_image_2 != blank -%}
+      {%- capture row_content -%}
+        {{ row_content }}
+
+        <div class="article__row animated">
+          {%- if row_title != blank or row_text != blank -%}
+            <div class="article__row-content animated">
+              <div class="container container--fluid-second">
+                {%- if row_title != blank -%}
+                  <h3 class="heading-mobile-small article__row-title">
+                    <em>{{ row_title }}</em>
+                  </h3><!-- /.article__row-title -->
+                {%- endif -%}
+
+                {%- if row_text != blank -%}
+                  <div class="entry-large entry-large--mobile article__row-entry">
+                    {{ row_text }}
+                  </div><!-- /.article__row-entry -->
+                {%- endif -%}
+              </div><!-- /.container -->
+            </div><!-- /.article__row-content -->
+          {%- endif -%}
+
+          {%- if row_image_1 != blank or row_image_2 != blank -%}
+            <div class="article__row-images animated">
+              {%- if row_image_1 != blank -%}
+                {%- capture row_image_1_src -%}
+                  {%- include 'responsive-acc-image', image_url: row_image_1, image_width: '3840' -%}
+                {%- endcapture -%}
+
+                {%- if row_url_1 != blank -%}
+                  <a class="article__row-image" href="{{ row_url_1 }}">
+                {%- else -%}
+                  <div class="article__row-image">
+                {%- endif -%}
+                  <span class="lazyload" data-bg="url({{ row_image_1_src }})" role="img" aria-label="{{ row_image_1.alt }}"></span>
+                {%- if row_url_1 != blank -%}
+                  </a>
+                {%- else -%}
+                  </div><!-- /.article__row-image -->
+                {%- endif -%}
+              {%- endif -%}
+
+              {%- if row_image_2 != blank -%}
+                {%- capture row_image_2_src -%}
+                  {%- include 'responsive-acc-image', image_url: row_image_2, image_width: '3840' -%}
+                {%- endcapture -%}
+
+                {%- if row_url_2 != blank -%}
+                  <a class="article__row-image" href="{{ row_url_2 }}">
+                {%- else -%}
+                  <div class="article__row-image">
+                {%- endif -%}
+                  <span class="lazyload" data-bg="url({{ row_image_2_src }})" role="img" aria-label="{{ row_image_2.alt }}"></span>
+                {%- if row_url_2 != blank -%}
+                  </a>
+                {%- else -%}
+                  </div><!-- /.article__row-image -->
+                {%- endif -%}
+              {%- endif -%}
+            </div><!-- /.article__row-images -->
+          {%- endif -%}
+        </div><!-- /.article__row -->
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if row_content != '' -%}
+  <div class="article__rows">
+    {{ row_content }}
+  </div><!-- /.article__rows -->
+{%- endif -%}

@@ -1,0 +1,55 @@
+<div id="size-guide" class="popup-size-guide">
+  <span class="popup-size-guide__overlay js-btn-toggle" data-target="#size-guide" data-class="expanded"></span>
+
+  <div class="popup-size-guide__inner">
+    <header class="popup-size-guide__head">
+      <h5 class="popup-size-guide__title">
+        {{- 'products.size_guide.title' | t -}}
+      </h5><!-- /.popup-size-guide__title -->
+
+      <a href="#" class="btn-close btn-close--mobile-large js-btn-toggle" tabindex="0" data-target="#size-guide" data-class="expanded"></a>
+    </header><!-- /.popup-size-guide__head -->
+
+    <div class="popup-size-guide__body">
+      <div class="popup-size-guide__entry">
+        {{- 'products.size_guide.description' | t -}}
+      </div><!-- /.popup-size-guide__entry -->
+
+      <p class="popup-size-guide__hint visible-xs-block">
+        {{- 'products.size_guide.hint' | t -}}
+      </p><!-- /.popup-size-guide__hint -->
+
+      {% if _metafield.size_guide.table_1 != '' %}
+        <div id="size-chart" class="table-size-guide">
+          {{- _metafield.size_guide.table_1 -}}
+        </div><!-- /.table-size-guide -->
+      {% endif %}
+
+      {% if _metafield.size_guide.table_2 != '' %}
+        <div class="popup-size-guide__measurements-head">
+          <h5 class="popup-size-guide__title">
+            {{- 'products.size_guide.measurements_title' | t -}}
+          </h5><!-- /.popup-size-guide__title -->
+
+          <div class="converter js-converter" tabindex="1" >
+            <span class="converter__label">cm</span>
+
+            <span class="converter__slider"></span><!-- /.converter-slider -->
+
+            <span class="converter__label">in</span>
+          </div><!-- /.converter js-convert -->
+        </div><!-- /.popup-size-guide__measurements-head -->
+
+        <div id="size-measurements" class="table-size-guide table-size-guide--measurements">
+          {{- _metafield.size_guide.table_2 -}}
+        </div><!-- /.table-size-guide -->
+      {% endif %}
+    </div><!-- /.popup-size-guide__body -->
+
+    {%- if settings.help_menu != blank -%}
+      <footer class="popup-size-guide__foot">
+        {%- include 'tooltip-menu' class: 'tooltip', modifier: 'tooltip--center tooltip--verylightpink', tooltip_id: 'size-guide' -%}
+      </footer><!-- /.popup-size-guide__foot -->
+    {%- endif -%}
+  </div><!-- /.popup-size-guide__inner -->
+</div><!-- /.popup-size-guide -->

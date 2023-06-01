@@ -1,0 +1,75 @@
+{%- include 'head-logo' -%}
+
+<!DOCTYPE html>
+<html lang="{{ shop.locale }}">
+<head>
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWXH83H');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  {%- include 'settings' -%}
+
+  {%- include 'head' -%}
+
+  {{ content_for_header }}
+
+  {% include 'bc-sf-filter-style' %}
+  {%- include 'nosto-script', id: '22177972320' -%}
+  {%- if settings.ss_enable -%}
+	{% render 'ss-script' %}
+  {%- endif -%}
+  {% include "globale-js.liquid" %}
+</head>
+
+<body
+  class="
+    {{ template_class }}
+    {% if settings.ss_enable and collection.handle and collection.handle == settings.ss_collection_handle %}
+      ss-shop
+    {% endif %}
+    {% if settings.enable_global_e %}
+      flow-price-disabled
+    {% endif %}
+  "
+>
+  {%- if settings.accessibility_statement != blank -%}
+    <a href="{{ settings.accessibility_statement_page.url }}" class="sr-only" id="accessibility-statement" tabindex="1">{{ settings.accessibility_statement }}</a>
+  {%- endif -%}
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWXH83H"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="wrapper" id="wrapper">
+    {%- section 'header' -%}
+
+    {% section 'colors' %}
+
+    <div class="main">
+      {{ content_for_layout }}
+    </div><!-- /.main -->
+
+    {%- section 'footer' -%}
+  </div><!-- /.wrapper -->
+  {%- include 'ie-modal' -%}
+  {% include 'bc-sf-filter' %}
+  {{ theme_scripts }}
+
+  <!-- Live Chat -->
+  {%- include 'chat' -%}
+
+  {%- section 'email-popup' -%}
+  {% include 'nosto-tagging' %}
+  {% render 'technical' %}
+
+  {%- if settings.ss_enable -%}
+	{% render 'ss-intellisuggest' %}
+  {%- endif -%}
+</body>
+</html>

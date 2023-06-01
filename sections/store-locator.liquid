@@ -1,0 +1,169 @@
+{%- assign _section = section.settings -%}
+{%- assign _blocks = section.blocks -%}
+
+{%- if page.content != blank or _section.title != blank or _section.left_text != blank or _section.right_text != blank or _block.size > 0 or _section.subtitle != blank or _section.btn_text != blank -%}
+  <section class="section-stores animated">
+    {%- if page.content != blank -%}
+      <div class="section__map animated">
+        <div class="store-locator js-store-locator" data-locator-title="{{ 'general.store_locator.search_title' | t }}" data-locator-results="{{ 'general.store_locator.search_results' | t }}">
+          {{ page.content }}
+        </div><!-- /.store-locator -->
+
+        <style type="text/css" media="screen">
+          {%- if _section.background != blank -%}
+            .store-locator #stockist-widget .stockist-search-form {
+              background-image: url({{ _section.background | img_url: '3840x' }});
+            }
+          {%- endif -%}
+
+          .store-locator #stockist-widget .stockist-query-entry:before {
+            content: "{{ 'general.store_locator.title' | t }}";
+          }
+
+          .store-locator #stockist-widget .stockist-query-entry:after {
+            content: "{{ 'general.store_locator.subtitle' | t }}";
+          }
+        </style>
+      </div><!-- /.section__map -->
+    {%- endif -%}
+
+    {%- if _section.title != blank or _section.left_text != blank or _section.right_text != blank -%}
+      <header class="section__head animated">
+        <div class="container container--fluid">
+          {%- if _section.title != blank -%}
+            <h5 class="section__title">{{ _section.title }}</h5><!-- /.section__title -->
+          {%- endif -%}
+
+          {%- if _section.left_text != blank or _section.right_text != blank -%}
+            <ul class="section__list">
+              {%- if _section.left_text != blank -%}
+                <li>
+                  {{  _section.left_text}}
+                </li>
+              {%- endif -%}
+
+              {%- if _section.right_text != blank -%}
+                <li>
+                  {{  _section.right_text }}
+                </li>
+              {%- endif -%}
+            </ul>
+          {%- endif -%}
+        </div><!-- /.container -->
+      </header><!-- /.section__head -->
+    {%- endif -%}
+
+    {%- if _blocks.size > 0 -%}
+      <div class="section__body animated">
+        <div class="item-blocks">
+          {%- for block in _blocks -%}
+            {%- assign _block = block.settings -%}
+
+            {%- if _block.image != blank or _block.title != blank -%}
+              <div class="item-block animated">
+                {%- if _block.link != blank -%}
+                  <a href="{{ _block.link }}" class="item-block__link"></a>
+                {%- endif -%}
+
+                {%- if _block.image != blank -%}
+                  <div class="item-block__bg lazyload" data-bg="url({{ _block.image | img_url: '1920x' }})" role="img" aria-label="{{ _block.image.alt }}"></div><!-- /.item-block__bg -->
+                {%- endif -%}
+
+                {%- if _block.title != blank -%}
+                  <div class="item-block__content">
+                    <h3 class="heading-large item-block__title">
+                      <em>{{ _block.title | newline_to_br }}</em>
+                    </h3><!-- /.item-block__title -->
+                  </div><!-- /.item-block__content -->
+                {%- endif -%}
+              </div><!-- /.item-block -->
+            {%- endif -%}
+          {%- endfor -%}
+        </div><!-- /.item-blocks -->
+      </div><!-- /.section__body -->
+    {%- endif -%}
+
+    {%- if _section.subtitle != blank or _section.btn_text != blank -%}
+      <footer class="section__foot hidden-xs animated">
+        <div class="container container--fluid">
+          {%- if _section.subtitle != blank -%}
+            <h5 class="section__title">{{ _section.subtitle }}</h5><!-- /.section__title -->
+          {%- endif -%}
+
+          {%- if _section.btn_text != blank -%}
+            <a href="{% if _section.btn_link != blank %}{{ _section.btn_link }}{% else %}#{% endif %}" class="btn btn--min-large">{{ _section.btn_text }}</a>
+          {%- endif -%}
+        </div><!-- /.container -->
+      </footer><!-- /.section__foot -->
+    {%- endif -%}
+  </section><!-- /.section-stores -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Store Locator",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Online Stockists"
+    },
+    {
+      "type": "richtext",
+      "id": "left_text",
+      "label": "Left Text"
+    },
+    {
+      "type": "richtext",
+      "id": "right_text",
+      "label": "Right Text"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Ulla Johnson Boutiques"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Discover"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store",
+      "name": "Store",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

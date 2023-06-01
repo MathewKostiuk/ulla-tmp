@@ -1,0 +1,13 @@
+{%- if _product_video != blank -%}
+  {%- if _product_video.media_type == "video" -%}    
+    <div class="video-player product__video">
+      {{ _product_video | video_tag: class: "js-video-player" }}
+    </div><!-- /.section__video -->
+  {%- elsif _product_video.media_type == "external_video" -%}
+    <div class="video-player product__video">
+      <div class="plyr__video-embed js-video-player" id="player">
+        {{ _product_video | external_video_tag }}
+      </div>
+    </div><!-- /.section__video -->
+  {%- endif -%}
+{%- endif -%}

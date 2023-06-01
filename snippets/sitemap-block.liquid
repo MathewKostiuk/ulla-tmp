@@ -1,0 +1,19 @@
+{%- assign collection_menu = menu -%}
+
+{%- for link in linklists[collection_menu].links -%}
+  <div class="sitemap_links_section">
+    <a href="{{link.url}}" class="sitemap_level_one_link">{{link.title}}</a>
+    {%- if link.links != blank -%}
+    <div class="sitemap_links_section--level-one-sub">
+      {%- for levelOneSubLink in link.links -%}
+        <div class="sitemap_links_section--level-two-sub">
+          <a href="{{levelOneSubLink.url}}" class="sitemap_level_two_link">{{levelOneSubLink.title}}</a>
+          {%- for levelTwoSubLink in levelOneSubLink.links -%}
+            <a href="{{levelTwoSubLink.url}}" class="sitemap_level_three_link">{{levelTwoSubLink.title}}</a>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+{%- endfor -%}

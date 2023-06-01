@@ -1,0 +1,363 @@
+{%- assign _section = section.settings -%}
+
+<section
+  class="
+    {% if _section.countdown_enable %}
+      js-countdown-banner
+    {% endif %}
+  "
+  data-start-time="{{ _section.countdown_start_time }}"
+  data-end-time="{{ _section.countdown_end_time }}"
+  data-timezone="{{ _section.timezone }}"
+>
+{%- if _section.image != blank or _section.image_mobile != blank or _section.video != blank or _section.text != blank or _section.link_text != blank -%}
+  <div
+    class="intro js-sticky-elem-parent animated"
+    js-countdown="hero-banner"
+  >
+    {%- if _section.image_link != blank and _section.video == blank and _section.vimeo_video == blank -%}
+      <a class="intro__link" href="{{ _section.image_link }}"></a>
+    {%- endif -%}
+    {% if _section.image != blank %}
+      {% liquid
+        assign class_list = 'intro__bg responsive__image'
+        if _section.image_mobile != blank
+          assign class_list = class_list | append: ' hidden-xs'
+          assign image_height = _section.image.width | divided_by: _section.image.aspect_ratio
+        endif
+      %}
+      {{
+        _section.image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'lazy',
+          width: _section.image.width,
+          height: image_height,
+          class: class_list,
+          sizes: '100vh',
+          widths: '300, 600, 900, 1200, 1500, 1800, 2100'
+      }}
+    {% endif %}
+
+    {%- if _section.image_mobile != blank -%}
+      {% assign class_list = 'intro__bg intro__bg--mobile visible-xs-block' %}
+      {% assign image_height = _section.image_mobile.width | divided_by: _section.image_mobile.aspect_ratio %}
+      {%- if _section.image != blank -%}
+        {{
+          _section.image_mobile
+          | image_url: width: 1534
+          | image_tag:
+            loading: 'lazy',
+            width: _section.image_mobile.width,
+            height: image_height,
+            class: class_list,
+            sizes: '100vh'
+        }}
+      {%- else -%}
+        {{
+          _section.image_mobile
+          | image_url: width: 3840
+          | image_tag:
+            loading: 'lazy',
+            width: _section.image_mobile.width,
+            height: image_height,
+            class: class_list,
+            sizes: '100vh'
+        }}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if _section.video != blank or _section.vimeo_video != blank -%}
+      {% capture image_url %}{{_section.image_mobile | img_url: 'master'}}{% endcapture %}
+      {% capture modified_image_url %}https://{{ image_url | slice: 2, image_url.size }}{% endcapture %}
+      <div class="intro__video">
+        <div class="intro__video-inner hidden-xs" data-url="{% if _section.video_link != blank %}{{ _section.video_link }}{% else %}#{% endif %}">
+          {%- include 'video-iframe' video_object: _section.video, video_text: _section.vimeo_video, image_url: modified_image_url -%}
+        </div><!-- /.intro__video-inner -->
+        <div class="intro__video-inner visible-xs-block" data-url="{% if _section.video_link != blank %}{{ _section.video_link }}{% else %}#{% endif %}">
+          {%- include 'video-iframe' video_object: _section.video_mobile, video_text: _section.vimeo_video_mobile,  image_url: modified_image_url -%}
+        </div><!-- /.intro__video-inner -->
+      </div><!-- /.intro__video -->
+    {%- endif -%}
+
+    {%- if _section.live_stream_enable -%}
+      <iframe
+        class="intro__iframe hidden"
+        src='https://player.indacolive.com/player/jwp/clients/ulla_johnson/2023/2/fw23_distribution/'
+        allowfullscreen
+        width='100%'
+        height='100%'
+        marginwidth='0'
+        marginheight='0'
+        frameborder='0'
+        scrolling='no'
+        js-countdown="livestream-iframe"
+      >
+      </iframe>
+    {%- endif -%}
+
+    {%- if _section.text != blank or _section.link_text != blank -%}
+      <div class="intro__inner">
+        <div class="container container--fluid">
+          <div class="intro__content js-sticky-elem">
+            <div class="intro__logo js-sticky-logo intro__logo-{{_section.logo_color}}">
+              {%- include 'svg-elements' name: 'logo' -%}
+            </div><!-- /.intro__logo -->
+
+            {%- if _section.text != blank -%}
+              <h2 class="intro__title">
+                <span>
+                  {{ _section.text | replace: '<p>', '' | replace: '</p>', '' }}
+                </span>
+              </h2><!-- /.intro__title -->
+            {%- endif -%}
+
+            {%- if _section.link_text != blank -%}
+              <a href="{% if _section.link_url != blank %}{{ _section.link_url }}{% else %}#{% endif %}" class="link-default intro__link">{{ _section.link_text }}</a>
+            {%- endif -%}
+          </div><!-- /.intro__content -->
+        </div><!-- /.container -->
+      </div><!-- /.intro__inner -->
+    {%- endif -%}
+
+    <div class="intro__line intro__line--bottom js-sticky-line"></div><!-- /.intro__line -->
+  </div><!-- /.intro -->
+{%- endif -%}
+
+{% if _section.countdown_enable %}
+  <div
+    class="animated intro__countdown"
+    js-countdown="countdown-banner"
+  >
+    <div class="intro__inner-banner">
+      <div
+        class="
+          countdown
+          {% unless _section.box_color == 'rgba(0,0,0,0)' %}
+            background
+          {% endunless %}
+        "
+        style="
+          background: {{ _section.box_color }};
+          color: {{ _section.countdown_color }};
+        "
+      >
+        {%- if _section.box_image != blank -%}
+          <div class="intro__bg lazyload{% if _section.box_image_mobile != blank %} hidden-xs{% endif %}" data-bg="url({{ _section.box_image | img_url: '3840x' }})" role="img" aria-label="{{ _section.box_image.alt }}"></div><!-- /.intro__bg -->
+        {%- endif -%}
+
+        {%- if _section.box_image_mobile != blank -%}
+          {%- if _section.box_image != blank -%}
+            <div class="intro__bg lazyload visible-xs-block" data-bg="url({{ _section.box_image_mobile | img_url: '1534x' }})" role="img" aria-label="{{ _section.box_image_mobile.alt }}"></div><!-- /.intro__bg -->
+          {%- else -%}
+            <div class="intro__bg lazyload" data-bg="url({{ _section.box_image_mobile | img_url: '3840x' }})" role="img" aria-label="{{ _section.box_image_mobile.alt }}"></div><!-- /.intro__bg -->
+          {%- endif -%}
+        {%- endif -%}
+        <div class="countdown__content">
+          {%- if _section.logo_enabled -%}
+            <div class="countdown__logo">
+              <img src="{{ 'logo.png' | asset_url }}" >
+            </div>
+          {%- endif -%}
+
+          <p class="countdown__subtitle">{{ _section.countdown_subtitle }}</p>
+          <div class="countdown__clock">
+            <div class="countdown__time">
+              <span class="countdown__time-val" js-countdown="day"></span>
+              <span class="countdown__time-label">days</span>
+            </div>
+            <span class="countdown__separator">:</span>
+            <div class="countdown__time">
+              <span class="countdown__time-val" js-countdown="hour"></span>
+              <span class="countdown__time-label">hours</span>
+            </div>
+            <span class="countdown__separator">:</span>
+            <div class="countdown__time">
+              <span class="countdown__time-val" js-countdown="min"></span>
+              <span class="countdown__time-label">minutes</span>
+            </div>
+            <span class="countdown__separator">:</span>
+            <div class="countdown__time">
+              <span class="countdown__time-val" js-countdown="sec"></span>
+              <span class="countdown__time-label">seconds</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Section Intro",
+  "class": "intro-outer js-intro-outer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image Mobile"
+    },
+    {
+      "type": "text",
+      "id": "image_link",
+      "label": "Image Redirect Link"
+    },
+    {
+      "type": "video_url",
+      "id": "video",
+      "label": "Desktop Youtube Video",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "video_url",
+      "id": "video_mobile",
+      "label": "Mobile Youtube Video",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "vimeo_video",
+      "label": "Desktop Vimeo Video"
+    },
+    {
+      "type": "text",
+      "id": "vimeo_video_mobile",
+      "label": "Mobile Vimeo Video"
+    },
+    {
+      "type": "text",
+      "id": "video_link",
+      "label": "Video Redirect Link"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Live Stream"
+    },
+    {
+      "type": "checkbox",
+      "id": "live_stream_enable",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Count Down"
+    },
+    {
+      "type": "checkbox",
+      "id": "countdown_enable",
+      "label": "Enable"
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_enabled",
+      "label": "Logo Display",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "countdown_subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "color",
+      "id": "countdown_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "box_color",
+      "label": "Box Color",
+      "default": "#FF3556"
+    },
+    {
+      "type": "image_picker",
+      "id": "box_image",
+      "label": "Box Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "box_image_mobile",
+      "label": "Box Image Mobile"
+    },
+    {
+      "type": "select",
+      "id": "logo_color",
+      "label": "Logo Color",
+      "default": "black",
+      "options": [
+        {
+          "label": "Black",
+          "value": "black"
+        },
+        {
+          "label": "White",
+          "value": "white"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "timezone",
+      "label": "Timezone",
+      "options": [
+        {
+          "label": "New York",
+          "value": "America/New_York"
+        },
+        {
+          "label": "Los Angeles",
+          "value": "America/Los_Angeles"
+        },
+        {
+          "label": "Chicago",
+          "value": "America/Chicago"
+        }
+      ],
+      "default": "America/New_York"
+    },
+    {
+      "type": "text",
+      "id": "countdown_start_time",
+      "label": "Start Time",
+      "info": "Date and time when the countdown should start, MM/DD/YYYY HH:MM:SS format",
+      "placeholder": "MM/DD/YYYY HH:MM:SS"
+    },
+    {
+      "type": "text",
+      "id": "countdown_end_time",
+      "label": "End Time",
+      "info": "Date and time when the countdown should end, MM/DD/YYYY HH:MM:SS format",
+      "placeholder": "MM/DD/YYYY HH:MM:SS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Intro"
+    }
+  ]
+}
+{% endschema %}

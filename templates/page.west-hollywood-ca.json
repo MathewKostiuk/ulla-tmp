@@ -1,0 +1,68 @@
+{
+  "sections": {
+    "stores": {
+      "type": "section-blocks",
+      "blocks": {
+        "43712ae6-f47d-4533-8b31-27a8cdc75a63": {
+          "type": "store",
+          "settings": {
+            "background": "shopify:\/\/shop_images\/01_294c1a41-3899-418e-bc07-65692b781cff.jpg",
+            "anchor_link": "",
+            "title": "",
+            "text": "",
+            "text_small": ""
+          }
+        },
+        "1580900161663": {
+          "type": "store",
+          "settings": {
+            "background": "shopify:\/\/shop_images\/Temp-LA-Page_02_993a43bd-f742-4488-a6df-850590b6a5fa.jpg",
+            "anchor_link": "",
+            "title": "",
+            "text": "",
+            "text_small": ""
+          }
+        },
+        "71bd2e9d-9a4a-435c-a5fd-5ffc5e633e50": {
+          "type": "store",
+          "settings": {
+            "background": "shopify:\/\/shop_images\/Temp-LA-Page_03_47842af4-e6d9-43e2-b939-8ecb898258a2.jpg",
+            "anchor_link": "",
+            "title": "",
+            "text": "",
+            "text_small": ""
+          }
+        },
+        "1580900231888": {
+          "type": "store",
+          "disabled": true,
+          "settings": {
+            "background": "shopify:\/\/shop_images\/Amagansett_Overlay_3.jpg",
+            "anchor_link": "amagansett",
+            "title": "<p>Ulla Johnson <em>NY<\/em><\/p>",
+            "text": "<p><a href=\"https:\/\/goo.gl\/maps\/o6HFJ3f8HcXHicps8\" title=\"https:\/\/goo.gl\/maps\/o6HFJ3f8HcXHicps8\">4 Amagansett Square <br\/>Amagansett, NY 11930<\/a><br\/><a href=\"tel:6312597123\" title=\"tel:6312597123\">631.259.7123<\/a><\/p><p><\/p><p>Sunday-Thursday 10am-5pm EST<br\/>Friday-Saturday 10am-6pm EST<\/p><p><\/p><p><a href=\"https:\/\/www.instagram.com\/ullajohnsonamagansett\/\" title=\"https:\/\/www.instagram.com\/ullajohnsonamagansett\/\">Amagansett Instagram<\/a><\/p>",
+            "text_small": "",
+            "image_1": "shopify:\/\/shop_images\/Store_AMG_4.jpg",
+            "image_2": "shopify:\/\/shop_images\/Store_AMG_2.jpg",
+            "image_3": "shopify:\/\/shop_images\/Store_AMG_1.jpg",
+            "image_4": "shopify:\/\/shop_images\/Store_AMG_3.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "43712ae6-f47d-4533-8b31-27a8cdc75a63",
+        "1580900161663",
+        "71bd2e9d-9a4a-435c-a5fd-5ffc5e633e50",
+        "1580900231888"
+      ],
+      "settings": {
+        "bottom_title": "Ulla Johnson Stockists",
+        "btn_text": "View Stockists",
+        "btn_link": "shopify:\/\/pages\/store-locator"
+      }
+    }
+  },
+  "order": [
+    "stores"
+  ]
+}

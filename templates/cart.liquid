@@ -1,0 +1,152 @@
+{%- assign aside_counter = 0 -%}
+{%- assign product_final_sale = false -%}
+<script type="application/json" id="flow_shopify_cart">{{ cart | json }}</script>
+
+<section class="section-cart js-section-cart animated">
+  <form action="/cart" method="post" novalidate class="form-cart">
+    <div class="section__inner" data-flow-cart-container>
+      <div class="section__content">
+        <div class="section__items{% unless cart.item_count > 0 %} section__items--empty{% endunless %} js-section-cart-items cart-localized">
+          {%- if cart.item_count > 0 -%}
+            <div class="cart-items cart-items--block">
+              {%- assign cart_items = cart.items -%}
+              {%- for line_item in cart_items -%}
+                {%- include 'cart-item' modifier: 'cart-item--block', widget: false -%}
+              {%- endfor -%}
+            </div><!-- /.cart-items -->
+          {%- else -%}
+            <div class="section__items-empty">
+              <h5>{{- 'cart.general.empty' | t -}}</h5>
+
+              <a href="{{ 'cart.general.empty_btn_link' | t }}" class="btn btn--min-medium btn--bordered-tablet btn--block-tablet btn--large-tablet">{{ 'cart.general.empty_btn' | t }}</a>
+            </div><!-- /.section__items-empty -->
+          {%- endif -%}
+        </div><!-- /.section__items -->
+
+        {%- include 'cart-aside' modifier: 'section__aside--mobile hidden-md hidden-lg', tooltip: false -%}
+
+        {% section 'section-cart-products' %}
+        {% section 'section-cart-donations' %}
+
+        {% section 'section-cart-empty-products' %}
+      </div><!-- /.section__content -->
+
+      {%- include 'cart-aside' modifier: 'section__aside--desktop', tooltip: true -%}
+    </div><!-- /.section__inner -->
+  </form>
+</section><!-- /.section-cart -->
+
+<div class="widget-cart-container hidden">
+  <div class="widget__container cart-localized">
+    <form action="/cart" method="post" novalidate class="form-cart-small" data-flow-cart-container>
+      <div class="form__bar">
+        <i class="ico-bag">
+          {%- include 'svg-elements' name: 'bag' -%}
+        </i>
+
+        <span>
+          {{ 'cart.general.title' | t }}:
+
+          <small> {{ cart.item_count }}</small>
+        </span>
+
+        <a href="#" class="btn-close js-btn-toggle" data-target="#widget-cart" data-class="expanded"></a>
+      </div><!-- /.form__bar -->
+
+      {%- if cart.item_count > 0 -%}
+        <div class="form__body">
+          <div class="cart-items cart-items--widget">
+            {%- for line_item in cart.items -%}
+              {%- include 'cart-item' modifier: 'cart-item--widget', widget: true -%}
+            {%- endfor -%}
+          </div><!-- /.cart-items -->
+        </div><!-- /.form__body -->
+
+        <div class="form__foot">
+          {%- if settings.cart_page_message_primary != blank -%}
+            {{ settings.cart_page_message_primary }}
+          {%- endif -%}
+
+          <strong>
+            {{- 'cart.general.subtotal' | t -}}
+
+            <span>
+              <span data-flow-localize="cart-subtotal">{{- cart.total_price | money_without_trailing_zeros -}}</span>
+
+              {%- if cart.total_discounts > 0 -%}
+                {%- assign savings = cart.total_discounts | money_without_trailing_zeros -%}
+
+                <span class="form__foot-subtotal-savings">
+                  {{- 'cart.general.savings_html' | t: price: savings -}}
+                </span>
+              {%- endif -%}
+            </span>
+          </strong>
+        </div><!-- /.form__foot -->
+
+        {% if product_preorder %}
+          <input type="hidden" name="note" value="Preorder" class="js-cart-preorder-note" />
+        {% else %}
+          <input type="hidden" name="note" value="" class="js-cart-preorder-note js-cart-preorder-empty" />
+        {% endif %}
+
+        <div class="form__actions">
+          <a href="/cart" class="form__btn btn btn--min-medium">
+            {{- 'cart.general.checkout' | t -}}
+          </a>
+
+          {%- comment -%}
+            <button class="form__btn btn btn--min-medium btn--checkout" type="button">
+              {{- 'cart.general.checkout' | t -}}
+            </button>
+
+            <button type="submit" name="checkout" class="form__btn btn btn--min-medium btn--checkout">
+              {{- 'cart.general.checkout' | t -}}
+            </button>
+          {%- endcomment -%}
+        </div><!-- /.form__actions -->
+      {%- else -%}
+        <div class="form__empty">
+          <p>
+            {{- 'cart.general.empty' | t -}}
+          </p>
+        </div><!-- /.form__empty -->
+
+        <div class="form__actions">
+          <a href="{{ 'cart.general.empty_btn_link' | t }}" class="btn btn--min-medium">{{ 'cart.general.empty_btn' | t }}</a>
+        </div><!-- /.form__actions -->
+      {%- endif -%}
+    </form>
+  </div><!-- /.widget__container -->
+
+  <div class="cart-global-total">
+    {% if cart.item_count > 0 %}
+      <small><em>: </em>{{ cart.item_count }}</small>
+    {% else %}
+      <small class="disabled"><em>: </em>{{ cart.item_count }}</small>
+    {% endif %}
+  </div><!-- /.cart-global-total -->
+</div><!-- /.widget-cart-container -->
+
+<!-- Searchspring IntelliSuggest Tracking -->
+{% if cart.item_count > 0 %}
+  <script type="text/javascript" src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+  <script type="text/javascript">
+  try{ 
+      var seed = [];
+      {% for item in cart.items %}
+          seed.push("{{ item.product.variants[0].sku }}");
+      {% endfor %}
+      IntelliSuggest.init({siteId:"g7562x", context:"Basket", seed:seed });
+      {% for item in cart.items %}
+          IntelliSuggest.haveItem({sku:"{{ item.product.variants[0].sku }}", qty:"{{ item.quantity }}", price:"{{ item.price | money_without_currency }}"});
+      {% endfor %}
+      IntelliSuggest.inBasket({});
+  } catch(err) {}
+  </script>
+{% endif %}
+<!-- END Searchspring IntelliSuggest -->
+
+{% include 'nosto-element' with 'cartpage-nosto-1' %}
+
+{% include 'nosto-element' with 'cartpage-nosto-2' %}

@@ -1,0 +1,39 @@
+{%- assign meta_bg = page.metafields.press.background_image -%}
+{%- assign meta_item_images = page.metafields.press_item.image -%}
+{%- assign meta_item_titles = page.metafields.press_item.title -%}
+{%- assign meta_item_size = 0 -%}
+
+{%- if meta_item_images.size > 0 -%}
+  {%- assign meta_item_size = meta_item_images.size -%}
+{%- elsif meta_item_titles.size > 0 -%}
+  {%- assign meta_item_size = meta_item_titles.size -%}
+{%- endif -%}
+
+{%- if meta_bg != blank or meta_item_size > 0 -%}
+  <section class="section-press animated">
+    {%- if meta_bg != blank -%}
+      {%- capture meta_bg_src -%}
+        {%- include 'responsive-acc-image', image_url: meta_bg, image_width: '3840' -%}
+      {%- endcapture -%}
+
+      <div class="section__bg lazyload" data-bg="url({{ meta_bg_src }})" role="img" aria-label="{{ meta_bg.alt }}"></div><!-- /.section__bg -->
+    {%- endif -%}
+
+    {%- if meta_item_size > 0 -%}
+      <div class="section__body">
+        <div class="press-items js-press-items">
+          {%- for idx in (1..meta_item_size) -%}
+            {%- assign meta_image = meta_item_images[forloop.index0] -%}
+            {%- assign meta_title = meta_item_titles[forloop.index0] -%}
+            {%- assign meta_subtitle = page.metafields.press_item.subtitle[forloop.index0] -%}
+            {%- assign meta_link = page.metafields.press_item.link[forloop.index0] -%}
+
+            {%- if meta_image != blank or meta_title != blank or meta_subtitle != blank -%}
+              {%- include 'press-item' modifier: '' -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div><!-- /.press-items -->
+      </div><!-- /.section__body -->
+    {%- endif -%}
+  </section><!-- /.section-press -->
+{%- endif -%}

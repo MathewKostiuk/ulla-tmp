@@ -1,0 +1,638 @@
+{%- assign _product = product.selected_or_first_available_variant -%}
+{%- assign variant_color = 'products.variants.variant_color' | t -%}
+{%- assign variant_color_handle = variant_color | handle -%}
+{%- assign variant_size = 'products.variants.variant_size' | t -%}
+{%- assign variant_size_handle = variant_size | handle -%}
+{%- assign size_guide_link_text = 'products.product.size_guide_link' | t -%}
+{%- assign container_image_first = '' -%}
+{%- assign container_image_second = '' -%}
+{%- assign low_stock_number = settings.low_stock_number -%}
+{%- assign _metafield = product.metafields -%}
+{%- assign popup_images = '' -%}
+{%- assign style_tag = 'products.product.style_tag' | t -%}
+{%- assign product_code = '' -%}
+{%- assign _meta_color_names = _metafield.colors.color_name -%}
+{%- assign _meta_color_hexes = _metafield.colors.color -%}
+{%- assign _meta_color_images = _metafield.colors.image -%}
+{%- assign preorder_prefix = 'products.product.preorder_prefix' | t -%}
+{%- assign preorder_text = '' -%}
+{%- assign product_title_splitter = 'products.product.product_title_splitter' | t -%}
+{%- assign badge_final_sale_prefix = 'products.product.badge_final_sale_prefix' | t -%}
+{%- assign badge_final_sale_text = 'products.product.badge_final_sale_text' | t -%}
+{%- assign badge_final_sale_string = '' -%}
+{%- assign product_video = '' -%}
+{%- assign processed_media_ids = '' -%}
+{%- assign product_available = false -%}
+{%- assign product_on_preorder = false -%}
+
+{%- for variant in product.variants -%}
+  {%- if variant.available -%}
+    {%- assign product_available = true-%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- for media in product.media -%}
+  {%- if media.media_type == "video" or media.media_type == "external_video" -%}
+    {%- assign product_video = media -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if product.tags.size > 0 -%}
+  {%- for _tag in product.tags -%}
+    {%- if _tag contains style_tag -%}
+      {%- assign product_code = _tag | remove: style_tag -%}
+    {%- endif -%}
+
+    {% if _tag contains "preorder" %}
+      {%- assign product_on_preorder = true -%}
+    {% endif %}
+
+    {%- if _tag contains preorder_prefix -%}
+      {%- assign preorder_text = _tag | remove: preorder_prefix | strip -%}
+    {%- endif -%}
+
+    {%- if _tag contains badge_final_sale_prefix and _tag contains badge_final_sale_text -%}
+      {%- assign badge_final_sale_string = _tag | remove: badge_final_sale_prefix | strip -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if _meta_color_names.size > 0 -%}
+  <style>
+    {%- for _meta_color_index in (1.._meta_color_names.size) -%}
+      {%- assign _meta_color_name = _meta_color_names[forloop.index0] -%}
+      {%- assign _meta_color_hex = _meta_color_hexes[forloop.index0] -%}
+      {%- assign _meta_color_image = _meta_color_images[forloop.index0] -%}
+
+      .color-{{ _meta_color_name | handle }} {
+        {% if _meta_color_image != blank %}
+          background-image: url({{ _meta_color_image }});
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
+        {% elsif _meta_color_hex != blank %}
+          background-color: {{ _meta_color_hex }};
+        {% endif %}
+      }
+    {%- endfor -%}
+  </style>
+{%- endif -%}
+
+<section class="section-product js-product {% if product.type == 'Gift Card' %}section-product--gift-card{% endif %}">
+
+  <script
+    class="js-product-item-object"
+    data-id="product-json-{{ product.id }}"
+    type="application/json"
+  >{{ product | json }}</script>
+
+  <div class="section__items js-slider-product-mobile">
+    {%- assign image_index = -1 -%}
+    {%- if product.media.size > 0 -%}
+      {%- for _media in product.media -%}
+
+        {%- if _media.media_type == "image" -%}
+          {%- assign image_index = image_index | plus: 1 -%}
+          {%- assign _image = _media -%}
+        {%- endif -%}
+
+        {%- assign hide_image_class = "" -%}
+        {%- if product_video == blank -%}
+          {%- if image_index < 2 -%}
+            {%- assign hide_image_class = "hidden-md hidden-lg" -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- if product_video.aspect_ratio > 1 -%}
+            {%- if image_index < 2 -%}
+              {%- assign hide_image_class = "hidden-md hidden-lg" -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- if image_index < 1 -%}
+              {%- assign hide_image_class = "hidden-md hidden-lg" -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if forloop.index0 == 0 -%}
+          {%- capture container_image_first -%}
+            <div class="section__image section__image--first hidden-xs hidden-sm animated" data-image-index="{{ forloop.index }}">
+              {%- if _media.media_type == "video" or _media.media_type == "external_video" -%}
+                {%- include 'product-video_media', _product_video: _media -%}
+              {%- else -%}
+                <a href="#" class="js-btn-toggle-popup" data-target="#popup-images" data-class="expanded">
+                  <figure>
+                    {%- include 'lazyload-image' _image: _image, original_width: '960' -%}
+                  </figure>
+                </a>
+              {%- endif -%}
+            </div><!-- /.section__image -->
+          {%- endcapture -%}
+          {%- if processed_media_ids != '' -%}
+            {%- assign processed_media_ids = processed_media_ids | append: ',' -%}
+          {%- endif -%}
+          {%- assign processed_media_ids = processed_media_ids | append: _media.id -%}
+        {%- elsif forloop.index0 == 1 -%}
+          {%- capture container_image_second -%}
+            <div class="section__image section__image--second hidden-xs hidden-sm animated" data-image-index="{{ forloop.index }}">
+              {%- if _media.media_type == "video" or _media.media_type == "external_video" -%}
+                {%- include 'product-video_media', _product_video: _media -%}
+              {%- else -%}
+                <a href="#" class="js-btn-toggle-popup" data-target="#popup-images" data-class="expanded">
+                  <figure>
+                    {%- include 'lazyload-image' _image: _image, original_width: '960' -%}
+                  </figure>
+                </a>
+              {%- endif -%}
+            </div><!-- /.section__image -->
+          {%- endcapture -%}
+          {%- if processed_media_ids != '' -%}
+            {%- assign processed_media_ids = processed_media_ids | append: ',' -%}
+          {%- endif -%}
+          {%- assign processed_media_ids = processed_media_ids | append: _media.id -%}
+        {%- endif -%}
+        {%- if processed_media_ids contains _media.id -%}
+          {%- if _media.media_type == "image" -%}
+            <div class="section__image hidden-md hidden-lg animated" data-image-index="{{ forloop.index }}">
+              <a href="#" class="js-btn-toggle-popup" data-target="#popup-images" data-class="expanded">
+                <figure class="lazyload" data-bg="url({{ _image | img_url: '2046x' }})">
+                  {%- include 'lazyload-image' _image: _image, original_width: '960' -%}
+                </figure>
+              </a>
+            </div><!-- /.section__image -->
+          {%- elsif _media.media_type == "video" or _media.media_type == "external_video" -%}
+            <div class="section__image slide-video hidden-md hidden-lg animated" data-image-index="{{ forloop.index }}">
+              {%- include 'product-video_media', _product_video: _media -%}
+            </div><!-- /.section__image -->
+          {%- endif -%}
+        {%- elsif _media.media_type == "image" -%}
+          <div class="section__image animated" data-image-index="{{ forloop.index }}">
+            <a href="#" class="js-btn-toggle-popup" data-target="#popup-images" data-class="expanded">
+              <figure class="lazyload" data-bg="url({{ _image | img_url: '2046x' }})">
+                {%- include 'lazyload-image' _image: _image, original_width: '960' -%}
+              </figure>
+            </a>
+          </div><!-- /.section__image -->
+          {%- if processed_media_ids != '' -%}
+            {%- assign processed_media_ids = processed_media_ids | append: ',' -%}
+          {%- endif -%}
+          {%- assign processed_media_ids = processed_media_ids | append: _media.id -%}
+        {%- elsif _media.media_type == "video" or _media.media_type == "external_video" -%}
+          <div class="section__image animated" data-image-index="{{ forloop.index }}">
+            {%- include 'product-video_media', _product_video: _media -%}
+          </div><!-- /.section__image -->
+          {%- if processed_media_ids != '' -%}
+            {%- assign processed_media_ids = processed_media_ids | append: ',' -%}
+          {%- endif -%}
+          {%- assign processed_media_ids = processed_media_ids | append: _media.id -%}
+        {%- endif -%}
+
+        {%- capture popup_images -%}
+          {{ popup_images }}
+
+          <div class="popup__image js-zoom-image" data-image-index="{{ forloop.index }}">
+            <a href="#" class="js-btn-toggle-popup popup__link" data-target="#popup-images" data-class="expanded"></a>
+
+            <a href="#" class="btn-close btn-close--mobile-large popup__close js-btn-toggle-popup" data-target="#popup-images" data-class="expanded"></a>
+
+            <figure>
+              {%- include 'lazyload-image' _image: _image, original_width: '1920' -%}
+            </figure>
+          </div><!-- /.section__image -->
+        {%- endcapture -%}
+      {%- endfor -%}
+
+{%- include 'product-meta-items' parent_class: 'section__item', parent_modifier: 'hidden-xs hidden-sm animated js-section-items', shop_look_product_first: _metafield.shop_look.product, shop_look_product_second: _metafield.shop_look.product_second, shop_look_product_third: _metafield.shop_look.product_third -%}
+    {%- endif -%}
+  </div><!-- /.section__items -->
+
+  <div class="section__container">
+    {%- if container_image_first != '' -%}
+      {{ container_image_first }}
+    {%- endif -%}
+
+    <aside class="section__aside animated">
+      <div class="section__bar hidden-sm hidden-md hidden-lg">
+        {%- include 'product-top-details' -%}
+      </div><!-- /.section__bar -->
+
+      <div class="section__inner">
+        <div class="section__content">
+          <div class="section__bar hidden-xs">
+            {%- include 'product-top-details' -%}
+          </div><!-- /.section__bar -->
+
+          {%- if product.content != blank or _metafield.product_info.size__fit != blank or settings.shipping_and_returns_text != blank or settings.how_to_use_text != blank -%}
+            <div class="tabs tabs--mobile-acc section__tabs js-tabs" data-mobile-accordion>
+              <div class="tabs__head">
+                <nav class="tabs__nav">
+                  <ul>
+                    {%- if product.content != blank -%}
+                      <li class="current expanded">
+                        <a href="#product-tab1">{{ 'products.product.details' | t }}</a>
+                      </li>
+                    {%- endif -%}
+
+                    {%- if _metafield.product_info.size__fit != blank -%}
+                      <li>
+                        <a href="#product-tab2">{{ 'products.product.size_fit' | t }}</a>
+                      </li>
+                    {%- endif -%}
+
+                    {% if product.type == 'Gift Card'  %}
+                      {%- if settings.how_to_use_text != blank -%}
+                        <li>
+                          <a href="#product-tab3">{{ 'products.product.how_to_use' | t }}</a>
+                        </li>
+                      {%- endif -%}
+                    {% else %}
+                      {%- if settings.shipping_and_returns_text != blank -%}
+                        <li>
+                          <a href="#product-tab3">{{ 'products.product.shipping_returns' | t }}</a>
+                        </li>
+                      {%- endif -%}
+                    {% endif %}
+                  </ul>
+                </nav><!-- /.tabs__nav -->
+
+                {%- include 'share' modifier: 'tabs__share', id: 'share' -%}
+              </div><!-- /.tabs__head -->
+
+              <div class="tabs__body">
+                {%- if product.content != blank -%}
+                  <div class="tab current expanded" id="product-tab1">
+                    <div class="tab__head">
+                      <span>{{ 'products.product.details' | t }}</span>
+                    </div><!-- /.tab__head -->
+
+                    <div class="tab__body">
+                      <div class="entry-default entry-default--large tab__content">
+                        {{ product.content }}
+                      </div><!-- /.tab__content -->
+                    </div><!-- /.tab__body -->
+                  </div><!-- /.tab -->
+                {%- endif -%}
+
+                {%- if _metafield.product_info.size__fit != blank -%}
+                  <div class="tab" id="product-tab2">
+                    <div class="tab__head">
+                      <span>{{ 'products.product.size_fit' | t }}</span>
+                    </div><!-- /.tab__head -->
+
+                    <div class="tab__body">
+                      <div class="entry-default entry-default--large tab__content">
+                        {%- assign size_guide_link = '<a href="#" class=" js-btn-toggle" data-target="#size-guide" data-class="expanded">' | append: size_guide_link_text | append: '</a>' -%}
+                        {{ _metafield.product_info.size__fit | replace: '[size-guide]', size_guide_link }}
+                      </div><!-- /.tab__content -->
+                    </div><!-- /.tab__body -->
+                  </div><!-- /.tab -->
+                {%- endif -%}
+
+                {%- if settings.shipping_and_returns_text != blank or settings.how_to_use_text != blank -%}
+                  <div class="tab" id="product-tab3">
+                    <div class="tab__head">
+                      {% if product.type == 'Gift Card' %}
+                        <span>{{ 'products.product.how_to_use' | t }}</span>
+                      {% else %}
+                        <span>{{ 'products.product.shipping_returns' | t }}</span>
+                      {% endif %}
+                    </div><!-- /.tab__head -->
+
+                    <div class="tab__body">
+                      <div class="entry-default entry-default--large tab__content">
+                        {% if product.type == 'Gift Card' %}
+                          {{ settings.how_to_use_text }}
+                        {% else %}
+                          {{ settings.shipping_and_returns_text }}
+                        {% endif %}
+                      </div><!-- /.tab__content -->
+                    </div><!-- /.tab__body -->
+                  </div><!-- /.tab -->
+                {%- endif -%}
+              </div><!-- /.tabs__body -->
+            </div><!-- /.tabs -->
+          {%- endif -%}
+
+          <div class="affirm-snippet hidden">
+            Monthly payments available through
+            {%- include 'lazyload-image' _image: 'all_black_logo-transparent_bg.png', asset_image: true -%}
+          </div>
+        </div><!-- /.section__content -->
+      </div><!-- /.section__inner -->
+
+      <div class="section__form js-form-product-brick">
+        <div class="section__form-inner js-form-product-outer">
+          <div class="section__form-aside">
+            <a href="/" class="logo-svg section__form-logo" title="{{ shop.name }}">
+              <small>{{ shop.name }}</small>
+              {%- include 'svg-elements' name: 'logo' -%}
+            </a>
+          </div><!-- /.section__form-aside -->
+
+          {%- assign form_classes = 'form-product js-form-product'-%}
+          {%- if preorder_text != '' -%}
+            {%- assign form_classes = form_classes | append: ' form-product--preorder' -%}
+          {%- endif -%}
+
+          {% form 'product', product, class: form_classes, data-product-code: product_code %}
+            <div class="form__bar hidden">
+              <div class="form__row">
+                <div class="form__controls">
+                  <select name="id" id="product-select" class="product-single__variants js-select-global">
+                    {% for variant in product.variants %}
+                      {%- include 'price' with variant, echo: false -%}
+
+                      <option
+                        value="{{- variant.id -}}"
+                        data-price="{{- output -}}"
+                        data-option-1="{{ variant.option1 }}"
+                        data-option-2="{{ variant.option2 }}"
+                        data-option-3="{{ variant.option3 }}"
+                        data-low-stock-show="{% if variant.inventory_quantity > 0 and variant.inventory_quantity < low_stock_number %}true{% else %}false{% endif %}"
+                        data-inventory="{{ variant.inventory_quantity }}"
+                        {% if preorder_text != '' %} data-preorder-product{% endif %}
+
+                        {% if _product.id == variant.id %}
+                          selected
+                        {% endif %}
+
+                        {% unless variant.available %}
+                          disabled
+                        {% endunless %}
+                      >
+                        {{- variant.title -}}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div><!-- /.form__controls -->
+              </div><!-- /.form__row -->
+            </div><!-- /.form__bar -->
+            <div class="form__installments form__installments--desktop">
+              {{ form | payment_terms }}
+            </div>
+            <div class="form__inner">
+              <div class="form__body">
+                <div class="form__cols">
+                  {%- for option in product.options_with_values -%}
+                    {%- assign option_name = option.name -%}
+                    {%- assign option_handle = option_name | handle -%}
+
+                    <div class="form__col form__col--{{ option_handle }}">
+                      <div class="dropdown dropdown--mobile{% if option_handle == variant_color_handle %} dropdown--colors js-dropdown-colors{% elsif option_handle == variant_size_handle %} dropdown--size js-dropdown-size{% endif %} js-dropdown js-dropdown-options" data-dropdown-name="{{ option_name }}">
+                        <div class="dropdown__overlay js-dropdown-close"></div><!-- /.dropdown__overlay -->
+
+                        <div class="dropdown__label">
+                          <p>
+                            <span class="dropdown__label-default">
+                              {{ 'products.variants.select_option' | t: option: option_name }}
+                            </span>
+
+                            <span class="dropdown__label-selected">
+                              <small>{{ option_name | strip }}:</small> <span></span>
+                            </span>
+                          </p>
+                        </div>
+
+                        <div class="dropdown__body">
+                          <div class="dropdown__bar visible-xs-block">
+                            <span>{{ 'products.product.mobile_select_options' | t: option: option_name }}</span>
+
+                            <a href="#" class="btn-close btn-close--mobile-large dropdown__close js-dropdown-close"></a>
+                          </div><!-- /.dropdown__bar -->
+
+                          <div class="dropdown__list">
+                            <ul>
+                              {%- for variant_title in option.values -%}
+                                <li{% if forloop.first and option_handle == variant_color_handle %} class="selected"{% endif %}>
+                                  <a href="#" data-value-title="{{ variant_title }}" data-value="{{ variant_title | handle }}" data-option="{{ option.position }}" data-index="{{ forloop.index0 }}" data-option-name="{{ option_name }}" data-option-name-handle="{{ option_handle }}" data-low-stock="{{ low_stock_number }}" class="dropdown__link">
+                                    {%- if option_handle == variant_color_handle -%}
+                                      <small class="color-{{ variant_title | handle }}"></small>
+                                    {%- endif -%}
+
+                                    <span>{{ variant_title }}</span>
+
+                                    {%- unless option_handle == variant_color_handle -%}
+                                      <strong>{{ 'products.product.waitlist' | t }}</strong>
+
+                                      <em>
+                                        {{- 'products.product.products_left_html' | t: number: '<ins></ins>' -}}
+                                      </em>
+                                    {%- endunless -%}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </div><!-- /.dropdown__list -->
+
+                          {%- if option_handle == variant_size_handle -%}
+                            <div class="dropdown__actions">
+                              <a href="#" class="link-default link-default--small js-btn-toggle js-size-guide-open" data-target="#size-guide" data-class="expanded">{{ size_guide_link_text }}</a>
+                            </div><!-- /.dropdown__actions -->
+                          {%- endif -%}
+                        </div><!-- /.dropdown__body -->
+                      </div><!-- /.dropdown -->
+                    </div><!-- /.form__col -->
+                  {%- endfor -%}
+                </div><!-- /.form__cols -->
+              </div><!-- /.form__body -->
+
+              <div class="form__actions">
+                <button
+                  type="submit"
+                  name="add"
+                  id="js-add-to-bag-btn"
+                  class="btn btn--medium-mobile btn--block form__btn js-product-btn"
+
+                  {% if product.type == 'Gift Card' %}
+                    data-gift
+                  {% endif %}
+
+                  {% unless product_available %}
+                    disabled="disabled"
+                  {% endunless %}
+                >
+                  <span class="form__btn-default">{{- 'products.product.add_to_cart' | t -}}</span>
+
+                  <span class="form__btn-message">
+                    <strong>{{- 'products.product.button_message_html' | t: option: '<small></small>' -}}</strong>
+                  </span>
+
+                  <span class="form__btn-sold">{{ 'products.product.sold_out' | t }}</span>
+
+                  <span class="form__btn-preorder">{{ 'products.product.preorder' | t }}</span>
+
+                  <span class="form__btn-added">{{ 'products.product.added' | t }}</span>
+                </button>
+
+                {%- if product_on_preorder == true -%}
+                  {% if settings.preorder_alert_enabled %}
+                    <div class="pdp-preorder-alert-cta" id="pdp-preorder-alert-cta-mobile">
+                      {{ settings.preorder_alert_text }} {% if product.metafields.custom.pre-order_date %}({{ product.metafields.custom.pre-order_date }}){% endif %}
+                    </div>
+                  {% endif %}
+                  {% section 'pdp-preorder-signup-alert' %}
+                {%- endif -%}
+
+                <div class="form__actions-inner visible-xs-block">
+                  {{ form | payment_button }}
+                </div><!-- /.form__actions-inner -->
+                <div class="form__installments form__installments--mobile">
+                  {{ form | payment_terms }}
+                </div>
+              </div><!-- /.form__actions -->
+            </div><!-- /.form__inner -->
+
+            {% if product_on_preorder == true or badge_final_sale_string != '' %}
+              <div class="form__notices">
+                {%- if product_on_preorder == true -%}
+                  {% if settings.preorder_alert_enabled %}
+                    <div class="pdp-preorder-alert-cta" id="pdp-preorder-alert-cta-desktop">
+                      <div>{% if product.metafields.custom.pre-order_date %}Orders will ship {{ product.metafields.custom.pre-order_date }}{% endif %}</div>
+                      <div>{{ settings.preorder_alert_text }}</div>
+                    </div>
+                  {% endif %}
+                {%- endif -%}
+
+                {%- if badge_final_sale_string != '' -%}
+                  <span class="form__notice form__notice--sale">
+                    <em>{{ badge_final_sale_string }}</em>
+                  </span><!-- /.form__notice -->
+                {%- endif -%}
+              </div><!-- /.form__notices -->
+            {% endif %}
+          {% endform %}
+
+          <div class="price section__price section__price--secondary js-product-price">
+            {%- include 'price' with product.selected_or_first_available_variant -%}
+          </div><!-- /.price -->
+        </div><!-- /.section__form-inner -->
+      </div><!-- /.section__form -->
+    </aside><!-- /.section__aside -->
+
+    {%- include 'share' modifier: 'share--tablet section__share hidden-md hidden-lg', id: 'share-second' -%}
+
+    {%- unless processed_media_ids contains product_video.id -%}
+      {%- if product_video != blank and product_video.aspect_ratio > 1 -%}
+        <div class="product-video-section animated hidden-xs hidden-sm">
+          {%- include 'product-video_media', _product_video: product_video -%}
+        </div>
+      {%- endif -%}
+    {%- endunless -%}
+
+    {%- if container_image_second != '' -%}
+      {{ container_image_second }}
+    {%- endif -%}
+  </div><!-- /.section__container -->
+
+  <div class="section__foot hidden-md hidden-lg">
+    {%- include 'product-meta-items' parent_class: 'section__item', parent_modifier: 'animated', shop_look_product_first: _metafield.shop_look.product, shop_look_product_second: _metafield.shop_look.product_second, shop_look_product_third: _metafield.shop_look.product_third -%}
+  </div><!-- /.section__foot -->
+</section><!-- /.section-product -->
+
+{% section 'more-lovelies' %}
+
+{%- if popup_images != '' -%}
+  <div class="popup-large popup-large--images" id="popup-images">
+    <div class="popup__images">
+      {{ popup_images }}
+    </div><!-- /.popup__images -->
+  </div><!-- /.popup-large -->
+{%- endif -%}
+
+{%- if settings.subscribe_api_key != blank -%}
+  <div class="popup popup--notify js-popup-waitlist" id="popup-waitlist">
+    <span class="popup__overlay js-btn-toggle" data-target="#popup-waitlist" data-class="expanded"></span>
+
+    <div class="popup__body">
+      <a href="#" class="btn-close btn-close--mobile-large js-btn-toggle" data-target="#popup-waitlist" data-class="expanded"></a>
+
+      <div class="notify js-notify">
+        <form action="https://a.klaviyo.com/onsite/components/back-in-stock/subscribe" method="post">
+          <div class="entry-small entry-small--primary notify__head">
+            <span>{{ 'products.waitlist_popup.title' | t }}</span>
+          </div><!-- /.notify__head -->
+
+          <div class="notify__body">
+            <input type="hidden" name="a" value="{{ settings.subscribe_api_key }}">
+            <input type="hidden" name="variant" value="">
+            <input type="hidden" name="product" value="{{ product.id }}">
+            <input type="hidden" name="platform" value="shopify">
+            <input type="hidden" name="subscribe_for_newsletter" value="false">
+            <input type="hidden" name="g" value="">
+
+            <input type="email" class="notify__field" name="email" id="field-notify" value="" placeholder="{{ 'products.waitlist_popup.field_placeholder' | t }}" required>
+
+            <button type="submit" class="notify__btn btn btn--large btn--medium-mobile btn--bordered btn--block js-notify-btn">{{ 'products.waitlist_popup.btn_text' | t }}</button>
+          </div><!-- /.notify__body -->
+
+          <div class="notify__success">
+            {{ 'products.waitlist_popup.message' | t }}
+          </div><!-- /.notify__success -->
+        </form>
+      </div><!-- /.notify -->
+    </div><!-- /.popup__body -->
+  </div><!-- /.popup -->
+{%- endif -%}
+
+{% include 'size-guide' %}
+
+<script>
+    Shopify.optionColor = '{{ variant_color_handle }}';
+    Shopify.styleString = '{{ style_tag | replace: ':', '%3A' }}';
+
+    {%- assign product_options = product.options_with_values -%}
+    var productOptions = [
+      {%- for option in product_options -%}
+        {
+            name: "{{- option.name | handle -}}",
+            position: {{- option.position -}},
+            values: {{- option.values | join: "___" | handle | split: "___" | json -}}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+</script>
+
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+  var item = {
+    Name: `{{ product.title }}`,
+    ProductID: {{ product.id | json }},
+    Categories: `{{ product.collections | map: 'title' }}`,
+    ImageURL: "https:{{ product.featured_image.src | img_url: 'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: `{{ product.vendor }}`,
+    Price: {{ product.price | money | json }},
+    CompareAtPrice: {{ product.compare_at_price_max | money | json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }])
+</script>
+
+<!-- Searchspring IntelliSuggest Tracking -->
+<script type="text/javascript" src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+<script type="text/javascript">
+try{
+    var product_code = "{{ product.variants[0].sku }}";
+    IntelliSuggest.init({siteId:"g7562x", context:"Product/" + product_code, seed:product_code});
+    IntelliSuggest.viewItem({sku:product_code});
+} catch(err) {}
+</script>
+<!-- END Searchspring IntelliSuggest -->
+
+{% include 'nosto-element' with 'productpage-nosto-1' %}
+
+{% include 'nosto-element' with 'productpage-nosto-2' %}
+
+{% include 'nosto-element' with 'productpage-nosto-3' %}

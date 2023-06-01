@@ -1,0 +1,26 @@
+{%- assign collection_image = _collection.image | default: _collection.products.first.featured_image -%}
+
+<div class="collection-item">
+  <div class="collection-item__inner">
+    <div class="collection-item__images">
+      <div class="collection-item__image">
+        <a href="{{ _collection.url }}" class="collection-item__link"></a>
+
+        {% if product == blank and collection and collection.metafields.nosto != blank %}
+          <div class="collection-item__image lazyload" data-bg="url({{ collections[collection.metafields.nosto.sourceHandle].image | img_url: '960x' }})" role="img" aria-label="{{ collection_image.alt }}"></div><!-- /.collection-item__image -->
+        {% else %}
+          <div class="collection-item__image lazyload" data-bg="url({{ collection_image | img_url: '960x' }})" role="img" aria-label="{{ collection_image.alt }}"></div><!-- /.collection-item__image -->
+        {% endif %}
+        
+      </div><!-- /.collection-item__image -->
+    </div><!-- /.collection-item__images -->
+
+    <div class="collection-item__content">
+      <h5 class="heading-small collection-item__title">
+        <a href="{{ _collection.url }}">
+          {{- _collection.title -}}
+        </a>
+      </h5>
+    </div><!-- /.collection-item__content -->
+  </div><!-- /.collection-item__inner -->
+</div><!-- /.collection-item -->

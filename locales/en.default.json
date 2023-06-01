@@ -1,0 +1,366 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "password_page": {
+      "opening_soon": "Opening Soon",
+      "spread_the_word": "Spread the word:",
+      "login_form_heading": "Enter store using password:",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Your password",
+      "login_form_submit": "Enter",
+      "signup_form_heading": "Find out when we open:",
+      "signup_form_email_label": "Email",
+      "signup_form_email_placeholder": "Your email",
+      "signup_form_submit": "Submit",
+      "signup_form_success": "We will send you an email right before we open!",
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"text-link\">Log in here</a>",
+      "password_link": "Enter using password",
+      "powered_by_shopify_html": "This shop will be powered by {{ shopify }}",
+      "close": "Close (Esc)"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "home_link_title": "Back to the frontpage"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "label": "{{ current_page }} of {{ pages }}"
+    },
+    "search": {
+      "no_results_html": "No results found for \"{{ terms }}\" ",
+      "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
+      "title": "Search for products on our site",
+      "label": "Search",
+      "placeholder": "Enter search here",
+      "submit": "Search",
+      "all": "All"
+    },
+    "copyright": "Copyright",
+    "checkout": {
+      "returns_tooltip": "Ulla Johnson accepts returns of unused, unworn, unwashed, unaltered, and undamaged items within 30 days of purchase, provided that all original tags are attached."
+    },
+    "store_locator": {
+      "title": "Enter a location to find the closest stockist",
+      "subtitle": "(Zip Code, City or Address)",
+      "search_title": "Ulla Johnson Stockists in {{ search_term }}",
+      "search_results": "({{ search_results }})"
+    },
+    "help_btn": "May we help?",
+    "live_chat": {
+      "title": "Live Chat",
+      "subtitle": "Typically responds within 25 mins"
+    }
+  },
+  "layout": {
+    "customer": {
+      "account": "Account",
+      "log_out": "Sign Out",
+      "log_in": "Account",
+      "create_account": "Create account"
+    },
+    "top_nav": {
+      "cart": "Bag"
+    },
+    "socials": {
+      "social_platform": "{{ name }} on {{ platform }}"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Collections",
+      "no_matches": "Sorry, there are no products in this collection",
+      "number_items": "({{ number }} item)",
+      "only_few_left": "Only a few left",
+      "pre_order_text": "Pre-Order",
+      "mobile_view_1": "1 x",
+      "mobile_view_2": "2 x",
+      "badge": "badge:",
+      "filter_button": "Filter",
+      "read_more": "Read more",
+      "read_less": "Read less"
+    },
+    "sorting": {
+      "title": "Sort",
+      "manual": "Featured",
+      "best_selling": "Best Selling",
+      "title_ascending": "Alphabetically, A-Z",
+      "title_descending": "Alphabetically, Z-A",
+      "price_ascending": "Price Low to High",
+      "price_descending": "Price High to Low",
+      "created_descending": "Newest",
+      "created_ascending": "Oldest"
+    }
+  },
+  "products": {
+    "variants": {
+      "variant_color": "Color",
+      "variant_size": "Size",
+      "select_option": "Select {{ option }}"
+    },
+    "product": {
+      "style_tag": "Style:",
+      "details": "Details",
+      "size_fit": "Size & Fit",
+      "shipping_returns": "Shipping & Returns",
+      "how_to_use": "How to Use",
+      "sold_out": "Sold Out",
+      "button_message_html": "Select a {{ option }}",
+      "preorder": "Pre-Order",
+      "sale": "Sale",
+      "quantity": "Quantity",
+      "add_to_cart": "Add to Bag",
+      "added_to_cart": "Added to Bag!",
+      "added": "Added!",
+      "unavailable": "Unavailable",
+      "share": "Share",
+      "size_guide_link": "Size Guide",
+      "waitlist": "Waitlist",
+      "products_left_html": "Only {{ number }} Left",
+      "shop_look": "Shop this Look",
+      "more_lovelies": "More Lovelies",
+      "mobile_select_options": "Select a {{ option }}",
+      "preorder_prefix": "preorder:",
+      "product_title_splitter": "-",
+      "badge_final_sale_prefix": "badge:",
+      "badge_final_sale_text": "Final Sale"
+    },
+    "waitlist_popup": {
+      "title": "Enter your email address to be notified if this item becomes available again.",
+      "field_placeholder": "Email Address",
+      "btn_text": "Get Notified",
+      "message": "Thanks for signing up!"
+    },
+    "size_guide": {
+      "title": "Size Guide",
+      "description": "Please refer to the size chart below to match your usual size.",
+      "hint": "Scroll to find your size",
+      "measurements_title": "Measurements"
+    }
+  },
+  "blogs": {
+    "article": {
+      "posted_on_date": "Posted on {{ date }}",
+      "read_more": "Read more",
+      "previous_article": "Previous Article",
+      "next_article": "Next Article",
+      "shop_story": "Shop the Story",
+      "discover": "Discover"
+    },
+    "article_collections": {
+      "tag_gallery": "gallery",
+      "tag_size_medium": "size-medium",
+      "tag_size_large": "size-large",
+      "gallery_caption": "Backstage Gallery",
+      "link_shop_look": "Shop the Look"
+    },
+    "comments": {
+      "title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment",
+      "form_title": "Leave a comment",
+      "moderated": "Please note, comments must be approved before they are published",
+      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
+      "success": "Your comment was posted successfully! Thank you!"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Bag",
+      "remove": "Remove",
+      "note": "Special instructions for seller",
+      "subtotal": "Subtotal",
+      "tax": "Tax",
+      "duty": "Duty",
+      "total": "Total",
+      "shipping": "Shipping",
+      "savings_html": "You're saving {{ price }}",
+      "shipping_at_checkout": "Shipping, taxes, and discounts will be calculated at checkout.",
+      "update": "Update Cart",
+      "checkout": "Checkout",
+      "empty": "Your bag is currently empty.",
+      "empty_btn": "Start Shopping",
+      "empty_btn_link": "/collections/all",
+      "continue_browsing_html": "Continue browsing <a href=\"/collections/all\">here</a>.",
+      "preorder_message": "Unable to checkout. ‘Pre-Order’ items must be checked out separately from regular items.",
+      "preorder_item_text": "Pre-Order item",
+      "final_sale_message": "All items marked Final Sale cannot be returned."
+    },
+    "label": {
+      "name": "Name",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "message": "Message",
+      "submit": "Send",
+      "post_success": "Thanks for contacting us. We'll get back to you as soon as possible."
+    }
+  },
+  "customer": {
+    "account": {
+      "title_html": "Hi, {{ name }}",
+      "dashboard": "Dashboard",
+      "log_out": "Log out",
+      "view_addresses": "View Addresses"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create your password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation"
+    },
+    "addresses": {
+      "title": "My Addresses",
+      "empty": "You don’t have any saved addresses yet.",
+      "default": "Default Address",
+      "add_new": "Add a New Address",
+      "first_name": "First Name*",
+      "last_name": "Last Name*",
+      "company": "Company",
+      "address1": "Address*",
+      "address2": "Apt / Floor / Suite",
+      "city": "City*",
+      "country": "Country*",
+      "province": "Province*",
+      "country_placeholder": "Country",
+      "province_placeholder": "State/Province",
+      "zip": "Zip Code*",
+      "phone": "Phone Number",
+      "set_default": "Make my default address",
+      "add": "Add Address",
+      "update": "Update Address",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "login": {
+      "title": "Sign In",
+      "email": "Email Address",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign In",
+      "create_account": "Create an account",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue",
+      "btn_connector": "or"
+    },
+    "orders": {
+      "title": "My Orders",
+      "order_number": "Order No.",
+      "date": "Order Date",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fulfillment Status",
+      "total": "Order Total",
+      "none": "You haven't placed any orders yet.",
+      "view": "View",
+      "close": "Close"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date": "Placed on {{ date }}",
+      "cancelled": "Order Cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "billing_address": "Billing Address",
+      "payment_status": "Payment Status",
+      "shipping_address": "Shipping Address",
+      "fulfillment_status": "Fulfillment Status",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Qty",
+      "total": "Total",
+      "fulfilled_at": "Fulfilled {{ date }}",
+      "subtotal": "Subtotal"
+    },
+    "recover_password": {
+      "title": "Reset Password",
+      "email": "Email Address",
+      "submit": "Reset password",
+      "subtext": "Please enter your email below. If there is an associated account, you will receive a message with a link to reset your passsword.",
+      "success": "Check your inbox, an email with a password reset is on its way."
+    },
+    "reset_password": {
+      "title": "Reset account password",
+      "subtext": "Enter a new password for {{ email }}",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Reset Password",
+      "login": "Sign in"
+    },
+    "register": {
+      "title": "Register",
+      "first_name": "First Name*",
+      "last_name": "Last Name*",
+      "email": "Email Address*",
+      "password": "Password*",
+      "newsletter": "Subscribe me to Ulla Johnson newsletter",
+      "legal_note": "By clicking on ‘Create an Account’, you accept our confidentiality policies.",
+      "submit": "Create an account",
+      "login": "Sign in",
+      "btn_connector": "or"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Here's your {{ value }} gift card for {{ shop }}!",
+      "subtext": "A Special Gift for You",
+      "disabled": "Disabled",
+      "expired": "Expired on {{ expiry }}",
+      "active": "Expires on {{ expiry }}",
+      "redeem": "Redeem your gift card by using the code below:",
+      "shop_link": "Start Shopping",
+      "print": "Print",
+      "add_to_apple_wallet": "Add to Apple Wallet"
+    },
+    "pin": "PIN",
+    "num": "Gift Card Number"
+  },
+  "date_formats": {
+    "short": "%B %d, %Y",
+    "long": "%B %d, %Y %R",
+    "gift_card": "%d/%m/%y"
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "back_to_cart": "Return to bag",
+        "cart": "Bag"
+      },
+      "contact": {
+        "optional_first_name_label": "First name",
+        "first_name_label": "First name"
+      },
+      "shop_policies": {
+        "terms_of_service": "Terms & Conditions",
+        "refund_policy": "Return Policy",
+        "privacy_policy": "Privacy Policy"
+      },
+      "payment": {
+        "title": "Payment Method"
+      },
+      "shipping": {
+        "shipping_method_notice": "Please expect an additional 48 hours of processing time on all orders."
+      }
+    }
+  },
+  "landing": {
+    "back": "< Back to All Stores"
+  }
+}

@@ -1,0 +1,146 @@
+{%- assign low_stock_number = settings.low_stock_number -%}
+{%- assign preorder_text_mobile = '' -%}
+{%- assign preorder_prefix = 'products.product.preorder_prefix' | t -%}
+{%- assign preorder_text = '' -%}
+{%- assign badge_final_sale_prefix = 'products.product.badge_final_sale_prefix' | t -%}
+{%- assign badge_final_sale_text = 'products.product.badge_final_sale_text' | t -%}
+{%- assign badge_final_sale_string = '' -%}
+
+{%- if line_item.product.tags.size > 0 -%}
+  {%- for _tag in line_item.product.tags -%}
+    {%- if _tag contains preorder_prefix -%}
+      {%- assign preorder_text = _tag | remove: preorder_prefix -%}
+
+      {%- if widget -%}
+        {%- assign preorder_text = 'cart.general.preorder_item_text' | t -%}
+      {%- endif -%}
+
+      {%- assign product_preorder = true -%}
+    {%- endif -%}
+
+    {%- if _tag contains badge_final_sale_prefix and _tag contains badge_final_sale_text -%}
+      {%- assign badge_final_sale_string = _tag | remove: badge_final_sale_prefix | strip -%}
+
+      {%- assign product_final_sale = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+<div class="cart-item {{ modifier }}" data-cart-item-id="{{ line_item.id }}" data-flow-cart-item-number="{{ line_item.variant_id }}">
+  <div class="cart-item__container">
+    <div class="cart-item__image">
+      <a href="{{- line_item.url -}}"></a>
+      <figure>
+        {{ line_item | img_tag: line_item.image.alt, 'thumbnail', '180x'  }}
+      </figure>
+    </div><!-- /.cart-item__image -->
+
+    <div class="cart-item__content">
+      <div class="cart-item__bar">
+        <a href="#" class="btn-close js-btn-toggle" data-target="#widget-added" data-class="expanded"></a>
+
+        <span class="cart-item__title">
+          <a href="{{- line_item.url -}}">
+            <i class="ico-bag">
+              {%- include 'svg-elements' name: 'bag' -%}
+            </i>
+            {% if line_item.product.title contains '-' %}
+              {%- assign product_title_first = line_item.product.title | split: '-' | first | strip -%}
+              {%- assign product_title_last = line_item.product.title | split: '-' | last | strip -%}
+              {{ product_title_first }}
+
+              <em>{{ product_title_last }}</em>
+            {% else %}
+              {{- line_item.product.title -}}
+            {% endif %}
+          </a>
+        </span>
+
+        <span class="cart-item__title cart-item__title--added">
+          <i class="ico-bag">
+            {%- include 'svg-elements' name: 'bag' -%}
+          </i>
+          <strong>{{ 'products.product.added_to_cart' | t }}</strong>
+          <span>{{ line_item.product.title }}</span>
+        </span>
+        <div class="cart-item__price">
+          <div class="cart-item__regular-prices">
+            {%- include 'price' with line_item.variant -%}
+          </div>
+        </div><!-- /.cart-item__price -->
+
+      </div><!-- /.cart-item__bar -->
+
+      <div class="cart-item__inner">
+        <div class="cart-item__aside">
+          {%- if line_item.variant.options.size > 0 -%}
+            <div class="cart-item__entry entry-small entry-small--primary">
+              {%- for variant_option in line_item.variant.options -%}
+                {% unless variant_option contains 'Default' %}
+                  {%- assign option_title = '' -%}
+                  {%- assign variant_index = forloop.index0 -%}
+
+                  {% for option in line_item.product.options %}
+                    {%- if variant_index == forloop.index0 -%}
+                      {%- assign option_title = option -%}
+                    {%- endif -%}
+                  {% endfor %}
+
+                  <p><span>{{ option_title }}</span> {{ variant_option }}</p>
+                {% endunless %}
+              {%- endfor -%}
+            </div><!-- /.{{ class_name }} -->
+          {%- endif -%}
+
+          <div class="cart-item__qty">
+            <div class="qty js-qty">
+              <span class="qty__btn qty__btn--minus"><span class="qty__btn-character">-</span></span>
+
+              <input type="number" class="field-quantity qty__field" id="quantity-{{ modifier }}-{{ line_item.id }}" name="updates[]" value="{{ line_item.quantity }}" min="0" readonly>
+
+              <span class="qty__btn qty__btn--plus"><span class="qty__btn-character">+</span></span>
+            </div><!-- /.qty -->
+          </div><!-- /.cart-item__qty -->
+        </div><!-- /.cart-item__aside -->
+
+        <div class="cart-item__actions">
+          <div class="cart-item__messages">
+            {%- if badge_final_sale_string != '' -%}
+              <span class="cart-item__message cart-item__message--sale">
+                <em>{{ badge_final_sale_string }}</em>
+              </span>
+            {%- endif -%}
+
+            {%- assign line_item_variants_id = line_item.product.variants | where: "id", line_item.id -%}
+            {%- assign low_stock_quantity = line_item_variants_id[0].inventory_quantity -%}
+
+            {%- if low_stock_quantity > 0 and low_stock_quantity < low_stock_number -%}
+              {%- assign low_stock_new_number = '<ins>' | append: low_stock_quantity | append: '</ins>' -%}
+              <span class="cart-item__message"><em>{{- 'products.product.products_left_html' | t: number: low_stock_new_number -}}</em></span>
+            {%- elsif preorder_text != '' -%}
+              <span class="cart-item__message hidden-xs">{{ preorder_text }}</span>
+
+              {%- capture preorder_text_mobile -%}
+                <div class="cart-item__row">
+                  <span class="cart-item__message visible-xs-block">{{ preorder_text }}</span>
+                </div><!-- /.cart-item__row -->
+              {%- endcapture -%}
+            {%- endif -%}
+
+            {%- if preorder_text != '' -%}
+              <span class="cart-item__message cart-item__message--default">{{ preorder_text }}</span>
+            {%- endif -%}
+          </div><!-- /.cart-item__messages -->
+
+          <div class="cart-item__links">
+            <a href="{{ line_item.variant_id }}" class="link-default link-default--small js-cart-remove">{{ 'cart.general.remove' | t }}</a>
+          </div><!-- /.cart-item__links -->
+        </div><!-- /.cart-item__actions -->
+      </div><!-- /.cart-item__inner -->
+    </div><!-- /.cart-item__content -->
+  </div><!-- /.cart-item__container -->
+
+  {%- if preorder_text_mobile != '' -%}
+    {{ preorder_text_mobile }}
+  {%- endif -%}
+</div><!-- /.cart-item -->

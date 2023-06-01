@@ -1,0 +1,23 @@
+{%- if 
+  _settings.image_1 != blank or 
+  _settings.image_2 != blank or 
+  _settings.image_3 != blank or 
+  _settings.image_4 != blank or
+  _settings.image_5 != blank or 
+  _settings.image_6 != blank or 
+  _settings.image_7 != blank or 
+  _settings.image_8 != blank
+-%}
+  <div class="section__images animated">
+    {%- for i in (1..8) -%}
+      {%- assign _image_index = i | prepend: "image_" -%}
+      {%- if _settings[_image_index] != blank -%}
+        <div class="section__image animated">
+          <div class="section__image-inner">
+            <div class="section__image-figure lazyload" data-bg="url({{ _settings[_image_index] | img_url: '1920x' }})" role="img" aria-label="{{ _settings[_image_index].alt }}"></div><!-- /.section__image-figure -->
+          </div><!-- /.section__image-inner -->
+        </div><!-- /.section__bg -->
+      {%- endif -%}
+    {%- endfor -%}
+  </div><!-- /.section__images -->
+{%- endif -%}

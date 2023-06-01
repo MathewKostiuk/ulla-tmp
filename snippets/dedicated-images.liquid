@@ -1,0 +1,23 @@
+{%- assign item_image_arr = _metafield.image -%}
+{%- assign item_image_size = item_image_arr.size -%}
+
+{%- if item_image_size > 0 -%}
+  {%- for idx in (1..item_image_size) -%}
+    {%- assign item_image = item_image_arr[forloop.index0] -%}
+    {%- assign item_link = _metafield.link[forloop.index0] -%}
+
+    {%- if item_image != blank -%}
+      {%- capture item_image_src -%}
+        {%- include 'responsive-acc-image', image_url: item_image, image_width: '3840' -%}
+      {%- endcapture -%}
+
+      <div class="section__image section__item js-item-horizontal">
+        {%- if item_link != blank -%}
+          <a href="{{ item_link }}"></a>
+        {%- endif -%}
+
+        <img src="{{ item_image_src }}" alt="Ulla Johnson">
+      </div><!-- /.section__image -->
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

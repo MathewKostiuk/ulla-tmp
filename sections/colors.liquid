@@ -1,0 +1,66 @@
+{%- assign _blocks = section.blocks -%}
+
+<style>
+  .form-cart-small .form__foot p {
+    color: {{ section.settings.cart_foot_copy }};
+  }
+
+  {%- for block in _blocks -%}
+    {%- assign _block = block.settings -%}
+
+    {% if _block.title != blank %}
+      .color-{{ _block.title | handle }} {
+        {% if _block.image != blank %}
+          background-image: url({{ _block.image | img_url: '70x' }});
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
+        {% else %}
+          background-color: {{ _block.color_value }};
+        {% endif %}
+      }
+    {% endif %}
+  {%- endfor -%}
+</style>
+
+{% schema %}
+{
+  "name": "Colors",
+  "blocks": [
+    {
+      "type": "color",
+      "name": "Color",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Color name"
+        },
+        {
+          "type": "color",
+          "id": "color_value",
+          "label": "Color",
+          "default": "#fff"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cart"
+    },
+    {
+      "type": "color",
+      "id": "cart_foot_copy",
+      "label": "Copy Color",
+      "default": "#888"
+    }
+  ]
+}
+{% endschema %}

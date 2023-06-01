@@ -1,0 +1,37 @@
+{{ content_for_index }}
+
+{% include 'nosto-element' with 'frontpage-nosto-1' %}
+
+{% include 'nosto-element' with 'frontpage-nosto-2' %}
+
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@type":["Organization","WebPage"],
+  "name":"Ulla Johnson",
+  "url":"https://ullajohnson.com/",
+  "alternateName":"Ulla",
+  "brand": {
+    "@type": "Brand",
+    "name": "Ulla Johnson"
+  }, 
+  "description":"{% if page_description %}{{ page_description | escape }}{% endif %}",
+  "logo":{
+    "@type":"ImageObject",
+    "url":"https://ullajohnson.com/logo.png",
+    "width":"120",
+    "height":"60"
+  },
+  "telephone":"646.741.0735",
+  "email":"hello@ullajohnson.com",
+  "sameAs":[
+    "https://www.instagram.com/ullajohnson/",
+    "https://www.facebook.com/ullajohnsoninc/",
+    "https://www.pinterest.ca/ullajohnson/"
+  ],
+  "potentialAction": {
+    "@type": "SearchAction", "target": { "@type": "EntryPoint",
+    "urlTemplate": "https://ullajohnson.com/search?q={search_term_string}"}
+  }
+}
+</script>

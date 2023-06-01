@@ -1,0 +1,18 @@
+{%- assign collection_1_arr = _metafield.collection -%}
+{%- assign collection_1_size = collection_1_arr.size -%}
+
+{%- if collection_1_size > 0 -%}
+  <div class="product-items-horizontal section__item js-item-horizontal">
+    {%- for idx in (1..collection_1_size) -%}
+      {%- assign collection_1_handle = collection_1_arr[forloop.index0] -%}
+      {%- assign collection_1_products = collections[collection_1_handle].products -%}
+      {%- assign collection_1_number = _metafield.products_number[forloop.index0] -%}
+
+      {%- if collection_1_products.size > 0 -%}
+        {%- for _product in collection_1_products limit: collection_1_number -%}
+          {%- include 'product-item' with _product, modifier: '', _product_image: true -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div><!-- /.product-items-horizontal -->
+{%- endif -%}

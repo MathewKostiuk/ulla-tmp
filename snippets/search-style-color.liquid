@@ -1,0 +1,23 @@
+{%- assign _meta_color_names = _item.metafields.colors.color_name -%}
+{%- assign _meta_color_hexes = _item.metafields.colors.color -%}
+{%- assign _meta_color_images = _item.metafields.colors.image -%}
+{%- if _meta_color_names.size > 0 -%}
+  <style>
+    {%- for _meta_color_index in (1.._meta_color_names.size) -%}
+      {%- assign _meta_color_name = _meta_color_names[forloop.index0] -%}
+      {%- assign _meta_color_hex = _meta_color_hexes[forloop.index0] -%}
+      {%- assign _meta_color_image = _meta_color_images[forloop.index0] -%}
+
+      .color-{{ _meta_color_name | handle }} {
+        {% if _meta_color_image != blank %}
+          background-image: url({{ _meta_color_image }});
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
+        {% elsif _meta_color_hex != blank %}
+          background-color: {{ _meta_color_hex }};
+        {% endif %}
+      }
+    {%- endfor -%}
+  </style>
+{%- endif -%}

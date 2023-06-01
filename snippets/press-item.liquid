@@ -1,0 +1,44 @@
+<div class="press-item {{ modifier }} js-press-item">
+  <div class="press-item__inner">
+    {%- if meta_image != blank -%}
+      <div class="press-item__image">
+        {%- capture meta_image_src -%}
+          {%- include 'responsive-acc-image', image_url: meta_image, image_width: '878' -%}
+        {%- endcapture -%}
+
+        {%- if meta_link != blank -%}
+          <a href="{{ meta_link }}" class="press-item__link" target="_blank">
+              <img src="{{ meta_image_src }}" alt="{{ meta_image.alt }}">
+            {% comment %}{%- include 'lazyload-image' _image: meta_image_src, _image_alt: meta_image.alt -%}{% endcomment %}
+          </a>
+        {%- else -%}
+          <img src="{{ meta_image_src }}" alt="{{ meta_image.alt }}">
+          {% comment %}{%- include 'lazyload-image' _image: meta_image_src, _image_alt: meta_image.alt -%}{% endcomment %}
+        {%- endif -%}
+
+      </div><!-- /.press-item__image -->
+    {%- endif -%}
+
+    <div class="press-item__content">
+      {%- if meta_subtitle != blank -%}
+        <h6 class="heading-smaller press-item__subtitle">
+          {%- if meta_link != blank -%}
+            <a href="{{ meta_link }}" class="press-item__link" target="_blank">{{ meta_subtitle }}</a>
+          {%- else -%}
+            {{ meta_subtitle }}
+          {%- endif -%}
+        </h6>
+      {%- endif -%}
+
+      {%- if meta_subtitle != blank -%}
+        <h4 class="press-item__title">
+          {%- if meta_link != blank -%}
+            <a href="{{ meta_link }}" class="press-item__link" target="_blank">{{ meta_title }}</a>
+          {%- else -%}
+            {{ meta_title }}
+          {%- endif -%}
+        </h4>
+      {%- endif -%}
+    </div><!-- /.press-item__content -->
+  </div><!-- /.press-item__inner -->
+</div><!-- /.press-item -->

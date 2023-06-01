@@ -1,0 +1,593 @@
+{
+  "current": {
+    "favicon": "shopify:\/\/shop_images\/CWVwsMaI.png",
+    "technical_storefront_token": "bdd9fc9167429f6f11e1aed4dff66d6e",
+    "technical_storefront_api_version": "2022-10",
+    "enable_global_e": true,
+    "preorder_alert_text": "<p>Or <strong>get notified<\/strong> when back in stock<\/p>",
+    "shipping_and_returns_text": "<p>Free ground shipping on all orders. Read more about our return policy <a href=\"\/pages\/returns-exchanges\" title=\"Returns & Exchanges\">here<\/a>.<\/p><p><\/p><p>Expected ship windows will be noted on the product page underneath the 'pre-order' button.<\/p>",
+    "how_to_use_text": "<p>Gift cards are added to cart like any other product. After checking out, you will get an email with the gift card and voucher code. Please forward this email to the gift card recipient.&nbsp;<\/p>",
+    "gift_card_image": "shopify:\/\/shop_images\/giftcard.gif",
+    "low_stock_number": 3,
+    "collection_menu": "collection-menu",
+    "collection_left_number": 1,
+    "collection_limit": 60,
+    "collection_out_of_stock": "Out of stock",
+    "collections_gallery_nav": "collections-gallery",
+    "cart_page_message_primary": "<p>Free shipping on all domestic orders.<\/p>",
+    "cart_page_message": "<p>All returns must be received within 21 days. <strong>Read more about our full <\/strong><a href=\"\/pages\/returns-exchanges\" title=\"Returns &amp; Exchanges\"><strong>Return and refund policy<\/strong><\/a><strong>.<\/strong><\/p>",
+    "help_menu": "help-menu",
+    "subscribe_text": "Sign up to Ulla Johnson emails to receive the latest news, updates, and collection launches",
+    "subscribe_embed": "<div class=\"klaviyo-form-VkeMpe\"><\/div>",
+    "subscribe_api_key": "KhCtYL",
+    "cookies_bar_enabled": false,
+    "cookies_bar_text": "<p>We use cookies on our website to give you the best service possible. Read more <a href=\"\/pages\/privacy-policy\" title=\"Privacy Policy\">here<\/a>.<\/p>",
+    "search_btn_text": "Explore New Arrivals",
+    "search_btn_url": "shopify:\/\/collections\/frontpage",
+    "search_collection": "ready-to-wear",
+    "page_template_image": "shopify:\/\/shop_images\/UJ_SS23_PERSONALIZED_PAGE_BANNER.jpg",
+    "share_image": "shopify:\/\/shop_images\/UllaSS23_YY_441242_07_03_10ext_url_1.jpg",
+    "site_map_1": "main-menu",
+    "site_map_2": "sitemap-links",
+    "accessibility_statement_page": "accessibility",
+    "checkout_header_image": "",
+    "checkout_logo_image": "shopify:\/\/shop_images\/LOGOTYPE_BLACK.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "large",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#000000",
+    "checkout_button_color": "#000000",
+    "checkout_error_color": "#d16d5b",
+    "preorder_text": "",
+    "cart_page_menu": "",
+    "social_facebook_link": "",
+    "social_twitter_link": "",
+    "social_pinterest_link": "",
+    "social_instagram_link": "",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "copyright": "",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "bc9d5324-8de2-4716-97ea-938ec3e8950f": {
+            "type": "dropdown",
+            "settings": {
+              "title": "",
+              "link_1": "",
+              "link_2": "",
+              "link_3": ""
+            }
+          }
+        },
+        "block_order": [
+          "bc9d5324-8de2-4716-97ea-938ec3e8950f"
+        ],
+        "settings": {
+          "global_message": "<p>Enjoy free express shipping on all orders to the US, EU, UK, Canada, and Australia from now until May 15th.<\/p>",
+          "main_menu": "main-menu",
+          "main_menu_mobile": "main-menu-mobile",
+          "default_dropdown_image": "shopify:\/\/shop_images\/UllaSS23_YY_441242_07_03_10ext.jpg",
+          "default_dropdown_image_link": "",
+          "promo_bar_text": "",
+          "right_menu_dropdown": "assistance-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "subscribe_enable": true,
+          "subscribe_title": "Subscribe",
+          "footer_menu": "footer",
+          "footer_menu_mobile": "footer-menu-clone",
+          "copyright": "<p>© Ulla Johnson [year]<\/p>",
+          "footer_menu_inline": "footer-menu-inline",
+          "footer_menu_inline_mobile": "footer-menu-inline-mobile"
+        }
+      },
+      "colors": {
+        "type": "colors",
+        "blocks": {
+          "1575982922167": {
+            "type": "color",
+            "settings": {
+              "title": "Slate",
+              "color_value": "#acacac"
+            }
+          },
+          "1575982926583": {
+            "type": "color",
+            "settings": {
+              "title": "Rose",
+              "color_value": "#f2a7a7"
+            }
+          },
+          "1575983193327": {
+            "type": "color",
+            "settings": {
+              "title": "Zebra",
+              "color_value": "#ff0b0b"
+            }
+          },
+          "1579009040807": {
+            "type": "color",
+            "settings": {
+              "title": "Midnight",
+              "color_value": "#0011ff"
+            }
+          },
+          "1581442849431": {
+            "type": "color",
+            "settings": {
+              "title": "Umber",
+              "color_value": "#ffffff"
+            }
+          },
+          "1581451686276": {
+            "type": "color",
+            "settings": {
+              "title": "Indigo",
+              "color_value": "#ffffff"
+            }
+          }
+        },
+        "block_order": [
+          "1575982922167",
+          "1575982926583",
+          "1575983193327",
+          "1579009040807",
+          "1581442849431",
+          "1581451686276"
+        ],
+        "settings": {
+          "cart_foot_copy": "#888888"
+        }
+      },
+      "section-filter": {
+        "type": "section-filter",
+        "blocks": {
+          "1578670367500": {
+            "type": "filter",
+            "settings": {
+              "title": "Color & Print",
+              "filters": "Color, Floral, Geometric, Animal"
+            }
+          }
+        },
+        "block_order": [
+          "1578670367500"
+        ],
+        "settings": {
+        }
+      },
+      "section-cart-products": {
+        "type": "section-cart-products",
+        "settings": {
+          "title": "",
+          "collection_id": ""
+        }
+      },
+      "section-cart-empty-products": {
+        "type": "section-cart-empty-products",
+        "settings": {
+          "title": "You May Also Like",
+          "collection_id": "frontpage"
+        }
+      },
+      "account-login-register": {
+        "type": "account-login-register",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/Photo_Sep_10_7_18_42_PM_account.jpg",
+          "mobile": "shopify:\/\/shop_images\/Photo_Sep_10_7_18_42_PM_account_mobile.jpg"
+        }
+      },
+      "section-error": {
+        "type": "section-error",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/Photo_Sep_10_7_03_59_PM_background_404.jpg",
+          "image_mobile": "shopify:\/\/shop_images\/Photo_Sep_10_7_03_59_PM_background_404_f5381ccf-d275-47e5-ba84-dc0a87b244cf.jpg",
+          "title": "Sorry, we cannot find the page that you are looking for.",
+          "text": "<p><a href=\"\/collections\/new-arrivals\" title=\"New Arrivals\">Continue Shopping<\/a> or try our <a href=\"\/\" title=\"\/\">Homepage<\/a>.<\/p>"
+        }
+      },
+      "section-blog-landing": {
+        "type": "section-blog-landing",
+        "blocks": {
+          "1579529940584": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ_SS23_KEVIN_TACHMAN-1651_background_artisancraft.jpg",
+              "title": "Artisanal Craft & Community",
+              "content": "<p>We work with small factories and artisans to produce the highest quality product while supporting local craft around the world.<\/p><p><\/p><p><a href=\"\/blogs\/news\" title=\"Artisanal Craft & Community\">Explore<\/a><\/p>",
+              "link": ""
+            }
+          },
+          "1579530357312": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/0-ULLA_JOHNSON_Details-34.jpg",
+              "title": "Seasonal Inspiration",
+              "content": "<p>Discover what inspires and motivates our design team and how our runway sets are created. <\/p><p><\/p><p><a href=\"\/blogs\/seasonal-inspiration\" title=\"Seasonal Inspiration\">Explore<\/a><\/p>",
+              "link": ""
+            }
+          },
+          "1579530375872": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/03-ULLA_JOHNSON_23.Details-27_background_background_press.jpg",
+              "title": "Events & Press",
+              "content": "<p>Learn about recent press, as well as past and upcoming events at our boutiques.<\/p><p><\/p><p><a href=\"https:\/\/ullajohnson.com\/blogs\/events-press\" title=\"https:\/\/ullajohnson.com\/blogs\/events-press\">Explore<\/a><\/p>",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "1579529940584",
+          "1579530357312",
+          "1579530375872"
+        ],
+        "settings": {
+        }
+      },
+      "store-locator": {
+        "type": "store-locator",
+        "blocks": {
+          "1580219729349": {
+            "type": "store",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Bleecker_Overlay_1.jpg",
+              "title": "Ulla Johnson\nNoho, NY",
+              "link": "shopify:\/\/pages\/uj-boutiques"
+            }
+          },
+          "1580219741931": {
+            "type": "store",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/AMGBoutiqueMain_1.jpg",
+              "title": "Ulla Johnson\nAmagansett, NY",
+              "link": "shopify:\/\/pages\/uj-boutiques"
+            }
+          }
+        },
+        "block_order": [
+          "1580219729349",
+          "1580219741931"
+        ],
+        "settings": {
+          "background": "shopify:\/\/shop_images\/05-ULLA_JOHNSON_Details-92_background_background_stockist.jpg",
+          "title": "Online Stockists",
+          "left_text": "<p><a href=\"https:\/\/www.bergdorfgoodman.com\/\" title=\"https:\/\/www.bergdorfgoodman.com\/\">Bergdorf Goodman<\/a><\/p><p><a href=\"https:\/\/www.fwrd.com\/\" title=\"https:\/\/www.fwrd.com\/\">Forward<\/a><\/p><p><a href=\"https:\/\/goop.com\/\" title=\"https:\/\/goop.com\/\">Goop<\/a><\/p><p><a href=\"https:\/\/www.modaoperandi.com\/women\" title=\"https:\/\/www.modaoperandi.com\/women\">Moda Operandi<\/a><\/p><p><a href=\"https:\/\/www.mytheresa.com\/en-us\/\" title=\"https:\/\/www.mytheresa.com\/en-us\/\">My Theresa<\/a><\/p><p><a href=\"https:\/\/www.brownsfashion.com\/\" title=\"https:\/\/www.brownsfashion.com\/\">Browns Fashion<\/a><\/p>",
+          "right_text": "<p><a href=\"https:\/\/www.net-a-porter.com\/us\/en\/\" title=\"https:\/\/www.net-a-porter.com\/us\/en\/\">Net-A-Porter<\/a><\/p><p><a href=\"https:\/\/shop.nordstrom.com\/\" title=\"https:\/\/shop.nordstrom.com\/\">Nordstrom<\/a><\/p><p><a href=\"https:\/\/www.revolve.com\/\" title=\"https:\/\/www.revolve.com\/\">Revolve<\/a><\/p><p><a href=\"https:\/\/www.shopbop.com\/\" title=\"https:\/\/www.shopbop.com\/\">Shopbop<\/a><\/p><p><a href=\"https:\/\/www.24s.com\/en-us\/\" title=\"https:\/\/www.24s.com\/en-us\/\">24 Sevres<\/a><\/p><p><a href=\"https:\/\/www.saksfifthavenue.com\/\" target=\"_blank\" title=\"https:\/\/www.saksfifthavenue.com\/\">Saks<\/a><\/p>",
+          "subtitle": "Ulla Johnson Boutiques",
+          "btn_text": "Discover",
+          "btn_link": "shopify:\/\/pages\/uj-boutiques"
+        }
+      },
+      "section-blocks": {
+        "type": "section-blocks",
+        "blocks": {
+          "43712ae6-f47d-4533-8b31-27a8cdc75a63": {
+            "type": "store",
+            "settings": {
+              "background": "shopify:\/\/shop_images\/01_294c1a41-3899-418e-bc07-65692b781cff.jpg",
+              "anchor_link": "West Hollywood",
+              "title": "",
+              "text": "",
+              "text_small": ""
+            }
+          },
+          "1580900161663": {
+            "type": "store",
+            "settings": {
+              "background": "shopify:\/\/shop_images\/Bleecker_Overlay_1.jpg",
+              "anchor_link": "noho",
+              "title": "<p>Ulla Johnson <em>NYC<\/em><\/p>",
+              "text": "<p><a href=\"https:\/\/goo.gl\/maps\/1CErpaJaerzRphJ5A\" title=\"https:\/\/goo.gl\/maps\/1CErpaJaerzRphJ5A\">15 Bleecker Street <br\/>New York, NY 10012<\/a><br\/><a href=\"tel:2129650144\" title=\"tel:2129650144\">212.965.0144<\/a><\/p><p><\/p><p>Monday-Saturday 11am-7pm EST<br\/>Sunday 12pm-6pm EST<br\/><\/p><p><a href=\"https:\/\/www.instagram.com\/ullajohnsonbleecker\/\" title=\"https:\/\/www.instagram.com\/ullajohnsonbleecker\/\">Bleecker Instagram<\/a><\/p>",
+              "text_small": "",
+              "image_1": "shopify:\/\/shop_images\/Store_BLK_1.jpg",
+              "image_2": "shopify:\/\/shop_images\/Store_BLK_2.jpg",
+              "image_3": "shopify:\/\/shop_images\/Store_BLK_3.jpg",
+              "image_4": "shopify:\/\/shop_images\/Store_BLK_4.jpg"
+            }
+          },
+          "1580900231888": {
+            "type": "store",
+            "settings": {
+              "background": "shopify:\/\/shop_images\/Amagansett_Overlay_3.jpg",
+              "anchor_link": "amagansett",
+              "title": "<p>Ulla Johnson <em>NY<\/em><\/p>",
+              "text": "<p><a href=\"https:\/\/goo.gl\/maps\/o6HFJ3f8HcXHicps8\" title=\"https:\/\/goo.gl\/maps\/o6HFJ3f8HcXHicps8\">4 Amagansett Square <br\/>Amagansett, NY 11930<\/a><br\/><a href=\"tel:6312597123\" title=\"tel:6312597123\">631.259.7123<\/a><\/p><p><\/p><p>Sunday-Thursday 10am-5pm EST<br\/>Friday-Saturday 10am-6pm EST<\/p><p><\/p><p><a href=\"https:\/\/www.instagram.com\/ullajohnsonamagansett\/\" title=\"https:\/\/www.instagram.com\/ullajohnsonamagansett\/\">Amagansett Instagram<\/a><\/p>",
+              "text_small": "",
+              "image_1": "shopify:\/\/shop_images\/Store_AMG_4.jpg",
+              "image_2": "shopify:\/\/shop_images\/Store_AMG_2.jpg",
+              "image_3": "shopify:\/\/shop_images\/Store_AMG_1.jpg",
+              "image_4": "shopify:\/\/shop_images\/Store_AMG_3.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "43712ae6-f47d-4533-8b31-27a8cdc75a63",
+          "1580900161663",
+          "1580900231888"
+        ],
+        "settings": {
+          "bottom_title": "Ulla Johnson Stockists",
+          "btn_text": "View Stockists",
+          "btn_link": "shopify:\/\/pages\/store-locator"
+        }
+      },
+      "gated-popup": {
+        "type": "gated-popup",
+        "settings": {
+          "title": "Sale",
+          "font_size_title": 45,
+          "font_size_title_mobile": 42,
+          "detail": "Enter your email below for access. <br> <br> *By entering your email, you agree to subscribe to Ulla Johnson newsletters.",
+          "font_size_description": 20,
+          "font_size_description_mob": 15
+        }
+      },
+      "email-popup": {
+        "type": "email-popup",
+        "settings": {
+          "popup_enabled": false,
+          "delay_time": "180",
+          "popup_title": "Newsletter",
+          "popup_detail": "Sign up to Ulla Johnson emails to receive the latest news, updates and collection launches.",
+          "email_list_id": "Kj4n5x",
+          "email_placeholder": "Email Address*",
+          "birthday_placeholder": "Birth Date",
+          "button_text": "Subscribe",
+          "success_message": "Thank you for subscribing!\nYou will hear from us soon."
+        }
+      },
+      "section-cart-donations": {
+        "type": "section-cart-donations",
+        "blocks": {
+          "0df15e47-9a46-4356-b9b2-2aed78e35a01": {
+            "type": "donation",
+            "disabled": true,
+            "settings": {
+              "show_block": true,
+              "title": "Donations",
+              "donation_product": "city-harvest-5-mixte",
+              "donation_text": "Click here to add a %placeholder% donation",
+              "donation_description": "This week leading up to Earth Day, we’re celebrating Mother Nature by donating a portion of proceeds to Rainforest Alliance—a non-profit organization dedicated to the preservation of our planet and fight the climate crisis.",
+              "donation_after_text": "<p>You can read more about <a href=\"https:\/\/www.rainforest-alliance.org\/about\/\" target=\"_blank\" title=\"https:\/\/www.rainforest-alliance.org\/about\/\">Rainforest Alliance<\/a> here.<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "0df15e47-9a46-4356-b9b2-2aed78e35a01"
+        ],
+        "settings": {
+        }
+      },
+      "section-lookbook": {
+        "type": "section-lookbook",
+        "blocks": {
+          "4b201249-0b51-4336-baac-b97520919925": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/ullajohnson_pressportal.jpg",
+              "title": "Spring Summer 2021 Press Portal",
+              "content": "<p>We can’t wait to see you again in person. While we wait, we’ve brought together all of our SS21 assets – from runway to cutouts, videos and stills – everything downloadable in one place, for your easy access.<\/p><p><\/p><p><a href=\"#\" title=\"open lookbook\">Enter Now<\/a><\/p><p><\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "4b201249-0b51-4336-baac-b97520919925"
+        ],
+        "settings": {
+        }
+      },
+      "16530672737d34596e": {
+        "type": "section-fixed-items",
+        "blocks": {
+          "7b061063-a9b9-480a-8750-cd48867535d6": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ23_Isabelle_byMV_DSCF7145_1.jpg"
+            }
+          },
+          "fef76975-3aa6-4609-8a47-1dab4ceb8d53": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ23_Isabelle_byMV_DSCF7427_1.jpg"
+            }
+          },
+          "98693dfc-4692-4106-a31a-40987b7d434d": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ23_Isabelle_byMV_DSCF6819_1.jpg"
+            }
+          },
+          "6e5ebd10-0701-406a-bee3-8f6ee9a14885": {
+            "type": "item",
+            "disabled": true,
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ_SS23_HOMEPAGE_SLIDER_CAMPAIGN_MEXICO9_11d510e7-21d4-44d7-8f33-4c2cbd0bc59c.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "7b061063-a9b9-480a-8750-cd48867535d6",
+          "fef76975-3aa6-4609-8a47-1dab4ceb8d53",
+          "98693dfc-4692-4106-a31a-40987b7d434d",
+          "6e5ebd10-0701-406a-bee3-8f6ee9a14885"
+        ],
+        "settings": {
+          "image": "shopify:\/\/shop_images\/59647E7C-3AA1-4E2D-9327-8EEB35A1E4D6-1004-000000EA4E05994B_736d041b-1d40-4c0a-a59c-bbb1165166d2.jpg",
+          "title": "Fresh Florals",
+          "text": "The High Spring Edit features a tenderly curated selection of reimagined Ulla Johnson forever-favorites. Gorgeous crinkle chiffon styles are adorned with a delicate peach-hued floral, flecked with shimmering lurex threads that catch the light. Discover cascading layers of lightweight poplin in an exquisite crisscross dress, alongside our signature relaxed denim jeans in a crisp cowrie-white wash.",
+          "link_text": "Shop Now",
+          "link_url": "https:\/\/ullajohnson.com\/collections\/new-arrivals"
+        }
+      },
+      "more-lovelies": {
+        "type": "more-lovelies",
+        "settings": {
+          "title": "Similarly Loved"
+        }
+      },
+      "d3e24e97-93c7-4418-a291-39243f078b27": {
+        "type": "section-intro",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/UJ_SS23_HOMEPAGE_HERO_CAMPAIGN_12_1bfc35d3-33c5-41c8-a49f-f6a635b3c936.jpg",
+          "image_mobile": "shopify:\/\/shop_images\/UJ_SS23_HOMEPAGE_MOBILE_HERO_CAMPAIGN12.jpg",
+          "image_link": "https:\/\/ullajohnson.com\/collections\/new-arrivals",
+          "video": "",
+          "video_mobile": "",
+          "vimeo_video": "",
+          "vimeo_video_mobile": "",
+          "video_link": "https:\/\/ullajohnson.com\/collections\/new-arrivals",
+          "text": "<p>Spring 2023<\/p>",
+          "link_text": "Shop The Collection",
+          "link_url": "https:\/\/ullajohnson.com\/collections\/new-arrivals",
+          "live_stream_enable": false,
+          "countdown_enable": false,
+          "logo_enabled": false,
+          "countdown_subtitle": "AUTUMN\/WINTER 2023 RUNWAY",
+          "countdown_color": "#ffffff",
+          "box_color": "rgba(0,0,0,0)",
+          "box_image": "shopify:\/\/shop_images\/Screenshot_2023-02-09_at_10.38.06_AM_7b0a1a98-2abf-46be-99c4-318e4b77abfc.png",
+          "box_image_mobile": "shopify:\/\/shop_images\/Screenshot_2023-02-09_at_10.38.06_AM.png",
+          "logo_color": "white",
+          "timezone": "America\/New_York",
+          "countdown_start_time": "02\/10\/2023 01:25:00",
+          "countdown_end_time": "02\/12\/2023 10:05:00"
+        }
+      },
+      "7f1241ec-a209-4c0a-b646-a231079df22e": {
+        "type": "section-scroll",
+        "blocks": {
+          "a25a71de-fe75-4cdc-a85d-93951de0b8f8": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ_SS23_HOMEPAGE_SLIDER_CAMPAIGN_33_57d18f77-5fbd-4525-8ce8-1d62faf67380.jpg",
+              "video": "",
+              "vimeo_video": "",
+              "title": "<p>Zahara Bikini<\/p>",
+              "link_text": "Shop Now",
+              "link_url": "shopify:\/\/products\/zahara-bikini-top-ocean-s23-blue"
+            }
+          },
+          "fdc8b382-f032-40a3-984f-369b6379693d": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/04-ULLA_JOHNSON_30-12_Edited_Slider.jpg",
+              "video": "",
+              "vimeo_video": "",
+              "title": "<p>Paloma Pochette<\/p>",
+              "link_text": "Shop Now",
+              "link_url": "shopify:\/\/products\/paloma-ruched-pochette-cassis-s23-purple"
+            }
+          },
+          "a0cef68d-2d0a-44df-9ccf-8158506f73c4": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ_SS23_HOMEPAGE_SLIDER_CAMPAIGN_DAY235.jpg",
+              "video": "",
+              "vimeo_video": "",
+              "title": "<p>Kieran Maillot<\/p>",
+              "link_text": "Shop Now",
+              "link_url": "shopify:\/\/products\/keiran-maillot-oak-s23-yellow"
+            }
+          },
+          "43a5abcc-aae2-4b67-b070-e16fdf09c97a": {
+            "type": "item",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/UJ_SS23_HOMEPAGE_SLIDER_CAMPAIGN_DAY269_7e1ca87d-7ba3-4676-a7dd-7fea6ec2a849.jpg",
+              "video": "",
+              "vimeo_video": "",
+              "title": "<p>Surfside Basket<\/p>",
+              "link_text": "Shop Now",
+              "link_url": "shopify:\/\/products\/surfside-carryall-chili-ombre-s23"
+            }
+          },
+          "2d54f692-db3c-4360-8c17-44fca153aa46": {
+            "type": "item",
+            "disabled": true,
+            "settings": {
+              "image": "shopify:\/\/shop_images\/ISI0364.jpg",
+              "video": "",
+              "vimeo_video": "",
+              "title": "<p>Odette Jacket<\/p>",
+              "link_text": "Shop Now",
+              "link_url": "shopify:\/\/products\/the-odette-jacket-danube-medium-indigo-wash-s23-blue"
+            }
+          }
+        },
+        "block_order": [
+          "a25a71de-fe75-4cdc-a85d-93951de0b8f8",
+          "fdc8b382-f032-40a3-984f-369b6379693d",
+          "a0cef68d-2d0a-44df-9ccf-8158506f73c4",
+          "43a5abcc-aae2-4b67-b070-e16fdf09c97a",
+          "2d54f692-db3c-4360-8c17-44fca153aa46"
+        ],
+        "settings": {
+          "item_width": 50,
+          "title": "",
+          "link_text": "",
+          "link_url": ""
+        }
+      },
+      "f496da87-6b40-42e6-bec5-645475ff2845": {
+        "type": "section-intro",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/UllaSS23_YY_441243_06_12_04-hero_a17e063a-a7f3-421b-9387-8b59f10d5b07.jpg",
+          "image_mobile": "shopify:\/\/shop_images\/UllaSS23_YY_441243_06_12_04_mobile_0ce4284a-1c52-4815-bd1c-2f413e6c1026.jpg",
+          "image_link": "https:\/\/ullajohnson.com\/collections\/new-arrivals",
+          "video": "",
+          "video_mobile": "",
+          "vimeo_video": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/816667291\/rendition\/1080p\/file.mp4?loc=external&signature=9ee701e6122b655ffbc35985e6420081a2ccf2c8e150f8b311a20c0bbd443490",
+          "vimeo_video_mobile": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/816667321\/rendition\/1080p\/file.mp4?loc=external&signature=4f933ed119b3bbcb53f4aa126849186db07a07eeddc08b0422cdcc16bafabe1d",
+          "video_link": "https:\/\/ullajohnson.com\/collections\/new-arrivals",
+          "text": "<p>Spring 2023<\/p>",
+          "link_text": "Shop the Collection",
+          "link_url": "https:\/\/ullajohnson.com\/collections\/new-arrivals",
+          "live_stream_enable": false,
+          "countdown_enable": false,
+          "logo_enabled": true,
+          "countdown_subtitle": "",
+          "countdown_color": "#ffffff",
+          "box_color": "#ff3556",
+          "logo_color": "white",
+          "timezone": "America\/New_York",
+          "countdown_start_time": "",
+          "countdown_end_time": ""
+        }
+      },
+      "pdp-preorder-signup-alert": {
+        "type": "pdp-preorder-signup-alert",
+        "settings": {
+          "preorder_alert_modal_text": "Enter your email address to be notified when once product is available and no longer on pre-order.",
+          "preorder_alert_modal_ty_text": "Thank you! You will get notified once this product is no longer on pre-order."
+        }
+      }
+    },
+    "content_for_index": [
+      "f496da87-6b40-42e6-bec5-645475ff2845",
+      "7f1241ec-a209-4c0a-b646-a231079df22e",
+      "d3e24e97-93c7-4418-a291-39243f078b27",
+      "16530672737d34596e"
+    ],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    }
+  }
+}

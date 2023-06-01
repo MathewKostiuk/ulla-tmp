@@ -1,0 +1,145 @@
+{%- assign _blocks = section.blocks -%}
+{%- assign _settings = section.settings -%}
+{%- assign _image = _settings.image -%}
+{%- assign _title = _settings.title -%}
+{%- assign _cta_label = _settings.cta_label -%}
+{%- assign _cta_url = _settings.cta_url -%}
+{%- assign _overlay_opacity = _settings.overlay_opacity -%}
+{%- assign _text_color = _settings.text_color -%}
+{%- assign _text_placement = _settings.text_placement -%}
+
+{% style %}
+  #{{ section.id }} .top-hero__overlay {
+    opacity: {{ _overlay_opacity }}%;
+  }
+  {%- if _text_color == "black" -%}
+    #{{ section.id }} .top-hero__text {
+      color: #000;
+    }
+  {%- endif -%}
+  {%- if _text_placement == "left" -%}
+    #{{ section.id }} .top-hero__text-container {
+      justify-content: flex-start;
+    }
+  {%- endif -%}
+{% endstyle %}
+
+{%- if _title != blank or _image != blank or _blocks.size > 0 -%}
+  <div class="top-hero" id="{{ section.id }}">
+    <div class="top-hero__container">
+      <div class="top-hero__image-container">
+        <img
+          class="top-hero__image"
+          src="{{ _image | img_url: '1920x' }}"
+          alt="{{ _image.alt }}"
+        >
+        <div class="top-hero__overlay"></div>
+      </div>
+      <div class="top-hero__text-container">
+        <div class="top-hero__text">
+          {%- if _title != blank -%}
+            <h1 class="top-hero__text-title">{{ _title }}</h1>
+          {%- endif -%}
+          <div class="top-hero__text-blocks">
+            {%- for block in _blocks -%}
+              {%- assign _block = block.settings -%}
+              {%- if _block.text != blank -%}
+                {{ _block.text }}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          {%- if _cta_label != blank and _cta_url != blank -%}
+            <a class="top-hero__cta" href="{{ _cta_url }}">{{ _cta_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Top Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bottom CTA Label"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Bottom CTA URL"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text Color",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "black",
+          "label": "Black"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_placement",
+      "label": "Text Placement",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Top Hero"
+    }
+  ],
+  "max_blocks": 5
+}
+{% endschema %}

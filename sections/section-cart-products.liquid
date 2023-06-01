@@ -1,0 +1,46 @@
+{%- assign _section = section.settings -%}
+{%- assign _collection = _section.collection_id -%}
+
+{%- if collections[_collection].products.size > 0 -%}
+  <div class="items-more">
+    {%- if _section.title != blank -%}
+      <div class="items-more__head">
+        <h6 class="heading-medium items-more__title">{{ _section.title }}</h6><!-- /.items-more__title -->
+      </div><!-- /.items-more__head -->
+    {%- endif -%}
+
+    <div class="items-more__body">
+      <ul class="list-items-images">
+        {%- for _product in collections[_collection].products -%}
+          <li>
+            <a href="{{ _product.url | within: collection }}"></a>
+
+            {%- if _product.featured_image != blank -%}
+              {%- include 'lazyload-image' _image: _product.featured_image, original_width: '174' -%}
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul><!-- /.list-items-images -->
+    </div><!-- /.items-more__body -->
+  </div><!-- /.items-more -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "items-more-outer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "More lovelies"
+    },
+    {
+      "type": "collection",
+      "id": "collection_id",
+      "label": "Collection"
+    }
+  ]
+}
+{% endschema %}

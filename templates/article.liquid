@@ -1,0 +1,72 @@
+{%- assign block_video = article.metafields.article_intro.video -%}
+
+<article class="article animated">
+  <div class="article__body animated{% if block_video != blank %} include_intro_video{% endif %}">
+    {%- if block_video != blank-%}
+      <div class="intro__video">
+        <div class="intro__video-inner">
+          {% assign videoCode = block_video | split: 'vimeo.com/' | last | split: "#" | first %}
+          {% assign parameter = block_video | split: 'vimeo.com/' | last | split: "#" | last %}
+
+          {%- if videoCode == parameter -%}
+            {%- assign parameter = "" -%}
+          {%- else -%}
+            {%- assign parameter = parameter | prepend: "#" -%}
+          {%- endif -%}
+
+          <iframe src="https://player.vimeo.com/video/{{ videoCode }}?autoplay=1&loop=1&autopause=0&muted=1&background=1{{parameter}}" width="100%" height="1500" frameborder="0"></iframe>
+        </div><!-- /.intro__video-inner -->
+      </div><!-- /.intro__video -->
+    {%- else -%}
+      {%- if article.image != blank -%}
+        <div class="article__bg lazyload" data-bg="url({{ article.image | img_url: '3840x' }})" role="img" aria-label="{{ article.image.alt }}"></div><!-- /.article__bg -->
+      {%- endif -%}
+    {%- endif -%}
+
+    <div class="article__content">
+      <h1 class="heading-medium article__title font-italic text-white">
+        {{ article.title }}
+      </h1><!-- /.article__title -->
+    </div><!-- /.article__content -->
+  </div><!-- /.article__body -->
+
+  {%- include 'article-rows' -%}
+
+  {%- include 'article-images' -%}
+
+  <footer class="article__foot animated">
+    <div class="container container--fluid-second">
+      <div class="article__foot-inner">
+        <div class="article__foot-actions">
+          {%- if blog.previous_article != blank -%}
+            <a href="{{ blog.previous_article }}" class="link-default link-default--mobile-small article__foot-link">{{ 'blogs.article.previous_article' | t }}</a>
+          {%- else -%}
+            <span class="link-default link-default--mobile-small article__foot-link">{{ 'blogs.article.previous_article' | t }}</span>
+          {%- endif -%}
+        </div><!-- /.article__foot-actions -->
+
+        <div class="article__foot-content">
+          {%- include 'share' modifier: 'article__share', id: 'share' -%}
+        </div><!-- /.article__foot-content -->
+
+        <div class="article__foot-actions">
+          {%- if blog.next_article != blank -%}
+            <a href="{{ blog.next_article }}" class="link-default link-default--mobile-small article__foot-link">{{ 'blogs.article.next_article' | t }}</a>
+          {%- else -%}
+            <span class="link-default link-default--mobile-small article__foot-link">{{ 'blogs.article.next_article' | t }}</span>
+          {%- endif -%}
+        </div><!-- /.article__foot-actions -->
+      </div><!-- /.article__foot-inner -->
+
+      {%- if article.metafields.article_details.text != blank -%}
+        <div class="entry-small entry-small--secondary article__foot-entry">
+          {{ article.metafields.article_details.text }}
+        </div><!-- /.article__foot-entry -->
+      {%- endif -%}
+    </div><!-- /.container -->
+  </footer><!-- /.article__foot -->
+</article><!-- /.article -->
+
+{% comment %}Meta Products{% endcomment %}
+{%- assign meta_section_title = 'blogs.article.shop_story' | t -%}
+{%- include 'meta-products' meta_product: article.metafields.article_products.product, section_modifier: 'section-recommended--secondary', section_title: meta_section_title -%}

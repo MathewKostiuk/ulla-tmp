@@ -1,0 +1,67 @@
+{%- assign _blocks = section.blocks -%}
+{%- assign _settings = section.settings -%}
+{%- assign _id = _settings.id -%}
+{%- assign _title = _settings.title -%}
+
+{%- if _title != blank or _blocks.size > 0 -%}
+  {%- if _id != blank -%}<div id="{{ _id }}"></div>{%- endif -%}
+  <div class="gallery-landing"">
+    {%- if _title != blank -%}
+      <div class="container container--fluid-second">
+        <h2 class="gallery-landing__section-title">{{ _title }}</h2>
+      </div>
+    {%- endif -%}
+    <div class="gallery-landing__container">
+      {%- for block in _blocks -%}
+        {%- assign _image = block.settings.image -%}
+        {%- if _image != blank -%}
+          <div class="gallery-landing__image-container">
+            <img
+              class="gallery-landing__image"
+              src="{{ _image | img_url: '1920x' }}"
+              alt="{{ _image.alt }}"
+            >
+          </div>      
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div> 
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "ID",
+      "info": "The ID is used to allow navigation to this section from the top subnavigation. This ID should be set as URL in the subnavigation followed by '#'. If the ID is 'section-id', the value that needs to be set in the subnavigation should be '#section-id'"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery"
+    }
+  ],
+  "max_blocks": 12
+}
+{% endschema %}

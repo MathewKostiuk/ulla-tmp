@@ -1,0 +1,45 @@
+{% assign share_url = shop.url | append: request.path  %}
+{% assign share_url_encoded = share_url | url_encode %}
+{% assign share_title = article.title | default: product.title | default: page.title | default: collection.title %}
+{% assign share_title_encoded = share_title | url_encode %}
+{% assign share_image = article.image | default: product.featured_image | collection.image | img_url: '800x' | url_encode %}
+{% assign mailto_title_prefix = 'See our page: ' %}
+
+{% capture mailto_body %}
+{{ share_url }}{% endcapture %}
+
+{% capture share_links %}
+facebook|Facebook|https://facebook.com/sharer/sharer.php?u={{ share_url_encoded }}
+pinterest|Pinterest|https://pinterest.com/pin/create/button/?url={{ share_url_encoded }}&amp;media={{ share_image }}&amp;description={{ share_title_encoded }}
+twitter|Twitter|https://twitter.com/intent/tweet/?text={{ share_title_encoded }}&amp;url={{ share_url_encoded }}
+{% endcapture %}
+{% assign share_links = share_links | newline_to_br | split: '<br />' %}
+
+<div class="share {{ modifier }} js-share" id="{{ id }}">
+  <span class="share__icon js-btn-toggle js-btn-toggle-share" data-target="#{{ id }}" data-class="share--expanded" data-share-stop-class="js-btn-toggle-stop" data-share-title="{{ share_title }}">
+    <i class="ico-share">
+      {%- include 'svg-elements' name: 'share'  -%}
+    </i>
+
+    <small>{{ 'products.product.share' | t }}</small>
+  </span>
+
+  <div class="share__dropdown">
+    <span>{{ 'products.product.share' | t }}</span>
+
+    <ul>
+      {% for share_link in share_links %}
+        {% assign link = share_link | strip | split: '|' %}
+        {%- if link == empty -%}
+          {%- continue -%}
+        {%- endif -%}
+
+        <li>
+          <a href="{{ link[2] }}"{% if forloop.index != 4 %} target="_blank"{% endif %} title="{{ link[1] }}" aria-label="{{ link[1] }}">
+            <span>{{ link[1] }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div><!-- /.share__dropdown -->
+</div><!-- /.share -->

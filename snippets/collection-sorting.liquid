@@ -1,0 +1,50 @@
+<div class="sort js-sort">
+  {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+  {%- assign list_html = '' -%}
+  <span class="sort__head js-sort-head">
+    {{ 'collections.sorting.title' | t }}
+  </span>
+
+  {%- capture sort_options -%}
+    created-descending|{{ 'collections.sorting.created_descending' | t }}\
+    price-ascending|{{ 'collections.sorting.price_ascending' | t }}\
+    price-descending|{{ 'collections.sorting.price_descending' | t }}\
+    manual|{{ 'collections.sorting.manual' | t }}\
+    best-selling|{{ 'collections.sorting.best_selling' | t }}\
+    title-ascending|{{ 'collections.sorting.title_ascending' | t }}\
+    title-descending|{{ 'collections.sorting.title_descending' | t }}\
+    created-ascending|{{ 'collections.sorting.created_ascending' | t }}
+  {%- endcapture -%}
+  {%- assign sort_options = sort_options | strip_newlines | split: '\' -%}
+
+  <select name="sortBy" id="sortBy" class="sort__select" data-component="collection-sort">
+    {%- for sortOption in sort_options -%}
+      {%- assign sort_option_array = sortOption | strip | split: '|' -%}
+
+      <option
+        value="{{ sort_option_array.first }}"
+        {% if current_sort == sort_option_array.first %}selected{% endif %}
+      >
+        {{ sort_option_array.last }}
+      </option>
+
+      {%- capture list_html -%}
+        {{ list_html }}
+
+        <li{% if current_sort == sort_option_array.first %} class="selected"{% endif %}>
+          <a href="sort={{ sort_option_array.first }}">{{ sort_option_array.last }}</a>
+        </li>
+      {%- endcapture -%}
+
+      {%- if forloop.index == 3 -%}
+        {% break %}
+      {%- endif -%}
+    {%- endfor -%}
+  </select>
+
+  {%- if list_html != '' -%}
+    <ul class="sort__body js-sort-body">
+      {{ list_html }}
+    </ul>
+  {%- endif -%}
+</div><!-- /.collection__sort -->

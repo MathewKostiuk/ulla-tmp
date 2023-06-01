@@ -1,0 +1,66 @@
+{%- assign _section = section.settings -%}
+
+{%- if _section.image != blank or _section.image_mobile != blank or _section.title != blank or _section.text != blank -%}
+  <div class="intro intro--default intro--center intro--error animated">
+    {%- if _section.image != blank -%}
+      <div class="intro__bg lazyload{% if _section.image_mobile != blank %} hidden-xs{% endif %}" data-bg="url({{ _section.image | img_url: '3840x' }})" role="img" aria-label="{{ _section.image.alt }}"></div><!-- /.intro__bg -->
+    {%- endif -%}
+
+    {%- if _section.image_mobile != blank -%}
+      {%- if _section.image != blank -%}
+        <div class="intro__bg lazyload visible-xs-block" data-bg="url({{ _section.image_mobile | img_url: '1534x' }})" role="img" aria-label="{{ _section.image_mobile.alt }}"></div><!-- /.intro__bg -->
+      {%- else -%}
+        <div class="intro__bg lazyload" data-bg="url({{ _section.image_mobile | img_url: '3840x' }})" role="img" aria-label="{{ _section.image_mobile.alt }}"></div><!-- /.intro__bg -->
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if _section.title != blank or _section.text != blank -%}
+      <div class="intro__inner">
+        <div class="container container--fluid">
+          <div class="intro__content">
+            {%- if _section.title != blank -%}
+              <h1 class="intro__title">
+                {{ _section.title | newline_to_br }}
+              </h1><!-- /.intro__title -->
+            {%- endif -%}
+
+            {%- if _section.text != blank -%}
+              <div class="intro__entry entry-default">
+                {{ _section.text }}
+              </div><!-- /.intro__entry -->
+            {%- endif -%}
+          </div><!-- /.intro__content -->
+        </div><!-- /.container -->
+      </div><!-- /.intro__inner -->
+    {%- endif -%}
+  </div><!-- /.intro -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Section 404",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image Mobile"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "Sorry, we couldn't find the page that you are looking for."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    }
+  ]
+}
+{% endschema %}
